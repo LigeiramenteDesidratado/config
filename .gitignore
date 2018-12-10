@@ -1,4 +1,5 @@
 *
 !.bashrc
+!.config/i3/config
 !.gitignore
-!*/.config/i3/config
+
