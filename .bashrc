@@ -31,7 +31,7 @@ alias sv="sudo vim"
 alias r="ranger"
 alias sr="sudo ranger"
 alias ka="killall"
-alias g="git"
+# alias g="git"
 alias trem="transmission-remote"
 alias mkd="mkdir -pv"
 alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
@@ -57,6 +57,9 @@ alias Txs="cp ~/Documents/LaTeX/beamer.tex"
 alias Txh="cp ~/Documents/LaTeX/handout.tex"
 
 source ~/.shortcuts
+
+# Golang alias
+alias g="go run"
 
 shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
 export WORKON_HOME=$HOME/.virtualenvs
