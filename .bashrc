@@ -8,11 +8,7 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
-# Setting Bash prompt. Capitalizes username and host if root user (my root user uses this same config file).
-if [ "$EUID" -ne 0 ]
-	then export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
-	else export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]ROOT\[$(tput setaf 2)\]@\[$(tput setaf 4)\]$(hostname | awk '{print toupper($0)}') \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
-fi
+export PS1="\[$(tput bold)\]\W > \[$(tput sgr0)\]"
 
 export GPG_TTY=$(tty)
 
@@ -23,7 +19,7 @@ alias sdn="sudo shutdown now"
 alias psref="gpg-connect-agent RELOADAGENT /bye" # Refresh gpg
 
 # Some aliases
-alias tixati="/home/machine/programs/Tixati_portable/tixati_Linux64bit &"
+alias tixati="$HOME/programs/Tixati_portable/tixati_Linux64bit &"
 alias p="sudo pacman"
 alias SS="sudo systemctl"
 alias v="vim"
@@ -31,12 +27,12 @@ alias sv="sudo vim"
 alias r="ranger"
 alias sr="sudo ranger"
 alias ka="killall"
-# alias g="git"
 alias trem="transmission-remote"
 alias mkd="mkdir -pv"
 alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
 alias bw="wal -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
+alias g="go run"
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
@@ -58,15 +54,12 @@ alias Txh="cp ~/Documents/LaTeX/handout.tex"
 
 source ~/.shortcuts
 
-# Golang alias
-alias g="go run"
-
 shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
+
+# Python env
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/bin/virtualenvwrapper.sh
 
-export PS1="\[$(tput bold)\]\W > \[$(tput sgr0)\]"
-
+# Golang env
 export GOPATH=$HOME/dev/golang/goworkspace
 export GOBIN=$GOPATH/bin
-#export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
