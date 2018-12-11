@@ -64,13 +64,15 @@ for_window [instance="clip"] sticky enable
 exec --no-startup-id wal -i ~/Wallpapers/wallhaven-714841.png > /dev/null
 # exec --no-startup-id feh --bg-scale ~/Wallpapers/wallhaven-277539.jpg
 #screenshot
-bindsym Ctrl+Shift+L			exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/shots/'
-
+bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/shots/'
+#tmux terminal
 bindsym $mod+s			exec --no-startup-id ddspawn tmuxdd
 #redshift
 exec_always --no-startup-id redshift -P -l -22.116640:-45.052730 -l -22.116640:-45.052730
-
+#My ToDo script
 exec_always --no-startup-id tarefas
+#my feed startup
+exec	--no-startup-id  $term -e newspod
 
 ######################
 # #---Starting External Scripts---# #
