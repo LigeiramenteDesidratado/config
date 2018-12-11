@@ -2,6 +2,10 @@ auto-reload yes
 
 external-url-viewer "urlscan -dc"
 
+notify-always yes
+notify-format "%d new articles (%n unread articles, %f unread feeds)"
+notify-program "/home/machine/.scripts/newsnotify"
+
 bind-key j down
 bind-key k up
 bind-key j next articlelist
