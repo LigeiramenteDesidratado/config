@@ -13,8 +13,6 @@ export PS1="\[$(tput bold)\]\W > \[$(tput sgr0)\]"
 export GPG_TTY=$(tty)
 
 # System Maintainence
-alias mw="~/.config/mutt/mutt-wizard.sh"
-alias muttwizard="~/.config/mutt/mutt-wizard.sh"
 alias sdn="sudo shutdown now"
 alias psref="gpg-connect-agent RELOADAGENT /bye" # Refresh gpg
 
@@ -27,7 +25,6 @@ alias sv="sudo vim"
 alias r="ranger"
 alias sr="sudo ranger"
 alias ka="killall"
-alias trem="transmission-remote"
 alias mkd="mkdir -pv"
 alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
 alias bw="wal -i ~/.config/wall.png" # Rerun pywal
@@ -46,11 +43,6 @@ alias YT="youtube-viewer"
 alias ethspeed="speedometer -r enp0s25"
 alias wifispeed="speedometer -r wlp3s0"
 alias starwars="telnet towel.blinkenlights.nl"
-
-# TeX
-alias Txa="cp ~/Documents/LaTeX/article.tex"
-alias Txs="cp ~/Documents/LaTeX/beamer.tex"
-alias Txh="cp ~/Documents/LaTeX/handout.tex"
 
 source ~/.shortcuts
 
