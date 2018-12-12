@@ -4,7 +4,7 @@ external-url-viewer "urlscan -dc"
 
 notify-always yes
 notify-format "<b>%d</b> new articles<br><b>%n</b> unread articles"
-notify-program "/home/machine/.scripts/note"
+notify-program "newsnotify"
 notify-beep yes
 
 bind-key j down
