@@ -75,7 +75,7 @@ exec_always --no-startup-id redshi
 exec_always --no-startup-id tarefas
 
 # My feed startup
-exec	--no-startup-id  $term -e newspod
+exec --no-startup-id sleep 5; $term -e newspod
 
 ######################
 # #---Starting External Scripts---# #
