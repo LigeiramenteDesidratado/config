@@ -1,8 +1,13 @@
+#!/bin/bash
+
 if [[ "${#}" -eq 0 ]]
-then 
+then
     # Debbuging
     notify-send -i $HOME/.scripts/rss.png "RSS: something is wrong"
     exit 1
+else
+    notify-send -i $HOME/.scripts/rss.png "${1}"
+    
 fi
 
-notify-send -i $HOME/.scripts/rss.png "${1}"
+

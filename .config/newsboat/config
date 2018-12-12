@@ -3,7 +3,7 @@ auto-reload yes
 external-url-viewer "urlscan -dc"
 
 notify-always yes
-notify-format "%d new articles (%n unread articles, %f unread feeds)"
+notify-format "<b>%d</b> new articles<br><b>%n</b> unread articles"
 notify-program "/home/machine/.scripts/newsnotify"
 
 bind-key j down
