@@ -8,7 +8,7 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
-export PS1="\[$(tput bold)\]\W > \[$(tput sgr0)\]"
+export PS1="\[$(tput bold)\]\[\033[38;5;11m\]\W > \[$(tput sgr0)\]"
 
 export GPG_TTY=$(tty)
 
@@ -30,6 +30,7 @@ alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and re
 alias bw="wal -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias g="go run"
+alias mp="mpv --sub-font-size=35 "
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
@@ -55,3 +56,7 @@ source /usr/bin/virtualenvwrapper.sh
 # Golang env
 export GOPATH=$HOME/dev/golang/goworkspace
 export GOBIN=$GOPATH/bin
+
+# history with data
+export HISTTIMEFORMAT="%d/%m/%y %T "
+

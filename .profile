@@ -32,4 +32,3 @@ if [[ "$(tty)" == '/dev/tty1' ]]; then
     [[ -z "$DISPLAY$SSH_TTY$(pgrep xinit)" ]] && exec cdm
 fi
 
-export HISTTIMEFORMAT="%d/%m/%y %T "
