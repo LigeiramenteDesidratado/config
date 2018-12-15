@@ -1,11 +1,10 @@
-http://libgen.io/rss/index.php
+#http://libgen.io/rss/index.php
 https://www.archlinux.org/feeds/news/ "tech"
-http://www.blablaismo.com.br/category/podcast/podtestes/feed/podcast
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0fGGprihDIlQ3ykWvcb9hg "Teste Onze - Youtube"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC3qAUf53j_dUv09jH7jsUJw "Saida da Matrix - Youtube"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCuTa_tkEbVtwNE2EdJH69fw "R.A. - Youtube"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCdGpd0gNn38UKwoncZd9rmA "Pirula - Youtube"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCl10NIdDOn9MMWdKNyo_YdA "Slow - Youtube"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtMjnvODdK1Gwy8psW3dzrg "Leitura ObrigaHISTÓRIA - Youtube"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCTubbc8ei3JfOBbicSJYPfQ "Ler Antes de Morrer - Youtube"
-
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0fGGprihDIlQ3ykWvcb9hg "Teste Onze Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC3qAUf53j_dUv09jH7jsUJw "Saida da Matrix Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCuTa_tkEbVtwNE2EdJH69fw "R.A. Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCdGpd0gNn38UKwoncZd9rmA "Pirula Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCl10NIdDOn9MMWdKNyo_YdA "Slow Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtMjnvODdK1Gwy8psW3dzrg "Leitura ObrigaHISTÓRIA Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCTubbc8ei3JfOBbicSJYPfQ "Ler Antes de Morrer Youtube"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCktZ9zQ_t3-Id0aKjJvRSxA "Decréptos Youtube"

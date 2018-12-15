@@ -52,32 +52,37 @@ for_window [instance="dropdowncalc"] sticky enable
 
 
 
-#####Minhas config####
+#####Personal#####
 
-#translater beta
+# Translator beta
 for_window [instance="clip"] floating enable
 for_window [instance="clip"] resize set 600 300
 for_window [instance="clip"] move scratchpad
 for_window [instance="clip"] border pixel 5
 for_window [instance="clip"] sticky enable
 
-exec --no-startup-id wal -i ~/Wallpapers/wallhaven-714841.png > /dev/null
-# exec --no-startup-id feh --bg-scale ~/Wallpapers/wallhaven-277539.jpg
-#screenshot
-bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/shots/'
-#tmux terminal
-bindsym $mod+s			exec --no-startup-id ddspawn tmuxdd
+# Wallpaper and theme
+exec			--no-startup-id feh --bg-scale ~/Wallpapers/zzz.png
+exec			--no-startup-id wal -q -n -i ~/Wallpapers/f265689080.jpg
+
+# Screenshot
+bindsym Ctrl+Shift+L	exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/shots/'
+
+# Tmux terminal
+bindsym $mod+s		exec --no-startup-id ddspawn tmuxdd
 
 # Redshift
-exec_always --no-startup-id redshi
+exec			--no-startup-id redshi
 
 # My ToDo script
-exec_always --no-startup-id tarefas
+exec_always		--no-startup-id tarefas
 
-# My feed startup
-exec --no-startup-id sleep 5; $term -e newspod
+# start newsboat
+exec_always 		--no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
 
 ######################
+
+
 # #---Starting External Scripts---# #
 # Setting the background and colorscheme:
 
