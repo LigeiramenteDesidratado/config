@@ -78,7 +78,7 @@ exec			--no-startup-id redshi
 exec_always		--no-startup-id tarefas
 
 # start newsboat
-exec_always 		--no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
+exec	 		--no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
 
 ######################
 
