@@ -1,0 +1,34 @@
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=pango
+
+[news]
+command=cat ~/.newsup
+interval=once
+signal=6
+
+[mpd]
+label=🎼
+command=i3mpd
+interval=once
+signal=11
+
+[weather]
+command=i3weather
+interval=3600
+
+[volume]
+interval=once
+command=i3volume
+signal=10
+
+[iface]
+label=💻
+#instance=wlan0
+interval=10
+
+[time]
+label=📆
+command=echo $(date '+%Y %b %d (%a)  %I:%M%p') 🕓
+interval=30
+
