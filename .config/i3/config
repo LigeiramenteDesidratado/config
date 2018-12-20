@@ -75,10 +75,14 @@ bindsym $mod+s		exec --no-startup-id ddspawn tmuxdd
 exec			--no-startup-id redshi
 
 # My ToDo script
-exec_always		--no-startup-id tarefas
+exec_always		--no-startup-id /home/machine/dev/python/tarefas/./tarefas.py
 
 # start newsboat
 exec	 		--no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
+
+# Composite manager:
+exec --no-startup-id compton -f -CGb --blur-background --backend glx
+
 
 ######################
 
@@ -88,8 +92,6 @@ exec	 		--no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
 
 # Starts dunst for notifications:
 exec --no-startup-id dunst
-# Composite manager:
-exec --no-startup-id compton
 # Runs the key remapping scripts
 exec --no-startup-id ~/.scripts/remaps
 # Unclutter makes the mouse invisible after a brief period
