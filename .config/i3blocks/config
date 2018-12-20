@@ -22,10 +22,16 @@ interval=once
 command=i3volume
 signal=10
 
-[iface]
-label=💻
-#instance=wlan0
-interval=10
+[bandwidth3]
+command=bandwidth3
+interval=persist
+markup=pango
+#LABEL=<span font='FontAwesome'>  </span>
+#IFACE=[automatically determined]
+#DT=3
+#UNIT=Mb
+# Exposed variables: rx, wx, tx, unit, iface
+#PRINTF_COMMAND=printf "${LABEL}%-5.1f/%5.1f %s/s\n", rx, wx, unit;
 
 [time]
 label=📆
