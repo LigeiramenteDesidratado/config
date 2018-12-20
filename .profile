@@ -11,8 +11,6 @@ export READER="zathura"
 export BIB="$HOME/Documents/LaTeX/uni.bib"
 export REFER="$HOME/.referbib"
 
-[ -f ~/.scripts/shortcuts.sh ] && ~/.scripts/shortcuts.sh
-
 [ -f ~/.bashrc ] && source ~/.bashrc
 
 # Start graphical server if i3 not already running.
