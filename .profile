@@ -8,8 +8,6 @@ export TERMINAL="st"
 export BROWSER="linkhandler"
 export TRUEBROWSER="brave"
 export READER="zathura"
-export BIB="$HOME/Documents/LaTeX/uni.bib"
-export REFER="$HOME/.referbib"
 
 [ -f ~/.bashrc ] && source ~/.bashrc
 
