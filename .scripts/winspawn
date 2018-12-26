@@ -9,7 +9,7 @@ then
 
 else
 	echo "Window not detected... spawning."
-	i3 "exec --no-startup-id $TERMINAL -n $1 " && i3 "[instance=\"$1\"] scratchpad show; [instance=\"$1\"] move position center"
+	i3 "exec --no-startup-id $TERMINAL -n $1 -f mono:pixelsize=16 " && i3 "[instance=\"$1\"] scratchpad show; [instance=\"$1\"] move position center"
 
 	sleep .25 # This sleep is my laziness, will fix later (needed for immediate appearance after spawn).
 fi
