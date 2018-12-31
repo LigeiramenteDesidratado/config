@@ -26,7 +26,7 @@ for_window [instance="floatst"] floating enable
 for_window [instance="floatst"] resize set 650 350
 for_window [instance="floatst"] move scratchpad
 for_window [instance="floatst"] sticky enable
-
+for_window [instance="floatst"] border pixel 2
 
 for_window [class="feh"] floating enable
 for_window [class="feh"] resize set 650 350
@@ -42,7 +42,7 @@ exec_always --no-startup-id /home/machine/dev/python/tarefas/./tarefas.py
 # Composite manager:
 exec --no-startup-id compton -f -CGb --blur-background --backend glx
 # start newsboat
-exec --no-startup-id "sh -c 'sleep 5; exec $term  -e newspod'"
+exec --no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
 # Redshift
 exec --no-startup-id redshi
 # Starts dunst for notifications:
