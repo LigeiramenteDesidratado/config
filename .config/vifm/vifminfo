@@ -1,0 +1,148 @@
+# You can edit this file by hand, but it's recommended not to do that.
+
+# Marks:
+'H
+	/home/machine/
+	..
+1545467326
+'b
+	/home/machine/bin/
+	..
+1545467326
+'h
+	/home/machine/
+	..
+1545467326
+'z
+	/home/machine/.config/vifm
+	..
+1545467326
+
+# Bookmarks:
+
+# TUI:
+al
+q0
+v2
+ov
+m-1
+l2
+r2
+
+# Left window history (oldest to newest):
+d/home/machine
+	net.downloadhelper.coapp-1.2.4
+8
+d/home/machine/net.downloadhelper.coapp-1.2.4
+	..
+0
+d/home/machine
+	Downloads
+2
+d/home/machine/Downloads
+	..
+0
+d/home/machine
+	..
+0
+d/home
+	..
+0
+d/
+	home
+4
+d/home
+	..
+0
+d/
+	home
+4
+d/home
+	machine
+2
+d/home/machine
+	Documents
+1
+d/home/machine/Documents
+	books
+3
+d/home/machine/Documents/books
+	..
+0
+d/home/machine/Documents
+	books
+3
+d/home/machine
+	Downloads
+2
+d/home/machine/Downloads
+	ps1 games
+2
+d/home/machine
+	shots
+13
+d/home/machine/shots
+	2018-11-26_13:45:17.png
+4
+d/home/machine
+	.config
+4
+d/home/machine/.config
+	vifm
+32
+d/home/machine/.config/vifm
+	vifmrc
+5
+d/home/machine/.config
+	vifm
+32
+d/home/machine
+	Wallpapers
+25
+d/home/machine/Wallpapers
+	f264807872.jpg
+6
+d
+
+# Right window history (oldest to newest):
+D/home/machine
+	backups
+6
+D/home/machine/backups
+	anki
+1
+D/home/machine
+	SecLists
+4
+D
+
+# Command line history (oldest to newest):
+:delete
+:help
+:q
+
+# Search history (oldest to newest):
+
+# Prompt history (oldest to newest):
+
+# Local filter history (oldest to newest):
+
+# Registers:
+""/home/machine/.local/share/vifm/Trash/000_Documento sem título 1
+
+# Directory stack (oldest to newest):
+
+# Trash content:
+t/home/machine/.local/share/vifm/Trash/000_Documento sem título 1
+	/home/machine/Documento sem título 1
+
+# State:
+f
+i1
+[.0
+[F
+F
+I1
+].1
+]F
+s0
