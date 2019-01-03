@@ -29,8 +29,14 @@ for_window [instance="floatst"] sticky enable
 for_window [instance="floatst"] border pixel 2
 
 for_window [class="feh"] floating enable
-for_window [class="feh"] resize set 650 350
+for_window [class="feh"] resize set 800 600
 for_window [class="feh"] move position center
+
+for_window [instance="vifmmusic"] floating enable
+for_window [instance="vifmmusic"] resize set 200 90
+for_window [instance="vifmmusic"] sticky enable
+for_window [instance="vifmmusic"] border pixel 2
+for_window [instance="vifmmusic"] move position 1140 658
 
 
 # #---Personal---# #
@@ -58,7 +64,8 @@ exec --no-startup-id nm-applet
 # mpd startup
 exec --no-startup-id mpd
 # Wallpaper and theme
-exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
+#exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
+exec --no-startup-id wallgif /home/machine/Wallpapers/gif/cityHaute.gif
 exec --no-startup-id wal -q -n -i ~/.config/wall.jpg
 
 
@@ -132,6 +139,7 @@ bindsym $mod+w			exec --no-startup-id $BROWSER
 bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
 
 bindsym $mod+e			exec nautilus
+bindsym $mod+shift+E		exec $term -f mono:pixelsize=16 -e vifm
 bindsym $mod+g			exec --no-startup-id dmenuunicode
 
 bindsym $mod+r 			exec $term -e ranger
@@ -207,16 +215,17 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+# I'll chanhe for kanji later
+set $ws1 "いち"
+set $ws2 "に"
+set $ws3 "さん"
+set $ws4 "よん"
+set $ws5 "ご"
+set $ws6 "ろく"
+set $ws7 "なな"
+set $ws8 "はち"
+set $ws9 "きゅう"
+set $ws10 "じゅう"
 
 # switch to workspace
 bindsym $mod+1		workspace $ws1

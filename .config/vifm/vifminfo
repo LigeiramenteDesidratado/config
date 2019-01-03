@@ -31,11 +31,14 @@ r2
 
 # Left window history (oldest to newest):
 d/home/machine
-	net.downloadhelper.coapp-1.2.4
-8
-d/home/machine/net.downloadhelper.coapp-1.2.4
-	..
-0
+	foo-Wallpaper-Feh-Gif
+9
+d/home
+	machine
+2
+d/
+	home
+4
 d/home/machine
 	Downloads
 2
@@ -43,20 +46,86 @@ d/home/machine/Downloads
 	..
 0
 d/home/machine
+	lighthouse
+10
+d/home/machine/lighthouse
+	src
+3
+d/home/machine
+	Downloads
+2
+d/home/machine/Downloads
+	lighthouse
+2
+d/home/machine/Downloads/lighthouse
 	..
 0
-d/home
-	..
-0
-d/
-	home
+d/home/machine/Downloads
+	sites styles
 4
-d/home
+d/home/machine/Downloads/sites styles
 	..
 0
-d/
-	home
+d/home/machine/Downloads
+	ps1 games
+3
+d/home/machine/Downloads/ps1 games
+	..
+0
+d/home/machine/Downloads
+	lighthouse
+2
+d/home/machine/Downloads/lighthouse
+	..
+0
+d/home/machine/Downloads
+	barbearia
+1
+d/home/machine/Downloads/barbearia
+	Hairdress-Logo-Set.zip
+14
+d/home/machine/Downloads
+	..
+0
+d/home/machine
+	Documents
+1
+d/home/machine/Documents
+	keepass
 4
+d/home/machine
+	LARBS
+3
+d/home/machine/LARBS
+	..
+0
+d/home/machine
+	SecLists
+4
+d/home/machine/SecLists
+	Discovery
+1
+d/home/machine/SecLists/Discovery
+	secretkeywords.txt
+5
+d/home/machine/SecLists
+	Pattern-Matching
+6
+d/home/machine
+	Downloads
+2
+d/home/machine/Downloads
+	..
+0
+d/home/machine
+	mp3
+10
+d/home/machine/mp3
+	01 Leaders.flac
+1
+d/home/machine
+	mp3
+10
 d/home
 	machine
 2
@@ -64,44 +133,203 @@ d/home/machine
 	Documents
 1
 d/home/machine/Documents
-	books
-3
-d/home/machine/Documents/books
-	..
-0
-d/home/machine/Documents
-	books
-3
-d/home/machine
-	Downloads
+	Go recomendations
 2
-d/home/machine/Downloads
-	ps1 games
+d/home/machine/Documents/Go recomendations
+	Introducing-Go-Build-Reliable-Scalable-Programs.pdf
+2
+d/home/machine/Documents
+	Go recomendations
 2
 d/home/machine
 	shots
 13
 d/home/machine/shots
-	2018-11-26_13:45:17.png
-4
+	2019-01-02_20:19:23.png
+22
 d/home/machine
-	.config
-4
-d/home/machine/.config
-	vifm
-32
-d/home/machine/.config/vifm
-	vifmrc
-5
-d/home/machine/.config
-	vifm
-32
+	shots
+13
+d/home/machine/shots
+	2019-01-02_20:19:22.png
+21
+d/home/machine
+	Documents
+1
+d/home/machine/Documents
+	books
+3
+d/home/machine/Documents/books
+	Monetizing-Machine-Learning-Quickly-Turn-Python-ML-Ideas-Into-Web-Applications-on-the-Serverless-Cloud.pdf
+10
+d/home/machine/Documents
+	books
+3
+d/home/machine
+	foo-Wallpaper-Feh-Gif
+9
+d/home/machine/foo-Wallpaper-Feh-Gif
+	..
+0
 d/home/machine
 	Wallpapers
-25
+5
 d/home/machine/Wallpapers
-	f264807872.jpg
+	gif
+1
+d/home/machine/Wallpapers/gif
+	..
+0
+d/home/machine/Wallpapers
+	gif
+1
+d/home/machine/Wallpapers/gif
+	..
+0
+d/home/machine/Wallpapers
+	..
+0
+d/home/machine
+	Wallpapers
+5
+d/home/machine/Wallpapers
+	gif
+1
+d/home/machine/Wallpapers/gif
+	..
+0
+d/home/machine/Wallpapers
+	wal14.jpg
+15
+d/home/machine
+	Downloads
+2
+d/home/machine/Downloads
+	barbearia
+1
+d/home/machine
+	dev
+7
+d/home/machine/dev
+	python
 6
+d/home/machine/dev/python
+	webscarp
+13
+d/home/machine/dev/python/webscarp
+	aula2
+2
+d/home/machine/dev/python/webscarp/aula2
+	locators
+1
+d/home/machine/dev/python/webscarp
+	aula2
+2
+d/home/machine/dev/python
+	lab
+9
+d/home/machine/dev/python/lab
+	main.py
+1
+d/home/machine/dev/python
+	bruterouter
+2
+d/home/machine/dev/python/bruterouter
+	email
+2
+d/home/machine/dev/python
+	bruterouter
+2
+d/home/machine/dev
+	python
+6
+d/home/machine
+	Documents
+1
+d/home/machine/Documents
+	books
+3
+d/home/machine
+	Documents
+1
+d/home
+	machine
+2
+d/
+	mnt
+9
+d/mnt
+	..
+0
+d/
+	mnt
+9
+d/mnt
+	torrents
+5
+d/mnt/torrents
+	Mairo Vergara 4.0
+6
+d/mnt/torrents/Mairo Vergara 4.0
+	Modulo 3
+3
+d/mnt/torrents/Mairo Vergara 4.0/Modulo 3
+	02-Jack Hannaford 03
+2
+d/mnt/torrents/Mairo Vergara 4.0/Modulo 3/02-Jack Hannaford 03
+	..
+0
+d/mnt/torrents/Mairo Vergara 4.0/Modulo 3
+	06-ISP 02
+6
+d/mnt/torrents/Mairo Vergara 4.0/Modulo 3/06-ISP 02
+	..
+0
+d/mnt/torrents/Mairo Vergara 4.0/Modulo 3
+	..
+0
+d/mnt/torrents/Mairo Vergara 4.0
+	..
+0
+d/home/machine
+	backups
+6
+d/home/machine/backups
+	anki
+1
+d/home/machine/backups/anki
+	..
+0
+d/home/machine
+	dwhelper
+8
+d/home/machine/dwhelper
+	..
+0
+d/home/machine
+	backups
+6
+d/home/machine/backups
+	anki
+1
+d/home/machine
+	udemy-dl
+13
+d/home/machine/udemy-dl
+	..
+0
+d/home/machine
+	shots
+12
+d/home/machine/shots
+	2018-11-25_15:39:21.png
+32
+d/home/machine
+	mp3
+9
+d/home/machine/mp3
+	01 Leaderss.mp3
+3
 d
 
 # Right window history (oldest to newest):
@@ -112,34 +340,90 @@ D/home/machine/backups
 	anki
 1
 D/home/machine
-	SecLists
-4
+	foo-Wallpaper-Feh-Gif
+9
+D/home/machine/foo-Wallpaper-Feh-Gif
+	gif
+1
+D/home/machine/foo-Wallpaper-Feh-Gif/gif
+	cityHaute.gif
+2
+D/home/machine/foo-Wallpaper-Feh-Gif
+	gif
+1
+D/home/machine
+	temp
+15
+D/home/machine/temp
+	..
+0
+D/home/machine
+	..
+0
 D
 
 # Command line history (oldest to newest):
+:c
 :delete
 :help
+:colorscheme astrell
+:Q
 :q
+:lstrash
+:select
+:colorscheme
 
 # Search history (oldest to newest):
 
 # Prompt history (oldest to newest):
+pDgQrbkeU8AAKZb0.jpg
+ptree.gif
+pretro-8-city.gif
+plandscape_city.gif
+pcomment_Dh3x8v6uKIDttqkOi5LUYgR4DTvweTTZ.gif
+pcity-sun.gif
+pwindow.gif
+proom.gif
 
 # Local filter history (oldest to newest):
 
 # Registers:
-""/home/machine/.local/share/vifm/Trash/000_Documento sem título 1
+""/home/machine/.local/share/vifm/Trash/000_temp
 
 # Directory stack (oldest to newest):
 
 # Trash content:
 t/home/machine/.local/share/vifm/Trash/000_Documento sem título 1
 	/home/machine/Documento sem título 1
+t/home/machine/.local/share/vifm/Trash/000_background
+	/home/machine/foo-Wallpaper-Feh-Gif/background
+t/home/machine/.local/share/vifm/Trash/000_back4.sh
+	/home/machine/foo-Wallpaper-Feh-Gif/back4.sh
+t/home/machine/.local/share/vifm/Trash/000_desktop-animation2.gif
+	/home/machine/foo-Wallpaper-Feh-Gif/desktop-animation2.gif
+t/home/machine/.local/share/vifm/Trash/000_desktop-animation4.gif
+	/home/machine/foo-Wallpaper-Feh-Gif/desktop-animation4.gif
+t/home/machine/.local/share/vifm/Trash/000_README.md
+	/home/machine/foo-Wallpaper-Feh-Gif/README.md
+t/home/machine/.local/share/vifm/Trash/000_sxiv
+	/home/machine/foo-Wallpaper-Feh-Gif/sxiv
+t/home/machine/.local/share/vifm/Trash/000_gif-soup
+	/home/machine/gif-soup
+t/home/machine/.local/share/vifm/Trash/000_vgqVXaj.gif
+	/home/machine/temp/vgqVXaj.gif
+t/home/machine/.local/share/vifm/Trash/000_vgqVXaj.gifv
+	/home/machine/temp/vgqVXaj.gifv
+t/home/machine/.local/share/vifm/Trash/000_HLSPlaylist.m3u8
+	/home/machine/temp/HLSPlaylist.m3u8
+t/home/machine/.local/share/vifm/Trash/000_40.gif
+	/home/machine/temp/40.gif
+t/home/machine/.local/share/vifm/Trash/000_temp
+	/home/machine/temp
 
 # State:
 f
 i1
-[.0
+[.1
 [F
 F
 I1

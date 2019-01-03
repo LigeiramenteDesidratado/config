@@ -15,3 +15,4 @@ newsize=$(xdotool getwindowgeometry $(xdotool getwindowfocus) | grep Geometry | 
 
 height=$(($(xdotool getdisplaygeometry | awk '{print $2}') - newsize))
 xdotool windowmove $current 0 $height
+notify-send `echo "${current}\n ${height}"`
