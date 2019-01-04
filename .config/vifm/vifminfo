@@ -30,96 +30,6 @@ l2
 r2
 
 # Left window history (oldest to newest):
-d/home/machine
-	foo-Wallpaper-Feh-Gif
-9
-d/home
-	machine
-2
-d/
-	home
-4
-d/home/machine
-	Downloads
-2
-d/home/machine/Downloads
-	..
-0
-d/home/machine
-	lighthouse
-10
-d/home/machine/lighthouse
-	src
-3
-d/home/machine
-	Downloads
-2
-d/home/machine/Downloads
-	lighthouse
-2
-d/home/machine/Downloads/lighthouse
-	..
-0
-d/home/machine/Downloads
-	sites styles
-4
-d/home/machine/Downloads/sites styles
-	..
-0
-d/home/machine/Downloads
-	ps1 games
-3
-d/home/machine/Downloads/ps1 games
-	..
-0
-d/home/machine/Downloads
-	lighthouse
-2
-d/home/machine/Downloads/lighthouse
-	..
-0
-d/home/machine/Downloads
-	barbearia
-1
-d/home/machine/Downloads/barbearia
-	Hairdress-Logo-Set.zip
-14
-d/home/machine/Downloads
-	..
-0
-d/home/machine
-	Documents
-1
-d/home/machine/Documents
-	keepass
-4
-d/home/machine
-	LARBS
-3
-d/home/machine/LARBS
-	..
-0
-d/home/machine
-	SecLists
-4
-d/home/machine/SecLists
-	Discovery
-1
-d/home/machine/SecLists/Discovery
-	secretkeywords.txt
-5
-d/home/machine/SecLists
-	Pattern-Matching
-6
-d/home/machine
-	Downloads
-2
-d/home/machine/Downloads
-	..
-0
-d/home/machine
-	mp3
-10
 d/home/machine/mp3
 	01 Leaders.flac
 1
@@ -322,14 +232,104 @@ d/home/machine
 	shots
 12
 d/home/machine/shots
-	2018-11-25_15:39:21.png
-32
+	..
+0
+d/home/machine
+	.config
+4
+d/home/machine/.config
+	vifm
+22
+d/home/machine/.config/vifm
+	vifm-help.txt
+3
+d/home/machine/.config
+	i3
+6
+d/home/machine/.config/i3
+	config3
+3
+d/home/machine/.config
+	i3
+6
 d/home/machine
 	mp3
 9
 d/home/machine/mp3
-	01 Leaderss.mp3
+	..
+0
+d/home/machine
+	Documents
+1
+d/home
+	machine
+2
+d/home/machine
+	sxiv
+14
+d/home/machine/sxiv
+	config.def.h
+13
+d/home/machine
+	mp3
+9
+d/home/machine/mp3
+	01 Leaders.mp3
+2
+d/home/machine
+	.config
+4
+d/home/machine/.config
+	vifm
+15
+d/home/machine/.config/vifm
+	vifmrc
+5
+d/home/machine
+	mp3
+22
+d/home/machine/mp3
+	01 Leaders.mp3
+2
+d/home/machine
+	Documents
+13
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	..
+0
+d/home/machine/Documents
+	books
 3
+d/home/machine
+	mp3
+24
+d/home/machine/mp3
+	01 Leaders.flac
+1
+d/home/machine
+	mp3
+27
+d/home/machine/mp3
+	01 Leaders.mp3
+2
+d/home/machine
+	.config
+4
+d/home/machine/.config
+	vifm
+17
+d/home/machine/.config/vifm
+	vifmrc
+5
+d/home/machine
+	mp3
+14
+d/home/machine/mp3
+	01 Leaders.flac
+1
 d
 
 # Right window history (oldest to newest):
@@ -363,15 +363,16 @@ D/home/machine
 D
 
 # Command line history (oldest to newest):
+::q
+:lstrash
+:select
 :c
 :delete
 :help
 :colorscheme astrell
+:colorscheme
 :Q
 :q
-:lstrash
-:select
-:colorscheme
 
 # Search history (oldest to newest):
 
@@ -423,7 +424,7 @@ t/home/machine/.local/share/vifm/Trash/000_temp
 # State:
 f
 i1
-[.1
+[.0
 [F
 F
 I1
