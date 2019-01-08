@@ -1,122 +1,270 @@
 # You can edit this file by hand, but it's recommended not to do that.
 
 # Marks:
+'D
+	/home/machine/Documents
+	..
+1546804476
 'H
 	/home/machine/
 	..
 1545467326
+'a
+	/mnt
+	..
+1546804718
 'b
 	/home/machine/bin/
 	..
 1545467326
+'d
+	/home/machine/Downloads
+	..
+1546804476
 'h
 	/home/machine/
 	..
 1545467326
-'z
-	/home/machine/.config/vifm
+'s
+	/home/machine/dev
 	..
-1545467326
+1546804690
+'w
+	/home/machine/Wallpapers
+	..
+1546804690
 
 # Bookmarks:
 
 # TUI:
 al
 q0
-v2
+v1
 ov
 m-1
 l2
 r2
 
 # Left window history (oldest to newest):
-d/home/machine/mp3
-	01 Leaders.flac
-1
-d/home/machine
-	mp3
-10
-d/home
-	machine
-2
-d/home/machine
-	Documents
-1
 d/home/machine/Documents
 	Go recomendations
 2
 d/home/machine/Documents/Go recomendations
-	Introducing-Go-Build-Reliable-Scalable-Programs.pdf
-2
-d/home/machine/Documents
-	Go recomendations
-2
+	Go-in-Action.pdf
+1
 d/home/machine
-	shots
-13
-d/home/machine/shots
-	2019-01-02_20:19:23.png
+	.config
+4
+d/home/machine/.config
+	vifm
 22
-d/home/machine
-	shots
-13
-d/home/machine/shots
-	2019-01-02_20:19:22.png
-21
-d/home/machine
-	Documents
-1
-d/home/machine/Documents
-	books
-3
-d/home/machine/Documents/books
-	Monetizing-Machine-Learning-Quickly-Turn-Python-ML-Ideas-Into-Web-Applications-on-the-Serverless-Cloud.pdf
-10
-d/home/machine/Documents
-	books
-3
-d/home/machine
-	foo-Wallpaper-Feh-Gif
-9
-d/home/machine/foo-Wallpaper-Feh-Gif
-	..
-0
-d/home/machine
-	Wallpapers
-5
-d/home/machine/Wallpapers
-	gif
-1
-d/home/machine/Wallpapers/gif
-	..
-0
-d/home/machine/Wallpapers
-	gif
-1
-d/home/machine/Wallpapers/gif
-	..
-0
-d/home/machine/Wallpapers
-	..
-0
-d/home/machine
-	Wallpapers
-5
-d/home/machine/Wallpapers
-	gif
-1
-d/home/machine/Wallpapers/gif
-	..
-0
-d/home/machine/Wallpapers
-	wal14.jpg
-15
-d/home/machine
-	Downloads
+d/home/machine/.config/vifm
+	scripts
 2
 d/home/machine/Downloads
 	barbearia
 1
+d/home/machine/Documents
+	permissions.png
+5
+d/home/machine/Downloads
+	sites styles
+4
+d/home/machine
+	Wallpapers
+5
+d/mnt
+	music
+4
+d/home/machine/dev
+	cpp
+2
+d/home/machine/Wallpapers
+	wal24.jpg
+17
+d/home/machine
+	net.downloadhelper.coapp-1.2.4
+10
+d/home/machine/Documents
+	permissions.png
+5
+d/home/machine
+	..
+0
+d/home/machine/Wallpapers
+	wal41.jpg
+32
+d/mnt
+	..
+0
+d/home/machine
+	SecLists
+4
+d/home/machine/dev
+	golang
+3
+d/home/machine/dev/golang
+	goworkspace
+1
+d/home/machine/dev/golang/goworkspace
+	src
+3
+d/home/machine/dev/golang/goworkspace/src
+	github.com
+2
+d/home/machine/dev/golang/goworkspace/src/github.com
+	GoesToEleven
+1
+d/home/machine/dev/golang/goworkspace/src/github.com/GoesToEleven
+	go-programming
+3
+d/home/machine/dev/golang/goworkspace/src/github.com/GoesToEleven/go-programming
+	section_02_ja
+7
+d/home/machine/dev/golang/goworkspace/src/github.com/GoesToEleven/go-programming/section_02_ja
+	2.1.md
+1
+d/home/machine
+	sxiv
+14
+d/home/machine/dev
+	golang
+3
+d/home/machine/dev/golang
+	goworkspace
+1
+d/home/machine/dev/golang/goworkspace
+	src
+3
+d/home/machine/dev/golang/goworkspace/src
+	gopl.io
+6
+d/home/machine/dev/golang/goworkspace/src/gopl.io
+	ch1
+1
+d/home/machine/dev/golang/goworkspace/src/gopl.io/ch1
+	helloworld
+9
+d/home/machine/dev/golang/goworkspace/src/gopl.io/ch1/helloworld
+	main.go
+1
+d/home/machine
+	dwhelper
+8
+d/home/machine/dwhelper
+	..
+0
+d/home/machine/Downloads
+	ps1 games
+3
+d/home/machine/dev
+	python
+6
+d/home/machine/dev/python
+	japan
+8
+d/home/machine/dev/python/japan
+	hi
+1
+d/mnt
+	torrents
+5
+d/mnt/torrents
+	..
+0
+d/mnt
+	music
+4
+d/mnt/music
+	Katatonia - Collection
+2
+d/mnt/music/Katatonia - Collection
+	2001 - Last Fair Deal Gone Down (Reissue,Remastered 2011)
+12
+d/mnt/music/Katatonia - Collection/2001 - Last Fair Deal Gone Down (Reissue,Remastered 2011)
+	..
+0
+d/mnt/music/Katatonia - Collection
+	2015 - Sanctitude
+34
+d/mnt/music/Katatonia - Collection/2015 - Sanctitude
+	Katatonia - Sanctitude.flac
+4
+d/mnt/music/Katatonia - Collection
+	2015 - Sanctitude
+34
+d/mnt/music
+	White Zombie
+4
+d/mnt/music/White Zombie
+	1989 - Make Them Die Slowly
+2
+d/mnt/music/White Zombie/1989 - Make Them Die Slowly
+	04. Revenge.mp3
+5
+d/mnt/music/White Zombie
+	d) Other
+11
+d/mnt/music/White Zombie/d) Other
+	..
+0
+d/mnt/music/White Zombie
+	a) EPs & Singles
+8
+d/mnt/music/White Zombie/a) EPs & Singles
+	1995 - Real Solution #9
+5
+d/mnt/music/White Zombie/a) EPs & Singles/1995 - Real Solution #9
+	02. Electric Head - Pt. II (The Ectasy) (The Creature Feature 56 Mix).mp3
+2
+d/mnt/music/White Zombie/a) EPs & Singles
+	1995 - More Human than Human
+4
+d/mnt/music/White Zombie/a) EPs & Singles/1995 - More Human than Human
+	02. More Human than Human (The Jeddak of the Tharks Super-Mix).mp3
+3
+d/mnt/music/White Zombie/a) EPs & Singles
+	1995 - Super-Charger Heaven
+6
+d/mnt/music/White Zombie/a) EPs & Singles/1995 - Super-Charger Heaven
+	01. Super-Charger Heaven (LP Version).mp3
+1
+d/home/machine/Downloads
+	katakana chart.jpg
+32
+d/mnt
+	torrents
+5
+d/mnt/torrents
+	[Ttorial.Com] Master the Fundamentals of Math
+26
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math
+	[Ttorial.Com] Master the Fundamentals of Math
+1
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math
+	[Ttorial.Com] Master the Fundamentals of Math
+1
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math
+	Master the Fundamentals of Math
+1
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/Master the Fundamentals of Math
+	1. Getting started
+1
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/Master the Fundamentals of Math/1. Getting started
+	Vist DazX Blog On Sanet.ST for More Courses.url
+4
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/Master the Fundamentals of Math
+	2. Numbers and negative numbers
+2
+d/mnt/torrents/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/[Ttorial.Com] Master the Fundamentals of Math/Master the Fundamentals of Math/2. Numbers and negative numbers
+	27.1 Workbook.numbers and negative numbers.pdf.pdf
+34
+d/home/machine
+	dwhelper
+8
+d/home/machine/Downloads
+	katakana chart.jpg
+32
 d/home/machine
 	dev
 7
@@ -124,212 +272,80 @@ d/home/machine/dev
 	python
 6
 d/home/machine/dev/python
-	webscarp
-13
-d/home/machine/dev/python/webscarp
-	aula2
-2
-d/home/machine/dev/python/webscarp/aula2
-	locators
-1
-d/home/machine/dev/python/webscarp
-	aula2
-2
-d/home/machine/dev/python
-	lab
-9
-d/home/machine/dev/python/lab
-	main.py
-1
-d/home/machine/dev/python
-	bruterouter
-2
-d/home/machine/dev/python/bruterouter
-	email
-2
-d/home/machine/dev/python
-	bruterouter
+	japan
+8
+d/home/machine/dev/python/japan
+	hika
 2
 d/home/machine/dev
-	python
-6
-d/home/machine
-	Documents
-1
+	golang
+3
 d/home/machine/Documents
 	books
 3
-d/home/machine
-	Documents
-1
-d/home
-	machine
-2
-d/
-	mnt
-9
-d/mnt
+d/home/machine/Documents/books
 	..
 0
-d/
-	mnt
-9
-d/mnt
-	torrents
-5
-d/mnt/torrents
-	Mairo Vergara 4.0
-6
-d/mnt/torrents/Mairo Vergara 4.0
-	Modulo 3
-3
-d/mnt/torrents/Mairo Vergara 4.0/Modulo 3
-	02-Jack Hannaford 03
-2
-d/mnt/torrents/Mairo Vergara 4.0/Modulo 3/02-Jack Hannaford 03
-	..
-0
-d/mnt/torrents/Mairo Vergara 4.0/Modulo 3
-	06-ISP 02
-6
-d/mnt/torrents/Mairo Vergara 4.0/Modulo 3/06-ISP 02
-	..
-0
-d/mnt/torrents/Mairo Vergara 4.0/Modulo 3
-	..
-0
-d/mnt/torrents/Mairo Vergara 4.0
-	..
-0
-d/home/machine
-	backups
-6
-d/home/machine/backups
-	anki
-1
-d/home/machine/backups/anki
-	..
-0
-d/home/machine
-	dwhelper
-8
-d/home/machine/dwhelper
-	..
-0
-d/home/machine
-	backups
-6
-d/home/machine/backups
-	anki
-1
-d/home/machine
-	udemy-dl
-13
-d/home/machine/udemy-dl
-	..
-0
-d/home/machine
-	shots
-12
-d/home/machine/shots
-	..
-0
-d/home/machine
-	.config
-4
-d/home/machine/.config
-	vifm
-22
-d/home/machine/.config/vifm
-	vifm-help.txt
-3
-d/home/machine/.config
-	i3
-6
-d/home/machine/.config/i3
-	config3
-3
-d/home/machine/.config
-	i3
-6
-d/home/machine
-	mp3
-9
-d/home/machine/mp3
-	..
-0
-d/home/machine
-	Documents
-1
-d/home
-	machine
-2
-d/home/machine
-	sxiv
-14
-d/home/machine/sxiv
-	config.def.h
-13
-d/home/machine
-	mp3
-9
-d/home/machine/mp3
-	01 Leaders.mp3
-2
-d/home/machine
-	.config
-4
-d/home/machine/.config
-	vifm
-15
-d/home/machine/.config/vifm
-	vifmrc
-5
-d/home/machine
-	mp3
-22
-d/home/machine/mp3
-	01 Leaders.mp3
-2
-d/home/machine
-	Documents
-13
 d/home/machine/Documents
 	Go recomendations
 2
 d/home/machine/Documents/Go recomendations
-	..
-0
-d/home/machine/Documents
-	books
-3
-d/home/machine
-	mp3
-24
-d/home/machine/mp3
-	01 Leaders.flac
-1
-d/home/machine
-	mp3
-27
-d/home/machine/mp3
-	01 Leaders.mp3
-2
-d/home/machine
-	.config
+	The-Go-Programming-Language.pdf
 4
-d/home/machine/.config
-	vifm
-17
-d/home/machine/.config/vifm
-	vifmrc
-5
-d/home/machine
-	mp3
-14
-d/home/machine/mp3
-	01 Leaders.flac
+d/home/machine/dev
+	golang
+3
+d/home/machine/dev/golang
+	goworkspace
 1
+d/home/machine/dev/golang/goworkspace
+	src
+3
+d/home/machine/dev/golang/goworkspace/src
+	gopl.io
+6
+d/home/machine/dev/golang/goworkspace/src/gopl.io
+	ch1
+1
+d/home/machine/dev/golang/goworkspace/src/gopl.io/ch1
+	helloworld
+9
+d/home/machine/dev/golang/goworkspace/src/gopl.io/ch1/helloworld
+	main.go
+1
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	The-Go-Programming-Language.pdf
+4
+d/home/machine
+	dev
+7
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	Go-in-Action.pdf
+1
+d/home/machine
+	dev
+7
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	Go-in-Action.pdf
+1
+d/home/machine
+	screencast-190107-2106-17.mkv
+30
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
+4
 d
 
 # Right window history (oldest to newest):
@@ -358,8 +374,137 @@ D/home/machine/temp
 	..
 0
 D/home/machine
+	Wallpapers
+5
+D/home/machine/Wallpapers
+	wal2.jpg
+3
+D/home/machine
+	sxiv
+14
+D/home/machine/sxiv
+	window.o
+32
+D/home/machine
+	Wallpapers
+5
+D/home/machine/Wallpapers
+	gif
+1
+D/home/machine/Wallpapers/gif
+	beautycity.gif
+1
+D/home/machine/Wallpapers
 	..
 0
+D/home/machine
+	st
+13
+D/home
+	machine
+2
+D/
+	lib
+5
+D/home/machine
+	Documents
+1
+D/home/machine/Documents
+	books
+3
+D/home/machine/Documents/books
+	Bad-Programming-Practices-101-Become-a-better-Coder-by-learning-how-Not-to-program.pdf
+7
+D/home/machine/Documents
+	Audios Anki
+1
+D/home/machine
+	Downloads
+2
+D/home/machine/Downloads
+	Hiragana__Katakana_w_Audio__Stroke_Order.apkg
+12
+D/home/machine
+	dev
+7
+D/home/machine/dev
+	python
+6
+D/home/machine/dev/python
+	japan
+8
+D/home/machine/dev/python/japan
+	..
+0
+D/home/machine/dev/python
+	bruttef
+3
+D/home/machine/dev
+	python
+6
+D/home/machine
+	dev
+7
+D/home/machine/dev
+	python
+6
+D/home/machine/dev/python
+	japan
+8
+D/home/machine/dev/python/japan
+	..
+0
+D/home/machine/dev/python
+	..
+0
+D/home/machine/dev
+	..
+0
+D/home/machine
+	Downloads
+2
+D/home/machine/Downloads
+	barbearia
+1
+D/home/machine
+	mp3
+9
+D/home/machine/mp3
+	..
+0
+D/home/machine
+	dev
+7
+D/home/machine/dev
+	python
+6
+D/home/machine/dev/python
+	japan
+8
+D/home/machine/dev/python/japan
+	japan.py
+3
+D/home/machine
+	backups
+6
+D/home/machine/backups
+	anki
+1
+D/home/machine/backups/anki
+	..
+0
+D/home/machine/backups
+	keepass
+2
+D/home/machine/backups/keepass
+	pass_06-jan-2019_13:00:01
+1
+D/home/machine
+	Downloads
+2
+D/home/machine/Downloads
+	lighthouse
+2
 D
 
 # Command line history (oldest to newest):
@@ -371,12 +516,19 @@ D
 :help
 :colorscheme astrell
 :colorscheme
+:python japan.py
 :Q
 :q
 
 # Search history (oldest to newest):
+/.epub
+/epub
+/sanc
+/.jpjkj
+/katakana 
 
 # Prompt history (oldest to newest):
+p[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
 pDgQrbkeU8AAKZb0.jpg
 ptree.gif
 pretro-8-city.gif
@@ -385,11 +537,17 @@ pcomment_Dh3x8v6uKIDttqkOi5LUYgR4DTvweTTZ.gif
 pcity-sun.gif
 pwindow.gif
 proom.gif
+pcoffee.gif
+pAmazing self facial..mp4
+pTwitter POV.mp4
 
 # Local filter history (oldest to newest):
 
 # Registers:
-""/home/machine/.local/share/vifm/Trash/000_temp
+""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2405348.torrent
+""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2427781.torrent
+""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2484726.torrent
+""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2495456.torrent
 
 # Directory stack (oldest to newest):
 
@@ -420,11 +578,25 @@ t/home/machine/.local/share/vifm/Trash/000_40.gif
 	/home/machine/temp/40.gif
 t/home/machine/.local/share/vifm/Trash/000_temp
 	/home/machine/temp
+t/home/machine/.local/share/vifm/Trash/000_XORUMAILS_03_AMOR_E_CARINHO.mp3
+	/home/machine/XORUMAILS_03_AMOR_E_CARINHO.mp3
+t/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t1925305.torrent
+	/home/machine/Downloads/[pornolab.net].t1925305.torrent
+t/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2405348.torrent
+	/home/machine/Downloads/[pornolab.net].t2405348.torrent
+t/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2427781.torrent
+	/home/machine/Downloads/[pornolab.net].t2427781.torrent
+t/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2484726.torrent
+	/home/machine/Downloads/[pornolab.net].t2484726.torrent
+t/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2495456.torrent
+	/home/machine/Downloads/[pornolab.net].t2495456.torrent
+t/home/machine/.local/share/vifm/Trash/000_The-Go-Programming-Language.pdf
+	/home/machine/Documents/Go recomendations/The-Go-Programming-Language.pdf
 
 # State:
 f
 i1
-[.0
+[.1
 [F
 F
 I1

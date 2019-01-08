@@ -56,6 +56,7 @@ source /usr/bin/virtualenvwrapper.sh
 # Golang env
 export GOPATH=$HOME/dev/golang/goworkspace
 export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
 
 # history with data
 export HISTTIMEFORMAT="%d/%m/%y %T "

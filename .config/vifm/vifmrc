@@ -118,7 +118,11 @@ set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 
 mark b ~/bin/
 mark h ~/
-
+mark d ~/Downloads
+mark D ~/Documents
+mark w ~/Wallpapers
+mark s ~/dev
+mark a /mnt
 " ------------------------------------------------------------------------------
 
 " :com[mand][!] command_name action
@@ -175,9 +179,9 @@ filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript
-filextype *.ps,*.eps,*.ps.gz
+filextype *.ps,*.eps,*.ps.gz,*.epub
         \ {View in zathura}
-        \ zathura %f,
+        \ zathura %f&,
         \ {View in gv}
         \ gv %c %i &,
 
@@ -191,7 +195,7 @@ filextype *.djvu
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
        \ {Play using mpv}
-       \ mpv %c --no-terminal --force-window --x11-name="vifmmusic" &,
+       \ mpv %c --no-terminal --force-window &,
        \ {Play using ffplay}
        \ ffplay -nodisp -autoexit %c,
        \ {Play using MPlayer}
@@ -234,7 +238,7 @@ fileviewer *.[1-8] man ./%c | col -b
 " Images
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
 	\ {View in feh}
-	\ feh %f,
+	\ feh %f &,
         \ {View in sxiv}
         \ sxiv %f,
         \ {View in gpicview}

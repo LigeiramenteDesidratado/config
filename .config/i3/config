@@ -32,16 +32,20 @@ for_window [class="feh"] floating enable
 for_window [class="feh"] resize set 800 600
 for_window [class="feh"] move position center
 
-for_window [instance="vifmmusic"] floating enable
-for_window [instance="vifmmusic"] resize set 200 90
-for_window [instance="vifmmusic"] sticky enable
-for_window [instance="vifmmusic"] border pixel 0
-for_window [instance="vifmmusic"] move position 1140 658
+#for_window [instance="vifmmusic"] floating enable
+#for_window [instance="vifmmusic"] resize set 200 90
+#for_window [instance="vifmmusic"] sticky enable
+#for_window [instance="vifmmusic"] border pixel 0
+#for_window [instance="vifmmusic"] move position 1140 658
 
+for_window [instance="clip"] floating enable
+for_window [instance="clip"] resize set 600 300
+for_window [instance="clip"] move scratchpad
+for_window [instance="clip"] border pixel 1
 
 for_window [instance="vifm"] floating enable
 for_window [instance="vifm"] move scratchpad
-for_window [instance="vifm"] resize set 800 600
+for_window [instance="vifm"] resize set 600 700
 for_window [instance="vifm"] sticky enable
 for_window [instance="vifm"] border pixel 1
 
@@ -142,6 +146,8 @@ bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv 
 
 
 bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14
+bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
+
 
 
 bindsym $mod+w			exec --no-startup-id $BROWSER
@@ -223,7 +229,7 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 
-# I'll chanhe for kanji later
+# I'll change for kanji later
 set $ws1 "いち"
 set $ws2 "に"
 set $ws3 "さん"
