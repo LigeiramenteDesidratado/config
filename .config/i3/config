@@ -49,6 +49,10 @@ for_window [instance="vifm"] resize set 600 700
 for_window [instance="vifm"] sticky enable
 for_window [instance="vifm"] border pixel 1
 
+for_window [instance="sxiv"] border pixel 0
+
+
+
 # #---Personal---# #
 
 # My ToDo script
@@ -229,17 +233,16 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 
-# I'll change for kanji later
-set $ws1 "いち"
-set $ws2 "に"
-set $ws3 "さん"
-set $ws4 "よん"
-set $ws5 "ご"
-set $ws6 "ろく"
-set $ws7 "なな"
-set $ws8 "はち"
-set $ws9 "きゅう"
-set $ws10 "じゅう"
+set $ws1 "一"
+set $ws2 "二"
+set $ws3 "三"
+set $ws4 "四"
+set $ws5 "五"
+set $ws6 "六"
+set $ws7 "七"
+set $ws8 "八"
+set $ws9 "九"
+set $ws10 "十"
 
 # switch to workspace
 bindsym $mod+1		workspace $ws1

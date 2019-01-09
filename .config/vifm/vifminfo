@@ -37,7 +37,7 @@
 # Bookmarks:
 
 # TUI:
-al
+ar
 q0
 v1
 ov
@@ -46,186 +46,6 @@ l2
 r2
 
 # Left window history (oldest to newest):
-d/home/machine/Documents
-	Go recomendations
-2
-d/home/machine/Documents/Go recomendations
-	Go-in-Action.pdf
-1
-d/home/machine
-	.config
-4
-d/home/machine/.config
-	vifm
-22
-d/home/machine/.config/vifm
-	scripts
-2
-d/home/machine/Downloads
-	barbearia
-1
-d/home/machine/Documents
-	permissions.png
-5
-d/home/machine/Downloads
-	sites styles
-4
-d/home/machine
-	Wallpapers
-5
-d/mnt
-	music
-4
-d/home/machine/dev
-	cpp
-2
-d/home/machine/Wallpapers
-	wal24.jpg
-17
-d/home/machine
-	net.downloadhelper.coapp-1.2.4
-10
-d/home/machine/Documents
-	permissions.png
-5
-d/home/machine
-	..
-0
-d/home/machine/Wallpapers
-	wal41.jpg
-32
-d/mnt
-	..
-0
-d/home/machine
-	SecLists
-4
-d/home/machine/dev
-	golang
-3
-d/home/machine/dev/golang
-	goworkspace
-1
-d/home/machine/dev/golang/goworkspace
-	src
-3
-d/home/machine/dev/golang/goworkspace/src
-	github.com
-2
-d/home/machine/dev/golang/goworkspace/src/github.com
-	GoesToEleven
-1
-d/home/machine/dev/golang/goworkspace/src/github.com/GoesToEleven
-	go-programming
-3
-d/home/machine/dev/golang/goworkspace/src/github.com/GoesToEleven/go-programming
-	section_02_ja
-7
-d/home/machine/dev/golang/goworkspace/src/github.com/GoesToEleven/go-programming/section_02_ja
-	2.1.md
-1
-d/home/machine
-	sxiv
-14
-d/home/machine/dev
-	golang
-3
-d/home/machine/dev/golang
-	goworkspace
-1
-d/home/machine/dev/golang/goworkspace
-	src
-3
-d/home/machine/dev/golang/goworkspace/src
-	gopl.io
-6
-d/home/machine/dev/golang/goworkspace/src/gopl.io
-	ch1
-1
-d/home/machine/dev/golang/goworkspace/src/gopl.io/ch1
-	helloworld
-9
-d/home/machine/dev/golang/goworkspace/src/gopl.io/ch1/helloworld
-	main.go
-1
-d/home/machine
-	dwhelper
-8
-d/home/machine/dwhelper
-	..
-0
-d/home/machine/Downloads
-	ps1 games
-3
-d/home/machine/dev
-	python
-6
-d/home/machine/dev/python
-	japan
-8
-d/home/machine/dev/python/japan
-	hi
-1
-d/mnt
-	torrents
-5
-d/mnt/torrents
-	..
-0
-d/mnt
-	music
-4
-d/mnt/music
-	Katatonia - Collection
-2
-d/mnt/music/Katatonia - Collection
-	2001 - Last Fair Deal Gone Down (Reissue,Remastered 2011)
-12
-d/mnt/music/Katatonia - Collection/2001 - Last Fair Deal Gone Down (Reissue,Remastered 2011)
-	..
-0
-d/mnt/music/Katatonia - Collection
-	2015 - Sanctitude
-34
-d/mnt/music/Katatonia - Collection/2015 - Sanctitude
-	Katatonia - Sanctitude.flac
-4
-d/mnt/music/Katatonia - Collection
-	2015 - Sanctitude
-34
-d/mnt/music
-	White Zombie
-4
-d/mnt/music/White Zombie
-	1989 - Make Them Die Slowly
-2
-d/mnt/music/White Zombie/1989 - Make Them Die Slowly
-	04. Revenge.mp3
-5
-d/mnt/music/White Zombie
-	d) Other
-11
-d/mnt/music/White Zombie/d) Other
-	..
-0
-d/mnt/music/White Zombie
-	a) EPs & Singles
-8
-d/mnt/music/White Zombie/a) EPs & Singles
-	1995 - Real Solution #9
-5
-d/mnt/music/White Zombie/a) EPs & Singles/1995 - Real Solution #9
-	02. Electric Head - Pt. II (The Ectasy) (The Creature Feature 56 Mix).mp3
-2
-d/mnt/music/White Zombie/a) EPs & Singles
-	1995 - More Human than Human
-4
-d/mnt/music/White Zombie/a) EPs & Singles/1995 - More Human than Human
-	02. More Human than Human (The Jeddak of the Tharks Super-Mix).mp3
-3
-d/mnt/music/White Zombie/a) EPs & Singles
-	1995 - Super-Charger Heaven
-6
 d/mnt/music/White Zombie/a) EPs & Singles/1995 - Super-Charger Heaven
 	01. Super-Charger Heaven (LP Version).mp3
 1
@@ -346,96 +166,189 @@ d/home/machine/Documents
 d/home/machine/Documents/Go recomendations
 	[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
 4
+d/home/machine/Documents
+	books
+3
+d/home/machine/Documents/books
+	audiobooks
+2
+d/home/machine/Documents/books/audiobooks
+	A Revolução dos Bichos
+1
+d/home/machine/Documents/books/audiobooks/A Revolução dos Bichos
+	Cap 10.mp3
+12
+d/home/machine/Documents/books/audiobooks
+	A Revolução dos Bichos
+1
+d/home/machine/Documents/books
+	audiobooks
+2
+d/home/machine/dev
+	python
+6
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
+4
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine
+	shots
+12
+d/home/machine/Documents
+	Audios Anki
+1
+d/home/machine
+	st
+13
+d/home/machine/Documents
+	books
+3
+d/home/machine/Documents/books
+	audiobooks
+2
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	Introducing-Go-Build-Reliable-Scalable-Programs.pdf
+2
+d/home/machine/Documents
+	Audios Anki
+1
+d/home/machine
+	st
+13
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	Go-in-Action.pdf
+1
+d/home/machine/Documents
+	Audios Anki
+1
+d/home/machine
+	st
+13
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	Go-in-Action.pdf
+1
+d/home/machine/Documents
+	Audios Anki
+1
+d/home/machine
+	udemy-dl
+15
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
+4
+d/home/machine/Downloads
+	(Addison-Wesley Professional Computing) Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language-Addison-Wesley Professional (2015).pdf
+5
+d/home/machine/dev
+	python
+6
+d/home/machine/dev/python
+	japan
+8
+d/home/machine/dev/python/japan
+	hi
+1
+d/home/machine/dev/python
+	japan
+8
+d/home/machine/dev
+	perl
+5
+d/home/machine/Documents
+	Go recomendations
+2
+d/home/machine/Documents/Go recomendations
+	[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
+4
+d/home/machine/dev
+	perl
+5
+d/home/machine/dev/perl
+	..
+0
+d/home/machine/dev
+	golang
+3
+d/home/machine/dev/golang
+	goworkspace
+1
+d/home/machine/dev/golang/goworkspace
+	src
+3
+d/home/machine/dev/golang/goworkspace/src
+	gobook
+3
+d/home/machine/dev/golang/goworkspace/src/gobook
+	ch1
+1
+d/home/machine/dev/golang/goworkspace/src/gobook/ch1
+	echo1
+1
+d/home/machine/dev/golang/goworkspace/src/gobook/ch1/echo1
+	main.go
+1
+d/home/machine/Downloads
+	(Addison-Wesley Professional Computing) Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language-Addison-Wesley Professional (2015).pdf
+5
+d/home/machine
+	sxiv
+14
+d/home/machine/sxiv
+	icon
+2
+d/home/machine
+	Wallpapers
+5
+d/home/machine/Wallpapers
+	wal66.jpg
+35
+d/mnt
+	torrents
+5
+d/
+	mnt
+9
+d/mnt
+	music
+4
+d/
+	mnt
+9
+d/home/machine
+	Wallpapers
+5
+d/home/machine/Wallpapers
+	wal11.jpg
+12
+d/home/machine/Downloads
+	(Addison-Wesley Professional Computing) Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language-Addison-Wesley Professional (2015).pdf
+5
+d/home/machine
+	Wallpapers
+5
+d/home/machine/Wallpapers
+	..
+0
 d
 
 # Right window history (oldest to newest):
-D/home/machine
-	backups
-6
-D/home/machine/backups
-	anki
-1
-D/home/machine
-	foo-Wallpaper-Feh-Gif
-9
-D/home/machine/foo-Wallpaper-Feh-Gif
-	gif
-1
-D/home/machine/foo-Wallpaper-Feh-Gif/gif
-	cityHaute.gif
-2
-D/home/machine/foo-Wallpaper-Feh-Gif
-	gif
-1
-D/home/machine
-	temp
-15
-D/home/machine/temp
-	..
-0
-D/home/machine
-	Wallpapers
-5
-D/home/machine/Wallpapers
-	wal2.jpg
-3
-D/home/machine
-	sxiv
-14
-D/home/machine/sxiv
-	window.o
-32
-D/home/machine
-	Wallpapers
-5
-D/home/machine/Wallpapers
-	gif
-1
-D/home/machine/Wallpapers/gif
-	beautycity.gif
-1
-D/home/machine/Wallpapers
-	..
-0
-D/home/machine
-	st
-13
-D/home
-	machine
-2
-D/
-	lib
-5
-D/home/machine
-	Documents
-1
-D/home/machine/Documents
-	books
-3
-D/home/machine/Documents/books
-	Bad-Programming-Practices-101-Become-a-better-Coder-by-learning-how-Not-to-program.pdf
-7
-D/home/machine/Documents
-	Audios Anki
-1
-D/home/machine
-	Downloads
-2
-D/home/machine/Downloads
-	Hiragana__Katakana_w_Audio__Stroke_Order.apkg
-12
-D/home/machine
-	dev
-7
-D/home/machine/dev
-	python
-6
-D/home/machine/dev/python
-	japan
-8
-D/home/machine/dev/python/japan
-	..
-0
 D/home/machine/dev/python
 	bruttef
 3
@@ -503,8 +416,239 @@ D/home/machine
 	Downloads
 2
 D/home/machine/Downloads
-	lighthouse
+	..
+0
+D/home/machine
+	Wallpapers
+5
+D/home/machine/Wallpapers
+	..
+0
+D/mnt
+	torrents
+5
+D/mnt/torrents
+	.ggggg
+1
+D/mnt/torrents/.ggggg
+	Lara-CumKitten [pornolab.net]
 2
+D/mnt/torrents/.ggggg/Lara-CumKitten [pornolab.net]
+	..
+0
+D/mnt/torrents/.ggggg
+	[MyDirtyHobby.com] Lara-CumKitten
+10
+D/mnt/torrents/.ggggg/[MyDirtyHobby.com] Lara-CumKitten
+	_screens
+1
+D/mnt/torrents/.ggggg/[MyDirtyHobby.com] Lara-CumKitten/_screens
+	Alissa-Noir - Unsere neue Fick-WG.mp4.jpg
+1
+D/mnt/torrents/.ggggg/[MyDirtyHobby.com] Lara-CumKitten
+	_screens
+1
+D/mnt/torrents/.ggggg/[MyDirtyHobby.com] Lara-CumKitten/_screens
+	Alissa-Noir - Unsere neue Fick-WG.mp4.jpg
+1
+D/mnt/torrents/.ggggg/[MyDirtyHobby.com] Lara-CumKitten
+	_screens
+1
+D/mnt/torrents/.ggggg
+	Lara-CumKitten [pornolab.net]
+2
+D/mnt/torrents/.ggggg/Lara-CumKitten [pornolab.net]
+	Lara-CumKitten - PREMIERE Sie pisst mir public in meine Fresse - Mitten im Wohngebiet 20.07.18.mp4
+7
+D/mnt/torrents/.ggggg
+	OnlyFans.com - TS
+3
+D/mnt/torrents/.ggggg/OnlyFans.com - TS
+	Emy Lee
+3
+D/mnt/torrents/.ggggg/OnlyFans.com - TS/Emy Lee
+	Creampie inside of me  so much cum video (tips are welcome ).mp4
+2
+D/home/machine/Downloads
+	SleepingTushy.com
+1
+D/home/machine/Downloads/SleepingTushy.com
+	STRama133full_s.jpg
+1
+D/home/machine/Downloads
+	ひらがな writing worksheets.pdf
+36
+D/home/machine
+	Wallpapers
+5
+D/mnt
+	torrents
+6
+D/mnt/torrents
+	.ggggg
+1
+D/mnt/torrents/.ggggg
+	[PornHub.com] HereOnNeptune (Daisy Taylor)
+12
+D/mnt/torrents/.ggggg/[PornHub.com] HereOnNeptune (Daisy Taylor)
+	01 Amateur Hung Teen Fucks Trans Teen GF.mp4
+2
+D/mnt
+	torrents
+6
+D/mnt/torrents
+	Mairo Vergara 4.0
+9
+D/mnt/torrents/Mairo Vergara 4.0
+	Modulo 3
+3
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 3
+	07-ISP 03
+7
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 3/07-ISP 03
+	PDF ISP 03.pdf
+4
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 3
+	07-ISP 03
+7
+D/mnt/torrents/Mairo Vergara 4.0
+	Modulo 4
+4
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4
+	01-Missão e Cronograma do Módulo 04
+1
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4/01-Missão e Cronograma do Módulo 04
+	PDF Missão e Cronograma do Módulo 04.pdf
+2
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4
+	02-Jack Hannaford 04
+2
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4/02-Jack Hannaford 04
+	PDF Jack Hannaford 04.pdf
+6
+D/home/machine
+	backups
+6
+D/home/machine/backups
+	anki
+1
+D/home/machine/backups/anki
+	collection-2019-01-09@14-42-26.colpkg
+2
+D/mnt
+	torrents
+5
+D/mnt/torrents
+	Mairo Vergara 4.0
+8
+D/mnt/torrents/Mairo Vergara 4.0
+	Modulo 4
+4
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4
+	02-Jack Hannaford 04
+2
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4/02-Jack Hannaford 04
+	AUDIO Jack Hannaford 04 Jake.mp3.mp3
+1
+D/mnt/torrents/Mairo Vergara 4.0/Modulo 4
+	02-Jack Hannaford 04
+2
+D/mnt/torrents/Mairo Vergara 4.0
+	Modulo 4
+4
+D/mnt/torrents
+	Pimsleur Japanese 1-5
+12
+D/mnt/torrents/Pimsleur Japanese 1-5
+	Pimsleur Japanese 1
+1
+D/mnt/torrents/Pimsleur Japanese 1-5/Pimsleur Japanese 1
+	Reading lessons
+1
+D/mnt/torrents/Pimsleur Japanese 1-5
+	Pimsleur Japanese 1
+1
+D/mnt/torrents
+	[FreeTutorials.Eu] Udemy - Online Japanese Beginner Course (All 12 lessons）
+20
+D/mnt/torrents/[FreeTutorials.Eu] Udemy - Online Japanese Beginner Course (All 12 lessons）
+	1. Chapter 1
+1
+D/mnt/torrents/[FreeTutorials.Eu] Udemy - Online Japanese Beginner Course (All 12 lessons）/1. Chapter 1
+	1. Preparation for this course (In this lecture, please download the zip file.).html
+1
+D/mnt/torrents/[FreeTutorials.Eu] Udemy - Online Japanese Beginner Course (All 12 lessons）
+	2. Lesson 1 あ row and かrow Japanese hiragana pronunciation and writing
+2
+D/mnt/torrents/[FreeTutorials.Eu] Udemy - Online Japanese Beginner Course (All 12 lessons）/2. Lesson 1 あ row and かrow Japanese hiragana pronunciation and writing
+	2. あ row Japanese hiragana pronunciation and writing.mp4
+2
+D/home/machine/Documents
+	Go recomendations
+2
+D/home/machine/Documents/Go recomendations
+	[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub
+4
+D/home/machine/Downloads
+	(Addison-Wesley Professional Computing) Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language-Addison-Wesley Professional (2015).pdf
+8
+D/home/machine/Documents
+	Go recomendations
+2
+D/home/machine/Documents/Go recomendations
+	Go-in-Action.pdf
+1
+D/home/machine/Downloads
+	Japanese_Basic_Katakana.apkg
+13
+D/home/machine
+	Documents
+1
+D/home/machine/Documents
+	Go recomendations
+2
+D/home/machine/Documents/Go recomendations
+	Go-in-Action.pdf
+1
+D/home/machine/Documents
+	books
+3
+D/home/machine/Documents/books
+	mess
+3
+D/home/machine
+	Documents
+1
+D/mnt
+	torrents
+5
+D/home/machine/Documents
+	Go recomendations
+2
+D/home/machine/Documents/Go recomendations
+	Introducing-Go-Build-Reliable-Scalable-Programs.pdf
+2
+D/home/machine/dev
+	golang
+3
+D/home/machine/dev/golang
+	goworkspace
+1
+D/home/machine/dev/golang/goworkspace
+	src
+3
+D/home/machine/dev/golang/goworkspace/src
+	golang-book
+4
+D/home/machine/dev/golang/goworkspace/src/golang-book
+	chapter1
+1
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter1
+	main.go
+1
+D/home/machine
+	main.go
+24
 D
 
 # Command line history (oldest to newest):
@@ -517,7 +661,57 @@ D
 :colorscheme astrell
 :colorscheme
 :python japan.py
+:mkdir gobook
+:mkdir ch1/exho1
+:mkdir ch1/
+:mkdir echo1
+:display
+:make
+:command make
+:command make .
+:command
+:p
+:~
+:execute sxiv
+:map
+:map firefox :e
+:e
+:map firefox :s
+:map brave :s
+:map ] :s
+:map ] :sk
+:!sxiv %f &
+:!sxiv -t &
+:!sxiv -t . &
+:sxiv -t . > /dev/null&
+:!sxiv -t . > /dev/null&
+:command sxiv
+:command sx
+:command vgrep
+:vgrep
+:sx
+:s
+:im
+:i
+:S
+:A
+:nmap r
+:nmap go
+:nmap go :a
+:a
+:nmap go :sxiv -tbaq %d &
+:sxiv -tbaq %d &
+:nmap go sxiv -tbaq %d &
+:nmap go sxiv -tbaq %d
+:nmap ga sxiv -tbaq %d
+:nmap go sxiv -tbaq .
+:sxiv
+:nmap
 :Q
+:mkcd golang-book
+:mkcd chapter1
+:touch main.go
+:vim main.go
 :q
 
 # Search history (oldest to newest):
@@ -526,6 +720,13 @@ D
 /sanc
 /.jpjkj
 /katakana 
+/s
+/g
+/jakkkkk
+/japane
+/japo
+/introdu
+/go
 
 # Prompt history (oldest to newest):
 p[Addison-Wesley Professional Computing] Alan A. A. Donovan, Brian W. Kernighan - The Go Programming Language (2015, Addison-Wesley Professional).epub

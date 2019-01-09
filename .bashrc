@@ -57,7 +57,7 @@ source /usr/bin/virtualenvwrapper.sh
 export GOPATH=$HOME/dev/golang/goworkspace
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH/bin
-
+export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # history with data
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
