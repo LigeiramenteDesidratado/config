@@ -1,0 +1,21 @@
+#!/bin/sh
+while read file
+do
+        case "$1" in
+	"d")
+		rm "$file" && notify-send "$file deleted." ;;
+
+
+	"w")
+		wal -n -q -i "$file";;
+	"W")
+		if [ "${file: -4}" == ".gif" ]
+		then
+			killall xwinwrap
+			wallgif "$file"
+		else
+			killall xwinwrap
+			feh --bg-scale "$file"
+		fi;;
+        esac
+done

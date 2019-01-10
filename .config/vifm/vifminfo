@@ -37,7 +37,7 @@
 # Bookmarks:
 
 # TUI:
-ar
+al
 q0
 v1
 ov
@@ -344,59 +344,11 @@ d/home/machine
 	Wallpapers
 5
 d/home/machine/Wallpapers
-	..
-0
+	wal68.jpg
+36
 d
 
 # Right window history (oldest to newest):
-D/home/machine/dev/python
-	bruttef
-3
-D/home/machine/dev
-	python
-6
-D/home/machine
-	dev
-7
-D/home/machine/dev
-	python
-6
-D/home/machine/dev/python
-	japan
-8
-D/home/machine/dev/python/japan
-	..
-0
-D/home/machine/dev/python
-	..
-0
-D/home/machine/dev
-	..
-0
-D/home/machine
-	Downloads
-2
-D/home/machine/Downloads
-	barbearia
-1
-D/home/machine
-	mp3
-9
-D/home/machine/mp3
-	..
-0
-D/home/machine
-	dev
-7
-D/home/machine/dev
-	python
-6
-D/home/machine/dev/python
-	japan
-8
-D/home/machine/dev/python/japan
-	japan.py
-3
 D/home/machine
 	backups
 6
@@ -649,6 +601,54 @@ D/home/machine/dev/golang/goworkspace/src/golang-book/chapter1
 D/home/machine
 	main.go
 24
+D/home/machine/dev
+	golang
+3
+D/home/machine/dev/golang
+	goworkspace
+1
+D/home/machine/dev/golang/goworkspace
+	src
+3
+D/home/machine/dev/golang/goworkspace/src
+	golang-book
+4
+D/home/machine/dev/golang/goworkspace/src/golang-book
+	chapter2
+2
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter2
+	arrays
+1
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter2/arrays
+	..
+0
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter2
+	..
+0
+D/home/machine/dev/golang/goworkspace/src/golang-book
+	chapter1
+1
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter1
+	..
+0
+D/home/machine/dev/golang/goworkspace/src/golang-book
+	chapter2
+2
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter2
+	arrays
+1
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter2/arrays
+	ar1
+1
+D/home/machine/dev/golang/goworkspace/src/golang-book/chapter2/arrays/ar1
+	main.go
+1
+D/home/machine/Wallpapers
+	gif
+1
+D/home/machine/Downloads
+	week 03 binary numbering.pdf
+33
 D
 
 # Command line history (oldest to newest):
@@ -710,8 +710,11 @@ D
 :Q
 :mkcd golang-book
 :mkcd chapter1
-:touch main.go
 :vim main.go
+:mkcd chapter2
+:mkcd arrays
+:mkcd ar1
+:touch main.go
 :q
 
 # Search history (oldest to newest):
@@ -741,14 +744,13 @@ proom.gif
 pcoffee.gif
 pAmazing self facial..mp4
 pTwitter POV.mp4
+pwal67.jpg
+pwal68.jpg
 
 # Local filter history (oldest to newest):
 
 # Registers:
-""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2405348.torrent
-""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2427781.torrent
-""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2484726.torrent
-""/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2495456.torrent
+""/home/machine/.local/share/vifm/Trash/000_wallpaper.py
 
 # Directory stack (oldest to newest):
 
@@ -793,6 +795,8 @@ t/home/machine/.local/share/vifm/Trash/000_[pornolab.net].t2495456.torrent
 	/home/machine/Downloads/[pornolab.net].t2495456.torrent
 t/home/machine/.local/share/vifm/Trash/000_The-Go-Programming-Language.pdf
 	/home/machine/Documents/Go recomendations/The-Go-Programming-Language.pdf
+t/home/machine/.local/share/vifm/Trash/000_wallpaper.py
+	/home/machine/Wallpapers/wallpaper.py
 
 # State:
 f
