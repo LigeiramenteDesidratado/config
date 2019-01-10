@@ -10,8 +10,8 @@ iface="${IFACE:-$iface}"
 dt="${DT:-3}"
 unit="${UNIT:-Mb}"
 
-# printf_command="${PRINTF_COMMAND:-"printf \"${LABEL}%-5.1f/﮾%5.1f %s/s\\n\", rx, wx, unit;"}"
-printf_command="${PRINTF_COMMAND:-"printf \"%5.1f ﯁ /%5.1f ﮾\", wx, rx;"}"
+# printf_command="${PRINTF_COMMAND:-"printf \"${LABEL}%-5.1f/﮾%5.1f %s/s\\n\", rx, wx, unit;"}"
+printf_command="${PRINTF_COMMAND:-"printf \"▼%5.1f  ▲%5.1f\", rx, wx;"}"
 
 
 function default_interface {
