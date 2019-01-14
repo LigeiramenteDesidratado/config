@@ -12,9 +12,13 @@ do
 		if [ "${file: -4}" == ".gif" ]
 		then
 			killall xwinwrap
+			notify-send "Setting $file as Background"
+			sleep 1
 			wallgif "$file"
 		else
 			killall xwinwrap
+			notify-send "Setting $file as Background"
+			sleep 1
 			feh --bg-scale "$file"
 		fi;;
         esac

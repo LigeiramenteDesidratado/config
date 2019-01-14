@@ -145,8 +145,8 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep vim "+grep %a"
 command! reload :write | restart
-command! a sxiv -tbaq %d &
-command! A sxiv -tbarq %d &
+command! a sxiv -tbaq %d &> /dev/null &
+command! A sxiv -tbarq %d &> /dev/null &
 " ------------------------------------------------------------------------------
 
 " The file type is for the default programs to be used with
@@ -437,6 +437,7 @@ nnoremap yf :!echo %c:p | xclip %i<cr>
 nnoremap I cw<c-a>
 nnoremap cc cw<c-u>
 nnoremap A cw
+
 
 " Open console in current directory
 nnoremap ,t :!xterm &<cr>

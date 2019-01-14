@@ -17,7 +17,8 @@ alias cfmb="$EDITOR ~/.config/ncmpcpp/bindings"
 alias cfmc="$EDITOR ~/.config/ncmpcpp/config"
 alias cfmpd="$EDITOR ~/.config/mpd/mpd.conf"
 alias cfM="$EDITOR ~/.config/mpd/mpd.conf"
-
+alias make="make && sudo make install"
+alias ..="clear && cd .. && ls"
 # easter egg
 alias yaourt="yay"
 alias yougurt="yaourt"
