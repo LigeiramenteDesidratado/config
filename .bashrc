@@ -32,9 +32,6 @@ alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias g="go run"
 alias mp="mpv --sub-font-size=35 "
 
-function cd {
-	builtin cd "$@" && clear && ls
-}
 
 # Adding color
 alias ls='ls -hNF --color=auto --group-directories-first'

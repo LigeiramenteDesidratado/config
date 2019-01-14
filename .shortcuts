@@ -1,9 +1,15 @@
-alias h="cd ~/"
-alias d="cd ~/Documents"
-alias D="cd ~/Downloads"
-alias m="cd /mnt"
-alias s="cd ~/.scripts"
-alias cf="cd ~/.config"
+
+function c {
+	builtin cd "$@" && clear && ls
+}
+
+alias h="c ~/"
+alias d="c ~/Documents"
+alias D="c ~/Downloads"
+alias m="c /mnt"
+alias s="c ~/.scripts"
+alias cf="c ~/.config"
+alias ..="c .."
 alias :q="exit"
 alias cff="$EDITOR ~/.scripts/folders"
 alias cfc="$EDITOR ~/.scripts/configs"
@@ -18,7 +24,7 @@ alias cfmc="$EDITOR ~/.config/ncmpcpp/config"
 alias cfmpd="$EDITOR ~/.config/mpd/mpd.conf"
 alias cfM="$EDITOR ~/.config/mpd/mpd.conf"
 alias make="make && sudo make install"
-alias gp="cd $GOPATH"
+alias gp="c $GOPATH"
 
 # easter egg
 alias yaourt="yay"
