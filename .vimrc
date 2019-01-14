@@ -88,7 +88,7 @@ autocmd FileType go inoremap ( ()<Esc>i
 autocmd FileType go inoremap { {}<Esc>i
 autocmd FileType go inoremap [ []<Esc>i
 autocmd FileType go inoremap ,i if err != nil {<cr><Tab><Tab>return<cr><Tab>}
-
+autocmd FileType go inoremap ,f fmt.Println()<Esc>i
 
 vnoremap K xkP`[V`]
 vnoremap J xp`[V`]
