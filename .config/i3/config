@@ -145,7 +145,7 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|floatst
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|floatst|vifm).*$"] kill
 
 
-bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/shots/'
+bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Sacreenshot saved\n~/shots/"'
 
 
 bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14
