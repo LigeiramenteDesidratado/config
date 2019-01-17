@@ -156,7 +156,7 @@ bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
 bindsym $mod+w			exec --no-startup-id $BROWSER
 bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
 
-bindsym $mod+e			exec winspawn vifm
+bindsym $mod+e			exec --no-startup-id winspawn vifm
 bindsym $mod+g			exec --no-startup-id dmenuunicode
 
 bindsym $mod+r 			exec $term -e ranger

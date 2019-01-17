@@ -13,6 +13,7 @@ command=i3mpd
 interval=once
 signal=11
 
+
 [weather]
 command=i3weather
 interval=3600
@@ -26,6 +27,7 @@ signal=10
 command=bandwidth3 -t 1 -u MB -p "printf \"▼%5.1f  ▲%5.1f \\n\", rx, wx"
 interval=persist
 markup=pango
+
 
 [time]
 label=📆
