@@ -21,10 +21,10 @@ call plug#end()
 " Some basics:
 	let mapleader =" "
 	let g:airline_theme='serene'
-"	set nocompatible
-"	syntax on
-"	set encoding=utf-8
-"	set fileencoding=utf-8
+	set nocompatible
+	syntax on
+	set encoding=utf-8
+	set fileencoding=utf-8
 	colorscheme putty
 
 

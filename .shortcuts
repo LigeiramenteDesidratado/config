@@ -2,7 +2,7 @@
 function c {
 	builtin cd "$@" && clear && ls
 }
-
+alias a="overkill"
 alias h="c ~/"
 alias d="c ~/Documents"
 alias D="c ~/Downloads"
