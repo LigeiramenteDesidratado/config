@@ -2,6 +2,11 @@
 function c {
 	builtin cd "$@" && clear && ls
 }
+
+function mgo {
+	mkdir "$@" -v && clear && cd "$@"
+}
+
 alias a="overkill"
 alias h="c ~/"
 alias d="c ~/Documents"

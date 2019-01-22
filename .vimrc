@@ -16,6 +16,10 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'yggdroot/indentline'
+Plug 'powerline/powerline'
+Plug 'yuttie/comfortable-motion.vim'
+
 call plug#end()
 
 " Some basics:
@@ -26,6 +30,11 @@ call plug#end()
 	set encoding=utf-8
 	set fileencoding=utf-8
 	colorscheme putty
+
+
+
+let g:comfortable_motion_scroll_down_key = "j"
+let g:comfortable_motion_scroll_up_key = "k"
 
 
 let g:SuperTabDefaultCompletionType    = '<C-n>'
@@ -67,12 +76,13 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
 
 
- "____        _                  _
+  "____        _                  _
  "/ ___| _ __ (_)_ __  _ __   ___| |_ ___
  "\___ \| '_ \| | '_ \| '_ \ / _ \ __/ __|
   "___) | | | | | |_) | |_) |  __/ |_\__ \
-  "|____/|_| |_|_| .__/| .__/ \___|\__|___/
+ "|____/|_| |_|_| .__/| .__/ \___|\__|___/
                 "|_|   |_|
+
 
 autocmd FileType go inoremap " ""<Esc>i
 autocmd FileType go inoremap ( ()<Esc>i
