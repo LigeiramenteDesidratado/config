@@ -8,6 +8,8 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'jreybert/vimagit'
+Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'flazz/vim-colorschemes'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-airline/vim-airline'
@@ -30,6 +32,12 @@ call plug#end()
 	set encoding=utf-8
 	set fileencoding=utf-8
 	colorscheme putty
+
+" Vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|||'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 
 
