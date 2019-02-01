@@ -8,6 +8,7 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'vimwiki/vimwiki'
 Plug 'jreybert/vimagit'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'flazz/vim-colorschemes'
@@ -17,10 +18,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'yggdroot/indentline'
-Plug 'powerline/powerline'
-Plug 'yuttie/comfortable-motion.vim'
 
 call plug#end()
 
@@ -32,27 +30,28 @@ call plug#end()
 	set encoding=utf-8
 	set fileencoding=utf-8
 	colorscheme putty
+	set hlsearch
+	set incsearch
+	set autoread
+	set ignorecase
+	set smartcase
+
+
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|||'
+let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 
-
-let g:comfortable_motion_scroll_down_key = "j"
-let g:comfortable_motion_scroll_up_key = "k"
-
-
-let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabDefaultCompletionType    = '<C-a>'
 let g:SuperTabCrMapping                = 0
-let g:UltiSnipsExpandTrigger           = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsExpandTrigger           = '<C-l>'
+let g:UltiSnipsJumpForwardTrigger      = '<C-l>'
 let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim de faults.
 	set splitbelow
@@ -64,6 +63,9 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 	map <C-j> <C-w>j
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
+	map <C-n> gt
+	imap jk <Esc>
+
 
 " Compile document
 	map <leader>a :w<CR>:!compiler <c-r>%<CR>
@@ -89,7 +91,7 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
  "\___ \| '_ \| | '_ \| '_ \ / _ \ __/ __|
   "___) | | | | | |_) | |_) |  __/ |_\__ \
  "|____/|_| |_|_| .__/| .__/ \___|\__|___/
-                "|_|   |_|
+"               |_|   |_|
 
 
 autocmd FileType go inoremap " ""<Esc>i
