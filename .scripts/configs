@@ -5,7 +5,6 @@ cfb	~/.bashrc
 cfv	~/.vimrc
 cfr	~/.config/ranger/rc.conf
 cfi	~/.config/i3/config
-cfp	~/.config/polybar/config
 cfd	~/.Xdefaults
 cfu	~/.config/newsboat/urls
 cfn	~/.config/newsboat/config

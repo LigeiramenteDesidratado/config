@@ -8,7 +8,8 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
-export PS1="\[$(tput bold)\]\[\033[38;5;11m\]\W > \[$(tput sgr0)\]"
+# export PS1="\[$(tput bold)\]\[\033[38;5;11m\]\W > \[$(tput sgr0)\]"
+export PS1="\[\033[38;5;160m\][\W] \[$(tput sgr0)\]"
 
 export GPG_TTY=$(tty)
 
@@ -17,7 +18,7 @@ alias sdn="sudo shutdown now"
 alias psref="gpg-connect-agent RELOADAGENT /bye" # Refresh gpg
 
 # Some aliases
-alias tixati="$HOME/programs/Tixati_portable/tixati_Linux64bit &"
+alias tixati="$HOME/programs/Tixati_portable/tixati_Linux64bit &> /dev/null &"
 alias p="sudo pacman"
 alias SS="sudo systemctl"
 alias v="vim"
@@ -27,7 +28,7 @@ alias sr="sudo ranger"
 alias ka="killall"
 alias mkd="mkdir -pv"
 alias ref="source ~/.bashrc"
-alias bw="wal -i ~/.config/wall.png" # Rerun pywal
+alias bw="wal -q -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias g="go run"
 alias mp="mpv --sub-font-size=35 "

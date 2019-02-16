@@ -1,9 +1,9 @@
 !! The default colors are "Gruvbox":
 *.color0: #000000
 !! Strong Red
-*.color2: #cc241d 
+*.color1: #cc241d 
 !! Vivid blue
-*.color1: #1e90ff
+*.color2: #1e90ff
 *.color3: #d79921
 !! Strong orange
 *.color4: #c95017 

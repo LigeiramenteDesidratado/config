@@ -1,2 +1,5 @@
+# exec awesome
 exec i3
-xset r rate 200 50
+#exec dwm
+#exec remaps
+exec xset r rate 200 50

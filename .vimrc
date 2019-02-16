@@ -19,6 +19,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sirver/ultisnips'
 Plug 'yggdroot/indentline'
+Plug 'jiangmiao/auto-pairs'
+Plug 'lilydjwg/colorizer'
+Plug 'matze/vim-move'
 
 call plug#end()
 
@@ -29,14 +32,16 @@ call plug#end()
 	syntax on
 	set encoding=utf-8
 	set fileencoding=utf-8
-	colorscheme putty
+	colorscheme delek
 	set hlsearch
 	set incsearch
 	set autoread
 	set ignorecase
 	set smartcase
-
-
+	set number
+	set relativenumber
+	set clipboard=unnamedplus
+	set nocindent
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -49,7 +54,7 @@ let g:SuperTabDefaultCompletionType    = '<C-a>'
 let g:SuperTabCrMapping                = 0
 let g:UltiSnipsExpandTrigger           = '<C-l>'
 let g:UltiSnipsJumpForwardTrigger      = '<C-l>'
-let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<C-h>'
 let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
@@ -58,14 +63,11 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 	set splitright
 
 
+let g:move_key_modifier = 'C'
+
 " Shortcutting split navigation, saving a keypress:
-	map <C-h> <C-w>h
-	map <C-j> <C-w>j
-	map <C-k> <C-w>k
-	map <C-l> <C-w>l
 	map <C-n> gt
 	imap jk <Esc>
-
 
 " Compile document
 	map <leader>a :w<CR>:!compiler <c-r>%<CR>
@@ -84,25 +86,8 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 " C-T for new tab
         nnoremap <C-t> :tabnew<cr>
 
-
-
-  "____        _                  _
- "/ ___| _ __ (_)_ __  _ __   ___| |_ ___
- "\___ \| '_ \| | '_ \| '_ \ / _ \ __/ __|
-  "___) | | | | | |_) | |_) |  __/ |_\__ \
- "|____/|_| |_|_| .__/| .__/ \___|\__|___/
-"               |_|   |_|
-
-
-autocmd FileType go inoremap " ""<Esc>i
-autocmd FileType go inoremap ( ()<Esc>i
-autocmd FileType go inoremap { {<cr>}
-autocmd FileType go inoremap [ []<Esc>i
-" autocmd FileType go inoremap ,i if err != nil {<cr>return<cr>}
-"autocmd FileType go inoremap ,f fmt.Println()<Esc>i
-
-vnoremap K xkP`[V`]
-vnoremap J xp`[V`]
-vnoremap L >gv
-vnoremap H <gv
+" vnoremap K xkP`[V`]
+" vnoremap J xp`[V`]
+" vnoremap L >gv
+" vnoremap H <gv
 

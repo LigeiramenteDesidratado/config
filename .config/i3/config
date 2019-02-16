@@ -85,23 +85,23 @@ exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
 # exec --no-startup-id wal -q -n -i ~/.config/wall.png
 
 # Set Xresources colors:
-set_from_resource $darkblack	color0  #000000
+set_from_resource $darkblack		color0  #000000
 set_from_resource $black		color8  #000000
 set_from_resource $vividblue		color1  #000000
 set_from_resource $red			color9  #000000
-set_from_resource $strongred	color2  #000000
+set_from_resource $strongred		color2  #000000
 set_from_resource $green		color10 #000000
-set_from_resource $darkyellow	color3  #000000
+set_from_resource $darkyellow		color3  #000000
 set_from_resource $yellow		color11 #000000
-set_from_resource $strongorange	color4  #000000
+set_from_resource $strongorange		color4  #000000
 set_from_resource $blue			color12 #000000
-set_from_resource $darkmagenta	color5  #000000
+set_from_resource $darkmagenta		color5  #000000
 set_from_resource $magenta		color13 #000000
-set_from_resource $vividgreen	color6  #000000
+set_from_resource $vividgreen		color6  #000000
 set_from_resource $cyan			color14 #000000
-set_from_resource $darkwhite	color7  #000000
+set_from_resource $darkwhite		color7  #000000
 set_from_resource $white		color15 #000000
-set $transparent		#FFFFFF00
+set $transparent				#FFFFFF00
 
 #                       BORDER		BACKGROUND	TEXT		INDICATOR   		CHILD_BORDER
 client.focused		$transparent	$transparent	$transparent	$strongorange		$strongorange
