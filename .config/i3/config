@@ -9,6 +9,8 @@ set $term --no-startup-id $TERMINAL
 set $mod Mod4
 set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
+smart_borders on
+
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 
@@ -51,7 +53,7 @@ for_window [instance="vifm"] border pixel 1
 
 for_window [instance="sxiv"] border pixel 0
 
-
+for_window [instance="brave"] fullscreen disable
 
 # #---Personal---# #
 
@@ -79,33 +81,33 @@ exec --no-startup-id nm-applet
 exec --no-startup-id mpd
 # Wallpaper and theme
 #exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
-exec --no-startup-id wallgif /home/machine/Wallpapers/gif/cityHaute.gif
-exec --no-startup-id wal -q -n -i ~/.config/wall.png
+exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
+# exec --no-startup-id wal -q -n -i ~/.config/wall.png
 
 # Set Xresources colors:
 set_from_resource $darkblack	color0  #000000
-set_from_resource $black	color8  #000000
-set_from_resource $darkred	color1  #000000
-set_from_resource $red		color9  #000000
-set_from_resource $darkgreen	color2  #000000
-set_from_resource $green	color10 #000000
+set_from_resource $black		color8  #000000
+set_from_resource $vividblue		color1  #000000
+set_from_resource $red			color9  #000000
+set_from_resource $strongred	color2  #000000
+set_from_resource $green		color10 #000000
 set_from_resource $darkyellow	color3  #000000
-set_from_resource $yellow	color11 #000000
-set_from_resource $darkblue	color4  #000000
-set_from_resource $blue		color12 #000000
+set_from_resource $yellow		color11 #000000
+set_from_resource $strongorange	color4  #000000
+set_from_resource $blue			color12 #000000
 set_from_resource $darkmagenta	color5  #000000
-set_from_resource $magenta	color13 #000000
-set_from_resource $darkcyan	color6  #000000
-set_from_resource $cyan		color14 #000000
+set_from_resource $magenta		color13 #000000
+set_from_resource $vividgreen	color6  #000000
+set_from_resource $cyan			color14 #000000
 set_from_resource $darkwhite	color7  #000000
-set_from_resource $white	color15 #000000
-set $transparent		#00000000
+set_from_resource $white		color15 #000000
+set $transparent		#FFFFFF00
 
 #                       BORDER		BACKGROUND	TEXT		INDICATOR   		CHILD_BORDER
-client.focused		$red		$red		$magenta	$darkmagenta		$darkblue
-client.unfocused	$transparent	$blue		$white		$darkblue		$darkblack
-client.focused_inactive	$transparent	$blue		$white		$darkblue		$darkblack
-client.urgent		$darkred	$darkred	$black		$darkred		$darkred
+client.focused		$transparent	$transparent	$transparent	$strongorange		$strongorange
+client.unfocused	$transparent	$blue		$white		$strongorange		$darkblack
+client.focused_inactive	$transparent	$blue		$white		$strongorange		$darkblack
+client.urgent		$transparent	$vividblue	$black		$vividblue		$vividblue
 client.background $black
 
 bar {
@@ -113,13 +115,13 @@ bar {
 	colors {
 			background $darkblack
 			statusline $darkwhite
-			separator $cyan
-			focused_workspace  $blue $darkblue $darkblack
+			separator $strongorange
+			focused_workspace  $strongorange $transparent $white
         		active_workspace   $blue $blue $darkwhite
       			inactive_workspace $darkblack $darkblack $white
         		urgent_workspace   $darkblack $darkblack $white
 		}
-	status_command i3blocks
+	status_command goi3bar -config-path /home/machine/dev/golang/goworkspace/src/github.com/denbeigh2000/goi3bar/cmd/goi3bar/config.json
 	position top
 	mode dock
 	modifier None
@@ -154,9 +156,9 @@ bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
 
 
 bindsym $mod+w			exec --no-startup-id $BROWSER
-bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
+bindsym $mod+Shift+w		exec --no-startup-id $BROWSER -kiosk
 
-bindsym $mod+e			exec --no-startup-id winspawn vifm
+bindsym $mod+e			exec --no-startup-id winspawn vifm -f mono:pixelsize=14
 bindsym $mod+g			exec --no-startup-id dmenuunicode
 
 bindsym $mod+r 			exec $term -e ranger
@@ -184,7 +186,7 @@ bindsym $mod+Shift+a		exec $term -e pulsemixer
 #bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
-bindsym $mod+d			exec --no-startup-id rofi -show run
+bindsym $mod+d			exec --no-startup-id dmenu_run -b -nb "#111111" -nf "#c95017" -sb "#222222"  -sf orange -fn "Anonymous Pro Minus"
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 set $freeze Distraction-free mode (mod+shift+esc to exit)
@@ -232,16 +234,22 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 
-set $ws1 "一"
-set $ws2 "二"
-set $ws3 "三"
-set $ws4 "四"
-set $ws5 "五"
-set $ws6 "六"
-set $ws7 "七"
-set $ws8 "八"
-set $ws9 "九"
-set $ws10 "十"
+#set $ws1 "一"
+#set $ws2 "二"
+#set $ws3 "三"
+#set $ws4 "四"
+#set $ws5 "五"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
 
 # switch to workspace
 bindsym $mod+1		workspace $ws1
