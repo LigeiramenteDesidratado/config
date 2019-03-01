@@ -1,0 +1,11 @@
+SHELL=/bin/bash
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/home/machine/.scripts
+
+timenow=date +__%Y_%m_%d_%H:%M:%S
+
+0 */3 * * * eval "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"; /home/machine/.scripts/newsup
+
+#0 */1 * * * eval "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"; rsync -ab --backup-dir=pass_`date +'\%d-\%b-\%Y_\%H:\%M:\%S'` /home/machine/Documents/keepass/ /home/machine/backups/keepass; rclone sync /home/machine/backups/ gdrive:/backup; notify-send '🍵 Starting Backup'
+
+0 */1 * * * eval "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"; rclone copy /home/machine/Documents/keepass gdrive:/backup/keepass/ --suffix=`$timenow` --backup-dir gdrive:/backup/old/keepass/; notify-send '🍵 Starting Backup'
