@@ -1,6 +1,6 @@
 
 function c {
-	builtin cd "$@" && clear && ls
+	builtin cd "$@" && clear && lsd
 }
 
 function mgo {
@@ -30,7 +30,7 @@ alias cfmpd="$EDITOR ~/.config/mpd/mpd.conf"
 alias cfM="$EDITOR ~/.config/mpd/mpd.conf"
 alias mk="make && sudo make install"
 alias gp="c $GOPATH"
-
+alias cfx="$EDITOR ~/.xinitrc"
 # easter egg
 alias yaourt="yay"
 alias yougurt="yaourt"
