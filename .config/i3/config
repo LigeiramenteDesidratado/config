@@ -30,20 +30,17 @@ for_window [instance="floatst"] move scratchpad
 for_window [instance="floatst"] sticky enable
 for_window [instance="floatst"] border pixel 2
 
+
 for_window [class="feh"] floating enable
 for_window [class="feh"] resize set 800 600
 for_window [class="feh"] move position center
 
-#for_window [instance="vifmmusic"] floating enable
-#for_window [instance="vifmmusic"] resize set 200 90
-#for_window [instance="vifmmusic"] sticky enable
-#for_window [instance="vifmmusic"] border pixel 0
-#for_window [instance="vifmmusic"] move position 1140 658
 
 for_window [instance="clip"] floating enable
 for_window [instance="clip"] resize set 600 300
 for_window [instance="clip"] move scratchpad
 for_window [instance="clip"] border pixel 1
+
 
 for_window [instance="vifm"] floating enable
 for_window [instance="vifm"] move scratchpad
@@ -51,22 +48,33 @@ for_window [instance="vifm"] resize set 600 700
 for_window [instance="vifm"] sticky enable
 for_window [instance="vifm"] border pixel 1
 
+
+for_window [class="Pinentry"] sticky enable
+for_window [class="sent"] border pixel 0px
+for_window [window_role="GtkFileChooserDialog"] resize shrink height 10 px
+for_window [title="Default - Wine desktop"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+
 for_window [instance="sxiv"] border pixel 0
 
-for_window [instance="brave"] fullscreen disable
+for_window [instance="brave-beta-bin"] fullscreen disable
 
 # #---Personal---# #
 
 # My ToDo script
 exec_always --no-startup-id /home/machine/dev/python/tarefas/./tarefas.py
+assign [class="newspod"] → number "10:News"
+
 # #---Starting External Scripts---# #
 
 # Composite manager:
 exec --no-startup-id compton -f -CGb --blur-background --backend glx
 # start newsboat
-exec --no-startup-id "sh -c 'sleep 5; exec st -e newspod'"
+exec --no-startup-id "sh -c 'sleep 5; exec st -c newspod -e newspod'"
 # Redshift
-exec --no-startup-id redshi
+#exec --no-startup-id redshi
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 # Runs the key remapping scripts
@@ -79,10 +87,9 @@ exec --no-startup-id i3mpdupdate
 exec --no-startup-id nm-applet
 # mpd startup
 exec --no-startup-id mpd
-# Wallpaper and theme
+# Wallpaper
 #exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
 exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
-# exec --no-startup-id wal -q -n -i ~/.config/wall.png
 
 # Set Xresources colors:
 set_from_resource $darkblack		color0  #000000
@@ -113,19 +120,23 @@ client.background $black
 bar {
 	font pango:mono 11
 	colors {
-			background $darkblack
-			statusline $darkwhite
-			separator $strongorange
-			focused_workspace  $strongorange $transparent $white
-        		active_workspace   $blue $blue $darkwhite
-      			inactive_workspace $darkblack $darkblack $white
-        		urgent_workspace   $darkblack $darkblack $white
+			background		$darkblack
+			statusline		$darkwhite
+			separator		$strongorange
+
+#			colorclass		border		background	text
+			focused_workspace	$strongorange	$darkblack	$white
+			active_workspace	$blue		$blue		$darkwhite
+			inactive_workspace	$darkblack	$darkblack	$white
+			urgent_workspace	$darkblack	$darkblack	$white
 		}
-	status_command goi3bar -config-path /home/machine/dev/golang/goworkspace/src/github.com/denbeigh2000/goi3bar/cmd/goi3bar/config.json
+	status_command gobar
+	strip_workspace_numbers yes
 	position top
 	mode dock
 	modifier None
 }
+
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
@@ -135,9 +146,6 @@ bindsym $mod+space		focus mode_toggle
 
 bindsym $mod+Escape		workspace prev
 bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
-
-# bindsym $mod+BackSpace
-# bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$reboot"
 
 # Show selection:
 bindsym $mod+Shift+Insert	exec --no-startup-id showclip
@@ -149,11 +157,8 @@ bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|fl
 
 bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Sacreenshot saved\n~/shots/"'
 
-
 bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14
 bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
-
-
 
 bindsym $mod+w			exec --no-startup-id $BROWSER
 bindsym $mod+Shift+w		exec --no-startup-id $BROWSER -kiosk
@@ -161,8 +166,8 @@ bindsym $mod+Shift+w		exec --no-startup-id $BROWSER -kiosk
 bindsym $mod+e			exec --no-startup-id winspawn vifm -f mono:pixelsize=14
 bindsym $mod+g			exec --no-startup-id dmenuunicode
 
-bindsym $mod+r 			exec $term -e ranger
-bindsym $mod+Shift+r		exec $term -e sudo ranger /
+bindsym $mod+r 			exec --no-startup-id keepassxc
+#bindsym $mod+Shift+r		exec
 
 bindsym $mod+t			split toggle
 bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
@@ -183,7 +188,6 @@ bindsym $mod+Shift+p		exec --no-startup-id lmc pause
 bindsym $mod+a			exec --no-startup-id winspawn dropdowncalc -f mono:pixelsize=14
 bindsym $mod+Shift+a		exec $term -e pulsemixer
 
-#bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
 bindsym $mod+d			exec --no-startup-id dmenu_run -b -nb "#111111" -nf "#c95017" -sb "#222222"  -sf orange -fn "Anonymous Pro Minus"
@@ -234,21 +238,16 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 
-#set $ws1 "一"
-#set $ws2 "二"
-#set $ws3 "三"
-#set $ws4 "四"
-#set $ws5 "五"
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1:一"
+set $ws2 "2:二"
+set $ws3 "3:三"
+set $ws4 "4:四"
+set $ws5 "5:五"
+set $ws6 "6:六"
+set $ws7 "7:七"
+set $ws8 "8:八"
+set $ws9 "9:九"
+set $ws10 "10:News"
 
 
 # switch to workspace
@@ -275,10 +274,6 @@ bindsym $mod+Shift+8	move container to workspace $ws8
 bindsym $mod+Shift+9	move container to workspace $ws9
 bindsym $mod+Shift+0	move container to workspace $ws10
 
-for_window [class="Pinentry"] sticky enable
-for_window [class="sent"] border pixel 0px
-for_window [window_role="GtkFileChooserDialog"] resize shrink height 10 px
-for_window [title="Default - Wine desktop"] floating enable
 
 # #---Function Buttons---# #
 bindsym $mod+F2		restart
