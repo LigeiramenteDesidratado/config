@@ -6,9 +6,9 @@ do
 		rm "$file" && notify-send "$file deleted." ;;
 
 
-	"w")
-		wal -n -q -i "$file";;
 	"W")
+		wal -n -q -i "$file";;
+	"w")
 		if [ "${file: -4}" == ".gif" ]
 		then
 			killall xwinwrap
