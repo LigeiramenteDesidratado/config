@@ -118,11 +118,13 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 	set splitright
 
 
-let g:move_key_modifier = 'C'
-
 " Shortcutting split navigation, saving a keypress:
-	map <C-n> gt
+	map <C-N> gt
 	imap jk <Esc>
+	map <C-h> <C-w>h
+	map <C-j> <C-w>j
+	map <C-k> <C-w>k
+	map <C-l> <C-w>l
 
 " Compile document
 	map <leader>a :w<CR>:!compiler <c-r>%<CR>
@@ -139,7 +141,7 @@ let g:move_key_modifier = 'C'
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " C-T for new tab
-        nnoremap <C-t> :tabnew<cr>
+	nnoremap <C-t> :tabnew<cr>
 
 " vnoremap K xkP`[V`]
 " vnoremap J xp`[V`]
