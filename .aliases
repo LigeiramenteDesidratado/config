@@ -1,0 +1,55 @@
+
+
+# System Maintainence
+alias sdn="sudo shutdown now"
+
+# Some aliases
+#alias tixati="$HOME/programs/Tixati_portable/tixati_Linux64bit &> /dev/null &"
+alias p="sudo pacman"
+alias SS="sudo systemctl"
+alias v="$EDITOR"
+alias vim="$EDITOR"
+alias sv="sudo $EDITOR"
+alias ka="killall"
+alias ref="source ~/.bashrc"
+alias g="go run"
+alias mp="mpv --sub-font-size=35 "
+alias grep="grep --color=auto" # Color grep - highlight desired sequence.
+alias ccat="highlight --out-format=ansi" # Color cat - print file with syntax highlighting.
+
+# Internet
+alias YT="youtube-dl --add-metadata -ic" # Download video link
+alias yta="YT -x -f bestaudio/best" # Download only audio
+alias yt="youtube-viewer -7"
+alias starwars="telnet towel.blinkenlights.nl"
+
+# Adding color
+alias ls='ls -hNF --color=always --group-directories-first'
+alias a="overkill"
+alias h="c ~/"
+alias d="c ~/Documents"
+alias D="c ~/Downloads"
+alias m="c /mnt"
+alias s="c ~/.scripts"
+alias cf="c ~/.config"
+alias ..="c .."
+alias lab="c ~/dev/golang/goworkspace/src/lab/"
+alias :q="exit"
+alias cff="$EDITOR ~/.scripts/folders"
+alias cfc="$EDITOR ~/.scripts/configs"
+alias cfb="$EDITOR ~/.bashrc"
+alias cfv="$EDITOR ~/.vimrc"
+alias cfi="$EDITOR ~/.config/i3/config"
+alias cfd="$EDITOR ~/.Xdefaults"
+alias cfu="$EDITOR ~/.config/newsboat/urls"
+alias cfn="$EDITOR ~/.config/newsboat/config"
+alias cfmb="$EDITOR ~/.config/ncmpcpp/bindings"
+alias cfmc="$EDITOR ~/.config/ncmpcpp/config"
+alias cfmpd="$EDITOR ~/.config/mpd/mpd.conf"
+alias cfM="$EDITOR ~/.config/mpd/mpd.conf"
+alias mk="make && sudo make install"
+alias gp="c $GOPATH"
+alias cfx="$EDITOR ~/.xinitrc"
+# easter egg
+alias yaourt="yay"
+alias yougurt="yaourt"
