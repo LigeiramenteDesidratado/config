@@ -34,7 +34,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
@@ -52,6 +51,17 @@ Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
 Plug 'Valloric/YouCompleteMe'
 Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-fugitive'
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+
+
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
@@ -191,7 +201,7 @@ set number
 
 let no_buffers_menu=1
 if !exists('g:not_finish_vimplug')
-  colorscheme molokai
+  colorscheme PaperColor
 endif
 
 set mousemodel=popup
@@ -406,7 +416,7 @@ let g:UltiSnipsEditSplit="vertical"
 " YCM
 let g:ycm_key_list_select_completion   = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-
+" let g:deoplete#enable_at_startup = 1
 " syntastic
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
@@ -603,10 +613,13 @@ endif
 
 " vim-airline
 let g:airline_section_z = '%3p%% %3l:%2c'
+
+
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
+let g:airline#extensions#vimagit#enabled = 1
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
