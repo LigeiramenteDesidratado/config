@@ -21,8 +21,8 @@ function mgo {
 	mkdir "$@" -v && clear && cd "$@"
 }
 # Python env
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+#export WORKON_HOME=$HOME/.virtualenvs
+#source /usr/bin/virtualenvwrapper.sh
 
 # Golang env
 export GOPATH=$HOME/dev/golang/goworkspace
@@ -32,5 +32,5 @@ export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # history with data
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
-exec fish
+#exec fish
 
