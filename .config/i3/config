@@ -1,4 +1,4 @@
-# vim: filetype=i3
+#vim: filetype=i3
 
 # Needed for i3-gaps
 
@@ -74,7 +74,7 @@ exec --no-startup-id compton -f -CGb --blur-background --backend glx
 # start newsboat
 exec --no-startup-id "sh -c 'sleep 5; exec st -c newspod -e newspod'"
 # Redshift
-#exec --no-startup-id redshi
+exec --no-startup-id rs
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 # Runs the key remapping scripts

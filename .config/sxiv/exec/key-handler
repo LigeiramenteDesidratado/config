@@ -1,7 +1,11 @@
 #!/bin/sh
 while read file
+
 do
-        case "$1" in
+
+	filename=$(basename "$file")
+
+	case "$1" in
 	"d")
 		rm "$file" && notify-send "$file deleted." ;;
 
@@ -12,14 +16,14 @@ do
 		if [ "${file: -4}" == ".gif" ]
 		then
 			killall xwinwrap
-			notify-send "Setting $file as Background"
+			notify-send "Setting <u>$filename</u> as Background"
 			sleep 1
 			wallgif "$file"
 		else
 			killall xwinwrap
-			notify-send "Setting $file as Background"
+			notify-send "Setting <u>$filename</u> as Background"
 			sleep 1
 			feh --bg-scale "$file"
 		fi;;
-        esac
+esac
 done
