@@ -1,14 +1,22 @@
 #! /bin/bash
 
+#exec i3
+#exec dwm &>> $HOME/dwmlogs
+ > /home/machine/isdwmrunning
+ rs&
+ programming-mode&
+ remaps&
+ dunst&
+ mpd&
+ bardwm&
+ /home/machine/dev/python/tarefas/./tarefas.py&
 
-exec i3
-
-#exec dwm
-#while true; do
-#	dwm 2> ~/.dwm.log
-	# No error logging
-	# dwm >/dev/null 2>&1
-#done
-
-#exec xset r rate 200 50
+  while : ; do
+  	dwm 2>> ~/dwmlogs
+      c=$(cat /home/machine/isdwmrunning)
+      if [[ "${c}" -eq 1 ]]; then
+          break
+     fi
+     sleep 1
+ done
 

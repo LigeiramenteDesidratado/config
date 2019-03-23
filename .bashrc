@@ -7,7 +7,6 @@
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 HISTSIZE= HISTFILESIZE= # Infinite history.
-#exec fish
 
 # export PS1="\[$(tput bold)\]\[\033[38;5;11m\]\W > \[$(tput sgr0)\]"
 export PS1="\[\033[38;5;160m\][\W] \[$(tput sgr0)\]"
@@ -32,4 +31,6 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # history with data
 export HISTTIMEFORMAT="%d/%m/%y %T "
+
+exec fish
 

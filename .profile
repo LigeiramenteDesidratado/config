@@ -5,15 +5,15 @@
 export PATH="$PATH:$HOME/.scripts"
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="linkhandler"
-export TRUEBROWSER="brave-beta"
+export BROWSER="brave-dev"
+export TRUEBROWSER="brave-dev"
 export READER="zathura"
 
 [ -f ~/.bashrc ] && source ~/.bashrc
 
 # Start graphical server if i3 not already running.
 if [ "$(tty)" = "/dev/tty1" ]; then
-	pgrep -x i3 || exec startx
+	pgrep -x dwm || exec startx
 fi
 
 # Switch escape and caps and use wal colors if tty:
