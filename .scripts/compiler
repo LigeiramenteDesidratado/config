@@ -48,5 +48,6 @@ case "$file" in
         *\.c) cc "$file" -o "$base" && "$base" ;;
 	*\.py) python "$file" ;;
 	*\.go) go run "$file" ;;
+	*\.cpp) g++ -g  -Wall -Werror -std=c++14 -o "$base" "$file" && "$base" ;;
 	*) shebangtest ;;
 esac
