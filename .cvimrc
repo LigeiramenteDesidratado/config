@@ -1,0 +1,24 @@
+let configpath = '/home/machine/.cvimrc'
+set localconfig
+
+set showtabindices
+set noautofocus
+set smoothscroll
+let scrollstep = 300
+let scrollduration = 800
+set incsearch
+set smartcase
+set autohidecursor
+set linkanimations
+set sortlinkhints
+let barposition = 'bottom'
+map <C-l> nextTab
+map <C-h> previousTab
+let defaultengine = "duckduckgo"
+let searchengine duck = ["https://duckduckgo.com", "https://duckduckgo.com/?q=%s"]
+let conplettionengines = ["duckduckgo", "google", "wikipedia"]
+command d tabnew duck
+let searchalias d = "duck"
+map a :tabnew duck<space>
+let searchengine duck = "https://duckduckgo.com/?q=%s"
+let hintcharacters = "asdjkhlfw"
