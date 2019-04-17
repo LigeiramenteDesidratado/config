@@ -220,7 +220,8 @@ else
   " IndentLine
   let g:indentLine_enabled = 1
   let g:indentLine_concealcursor = 0
-  let g:indentLine_char = '┆'
+ " let g:indentLine_char = '┆'
+  let g:indentLine_char = '┊'
   let g:indentLine_faster = 1
 
 endif
@@ -286,7 +287,8 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <C-a> :NERDTreeToggle<CR>
-
+let g:NERDTreeDirArrowExpandable = '∷'
+let g:NERDTreeDirArrowCollapsible = '樂'
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
 let Grep_Default_Options = '-IR'
@@ -354,11 +356,18 @@ imap jk <Esc>
 let g:C_Ctrl_j='off'
 " Compile
 map <leader>a :w<CR>:!compiler <c-r>%<CR>
+" mouse
+set mouse=a
+"
+set number relativenumber
 
 "" Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
 
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 2
 "" Git
 noremap <Leader>ga :Gwrite<CR>
 noremap <Leader>gc :Gcommit<CR>
@@ -625,11 +634,11 @@ endif
 
 let g:airline#extensions#vimagit#enabled = 1
 if !exists('g:airline_powerline_fonts')
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '▶'
+  let g:airline_left_sep = ''
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = ''
   let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '◀'
+  let g:airline_right_sep = ''
   let g:airline_right_alt_sep     = '«'
   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
   let g:airline#extensions#readonly#symbol   = '⊘'
@@ -646,9 +655,9 @@ else
   let g:airline#extensions#tabline#left_alt_sep = ''
 
   " powerline symbols
-  let g:airline_left_sep = ''
+  let g:airline_left_sep          = '▶'
   let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
+  let g:airline_right_sep         = '◀'
   let g:airline_right_alt_sep = ''
   let g:airline_symbols.branch = ''
   let g:airline_symbols.readonly = ''
