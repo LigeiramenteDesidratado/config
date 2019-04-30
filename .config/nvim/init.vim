@@ -46,7 +46,6 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-syntastic/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
-Plug 'flazz/vim-colorschemes'
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
 Plug 'Valloric/YouCompleteMe'
@@ -77,10 +76,6 @@ Plug 'Shougo/vimproc.vim', {'do': g:make}
 "" Vim-Session
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
-
-if v:version >= 703
-  Plug 'Shougo/vimshell.vim'
-endif
 
 if v:version >= 704
   "" Snippets
@@ -351,7 +346,7 @@ set autoread
 "" Mappings
 "*****************************************************************************
 "" Personal
-imap jk <Esc>
+imap jk <Esc>:FixWhitespace<CR>
 " Disable <C-J> in c files
 let g:C_Ctrl_j='off'
 " Compile
@@ -359,6 +354,9 @@ map <leader>a :w<CR>:!compiler <c-r>%<CR>
 " mouse
 set mouse=a
 "
+let g:ycm_use_ultisnips_completer = 1
+map <leader>j :YcmCompleter GoToDeclaration<cr>
+map <leader>w :FixWhitespace<CR>
 set number relativenumber
 
 "" Split
@@ -468,7 +466,6 @@ endif
 noremap <leader>z :bp<CR>
 noremap <leader>q :bp<CR>
 noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
 
 "" Close buffer
 noremap <leader>c :bd<CR>

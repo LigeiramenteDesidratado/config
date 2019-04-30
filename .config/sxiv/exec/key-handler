@@ -1,29 +1,35 @@
 #!/bin/sh
+
 while read file
 
 do
 
-	filename=$(basename "$file")
+    filename=$(basename "$file")
 
-	case "$1" in
-	"d")
-		rm "$file" && notify-send "$file deleted." ;;
+    # notify-send "${file}"
+    case "$1" in
+    "d")
+        rm "$file" && notify-send "$file deleted." ;;
 
 
-	"W")
-		wal -n -q -i "$file";;
-	"w")
-		if [ "${file: -4}" == ".gif" ]
-		then
-			killall xwinwrap
-			notify-send "Setting <u>$filename</u> as Background"
-			sleep 1
-			wallgif "$file"
-		else
-			killall xwinwrap
-			notify-send "Setting <u>$filename</u> as Background"
-			sleep 1
-			feh --bg-scale "$file"
-		fi;;
+    "p")
+        db=$(echo "${PWD}/.thumb__/.dbthumb__")
+        lis=$(cat "${db}" | grep "${filename}")
+        mpv "${lis:45}" &> /dev/null &;;
+    "W")
+        wal -n -q -i "$file";;
+    "w")
+        if [ "${file: -4}" == ".gif" ]
+        then
+            killall xwinwrap
+            notify-send "Setting <u>$filename</u> as a Background"
+            sleep 1
+            wallgif "$file"
+        else
+            killall xwinwrap
+            notify-send "Setting <u>$filename</u> as a Background"
+            sleep 1
+            /usr/bin/xwallpaper --daemon --zoom "${file}"
+        fi;;
 esac
 done

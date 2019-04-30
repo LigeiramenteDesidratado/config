@@ -115,6 +115,7 @@
     # regardless of what this is set to.
     markup = full
 
+
     # The format of the message.  Possible variables are:
     #   %a  appname
     #   %s  summary

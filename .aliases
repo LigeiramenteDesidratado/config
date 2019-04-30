@@ -24,7 +24,7 @@ alias yt="youtube-viewer -7"
 alias starwars="telnet towel.blinkenlights.nl"
 
 # Adding color
-alias ls='ls -hNF --color=always --group-directories-first'
+alias ls='ls -ct -hNF --color=always --group-directories-first'
 alias a="overkill"
 alias h="c ~/"
 alias d="c ~/Documents"

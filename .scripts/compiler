@@ -20,7 +20,7 @@ shebang=$(sed -n 1p "$file")
 cd "$dir" || exit
 
 textype() { \
-	command="pdflatex"
+    command="pdflatex"
 	( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
 	$command --output-directory="$dir" "$base" &&
 	grep -i addbibresource "$file" >/dev/null &&
@@ -45,9 +45,10 @@ case "$file" in
 	*\.tex) textype "$file" ;;
 	*\.md) pandoc "$file" --pdf-engine=xelatex -o "$base".pdf ;;
 	*config.h) make && sudo make install ;;
-        *\.c) cc "$file" -o "$base" && "$base" ;;
+    *\.c) cc "$file" -o "$base" && "$base" ;;
 	*\.py) python "$file" ;;
 	*\.go) go run "$file" ;;
-	*\.cpp) g++ -g  -Wall -Werror -std=c++14 -o "$base" "$file" && "$base" ;;
-	*) shebangtest ;;
+	*\.cpp) g++ -g  -Wall -Werror -std=c++17 -o "$base" "$file" && "$base" ;;
+	*\.rs) cargo run "$dir" ;;
+    *) shebangtest ;;
 esac

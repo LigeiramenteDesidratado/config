@@ -145,8 +145,9 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep vim "+grep %a"
 command! reload :write | restart
-command! a sxiv -tbaq %d &> /dev/null &
-command! A sxiv -tbarq %d &> /dev/null &
+command! a sxiv -tbaq %d FD 2 /dev/null &
+command! A sxiv -tbarq %d FD 2 /dev/null &
+command! o $HOME/.scripts/thumbvid.sh && sxiv -tbaq %d/.thumb__ FD 2 /dev/null &
 " ------------------------------------------------------------------------------
 
 " The file type is for the default programs to be used with
@@ -408,6 +409,7 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 
 " Sample mappings
 nnoremap go :a<cr>
+nnoremap gp :o<cr>
 nnoremap gO :A<cr>
 " Start shell in current directory
 nnoremap s :shell<cr>

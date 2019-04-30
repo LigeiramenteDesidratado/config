@@ -3,19 +3,14 @@ separator_block_width=15
 markup=pango
 
 [mpd]
-label=🎼
-command=i3mpd
-interval=once
+command=rsmpd
+interval=1
 signal=11
 
 [news]
 command=cat ~/.newsup
 interval=once
 signal=6
-
-[checkupdate]
-command=echo "📦 `checkupdates | wc -l`"
-interval=10500
 
 [weather]
 command=i3weather

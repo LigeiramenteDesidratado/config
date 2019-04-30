@@ -1,10 +1,11 @@
-
+set fish_emoj_width 2
+set fish_ambiguous_width 1
 set -gx GOPATH $HOME/dev/golang/goworkspace
 set -gx GOBIN $GOPATH/bin
 
 set -gx EDITOR /bin/nvim
 set -gx TERMINAL /usr/local/bin/st
-set -gx BROWSER /usr/bin/brave-dev
+set -gx BROWSER /usr/bin/brave
 set -gx READER /usr/bin/zathura
 set -gx COCOS_X_ROOT /opt/cocos2d-x
 set -gx COCOS_CONSOLE_ROOT $COCOS_X_ROOT/tools/cocos2d-console/bin

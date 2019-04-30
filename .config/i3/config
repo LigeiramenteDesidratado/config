@@ -70,7 +70,8 @@ assign [class="newspod"] → number "10:News"
 # #---Starting External Scripts---# #
 
 # Composite manager:
-exec --no-startup-id compton -f -CGb --blur-background --backend glx
+#exec --no-startup-id compton -f -CGb --blur-background --backend glx
+exec --no-startup-id programming-mode
 # start newsboat
 exec --no-startup-id "sh -c 'sleep 5; exec st -c newspod -e newspod'"
 # Redshift
@@ -89,7 +90,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id mpd
 # Wallpaper
 #exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
-exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
+#exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
+exec --no-startup-id xwallpaper --daemon --stretch .config/wall.jpg
 
 # Set Xresources colors:
 set_from_resource $darkblack		color0  #000000
@@ -130,7 +132,7 @@ bar {
 			inactive_workspace	$darkblack	$darkblack	$white
 			urgent_workspace	$darkblack	$darkblack	$white
 		}
-	status_command gobar
+	status_command i3blocks
 	strip_workspace_numbers yes
 	position top
 	mode dock
