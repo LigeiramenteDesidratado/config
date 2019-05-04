@@ -6,8 +6,8 @@ then
     notify-send -i $HOME/.scripts/rss.png "RSS: something is wrong"
     exit 1
 else
-    notify-send -i $HOME/.scripts/rss.png "${1}"
-    
+    notify-send -i $HOME/.scripts/rss.png "Newsboat" "${1}"
+
 fi
 
 

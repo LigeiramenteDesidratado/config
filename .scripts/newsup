@@ -1,6 +1,0 @@
-#!/bin/sh
-
-ping -q -t 1 -c 1 `ip r | grep -m 1 default | cut -d ' ' -f 3` >/dev/null || exit
-xsetroot -name "$(echo 'update: 📰 🔃')"
-/usr/bin/newsboat -x reload
-

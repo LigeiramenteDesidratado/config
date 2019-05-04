@@ -3,7 +3,7 @@ auto-reload yes
 external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 
 notify-always yes
-notify-format "<b>%d</b> new articles<br><b>%n</b> unread articles"
+notify-format "%d new articles\n%n unr articles"
 notify-program "newsnotify"
 notify-beep yes
 

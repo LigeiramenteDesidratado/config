@@ -15,21 +15,20 @@ do
     "p")
         db=$(echo "${PWD}/.thumb__/.dbthumb__")
         lis=$(cat "${db}" | grep "${filename}")
-        mpv "${lis:45}" &> /dev/null &;;
-    "W")
-        wal -n -q -i "$file";;
+        mpv "${lis:45}" &> /dev/null &
+        ;;
     "w")
         if [ "${file: -4}" == ".gif" ]
         then
             killall xwinwrap
             notify-send "Setting <u>$filename</u> as a Background"
             sleep 1
-            wallgif "$file"
+            wallgif "$file" &> /dev/null &
         else
             killall xwinwrap
             notify-send "Setting <u>$filename</u> as a Background"
             sleep 1
-            /usr/bin/xwallpaper --daemon --zoom "${file}"
+            /usr/bin/xwallpaper --daemon --zoom "${file}" &> /dev/null &
         fi;;
 esac
 done

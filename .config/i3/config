@@ -157,7 +157,7 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|floatst
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|floatst|vifm).*$"] kill
 
 
-bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Sacreenshot saved\n~/shots/"'
+bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Screenshot saved" "~/shots/$f"'
 
 bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14
 bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
@@ -171,8 +171,9 @@ bindsym $mod+g			exec --no-startup-id dmenuunicode
 bindsym $mod+r 			exec --no-startup-id keepassxc
 #bindsym $mod+Shift+r		exec
 
-bindsym $mod+t			split toggle
-bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
+# bindsym $mod+t			split toggle
+bindsym $mod+t			exec $TERM -e transmission-remote-cli
+bindsym $mod+Shift+t         gaps inner current set 15; gaps outer current set 15
 
 bindsym $mod+Ctrl+h		exec --no-startup-id "sh ~/.scripts/i3resize left"
 

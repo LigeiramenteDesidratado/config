@@ -1,0 +1,6 @@
+[Desktop Entry]
+
+Type=Application
+Name=Torrent
+Exec=/usr/bin/env transadd %U
+X-Desktop-File-Install-Version=0.24

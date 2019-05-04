@@ -1,4 +1,4 @@
-command=/usr/lib/i3blocks/$BLOCK_NAME
+command=/home/machine/.scripts/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
@@ -11,6 +11,11 @@ signal=11
 command=cat ~/.newsup
 interval=once
 signal=6
+
+[torrent]
+#command=torrent
+interval=20
+signal=7
 
 [weather]
 command=i3weather
