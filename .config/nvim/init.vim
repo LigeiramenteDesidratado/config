@@ -7,6 +7,8 @@ if has('vim_starting')
   set nocompatible               " Be iMproved
 endif
 
+set shell=/bin/dash
+
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,go,html,lua,python,rust"
@@ -31,36 +33,30 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/grep.vim'
-Plug 'vim-scripts/CSApprox'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
 Plug 'jreybert/vimagit'
 Plug 'majutsushi/tagbar'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+" Plug 'w0rp/ale'
+Plug 'neomake/neomake'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-fugitive'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+" Plug 'tpope/vim-fugitive'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-
-
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
@@ -71,7 +67,6 @@ let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
 endif
-Plug 'Shougo/vimproc.vim', {'do': g:make}
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -83,9 +78,6 @@ if v:version >= 704
 endif
 
 Plug 'honza/vim-snippets'
-
-"" Color
-Plug 'tomasr/molokai'
 
 "*****************************************************************************
 "" Custom bundles
@@ -147,9 +139,9 @@ set fileencodings=utf-8
 set bomb
 set binary
 
-
 "" Fix backspace indent
 set backspace=indent,eol,start
+set splitbelow
 
 "" Tabs. May be overriten by autocmd rules
 set tabstop=4
@@ -174,12 +166,6 @@ set nobackup
 set noswapfile
 
 set fileformats=unix,dos,mac
-
-if exists('$SHELL')
-    set shell=$SHELL
-else
-    set shell=/bin/sh
-endif
 
 " session management
 let g:session_directory = "~/.config/nvim/session"
@@ -210,12 +196,9 @@ if has("gui_running")
     set transparency=7
   endif
 else
-  let g:CSApprox_loaded = 1
-
   " IndentLine
   let g:indentLine_enabled = 1
   let g:indentLine_concealcursor = 0
- " let g:indentLine_char = '┆'
   let g:indentLine_char = '┊'
   let g:indentLine_faster = 1
 
@@ -251,7 +234,7 @@ endif
 
 " vim-airline
 let g:airline_theme = 'jellybeans'
-let g:airline#extensions#syntastic#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
@@ -272,18 +255,6 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-"" NERDTree configuration
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <C-a> :NERDTreeToggle<CR>
-let g:NERDTreeDirArrowExpandable = '∷'
-let g:NERDTreeDirArrowCollapsible = '樂'
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
 let Grep_Default_Options = '-IR'
@@ -346,19 +317,22 @@ set autoread
 "" Mappings
 "*****************************************************************************
 "" Personal
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+set completeopt-=preview
 imap jk <Esc>:FixWhitespace<CR>
 " Disable <C-J> in c files
 let g:C_Ctrl_j='off'
 " Compile
 map <leader>a :w<CR>:!compiler <c-r>%<CR>
+
+
 " mouse
 set mouse=a
-"
-let g:ycm_use_ultisnips_completer = 1
-map <leader>j :YcmCompleter GoToDeclaration<cr>
-map <leader>w :FixWhitespace<CR>
+let g:airline_section_z = '%3p%% %3l:%2c'
 set number relativenumber
-
 "" Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -415,8 +389,8 @@ if executable('rg')
 endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
+nnoremap <silent> <leader>ee :Buffers<CR>
+nnoremap <silent> <leader>q :FZF -m<CR>
 
 " snippets
 let g:UltiSnipsExpandTrigger="<C-l>"
@@ -424,18 +398,68 @@ let g:UltiSnipsJumpForwardTrigger="<C-l>"
 let g:UltiSnipsJumpBackwardTrigger="<C-h>"
 let g:UltiSnipsEditSplit="vertical"
 
-" YCM
-let g:ycm_key_list_select_completion   = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-" let g:deoplete#enable_at_startup = 1
-" syntastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors = 1
+
+" coc.nvim
+"
+inoremap <silent><expr> <C-j>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+inoremap <silent><expr> <c-space> coc#refresh()
+
+
+
+""YCM
+"let g:ycm_key_list_select_completion   = ['<C-j>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+"let g:ycm_key_list_stop_completion = ['<C-s>']
+"let g:ycm_use_ultisnips_completer = 1
+"map <leader>j :YcmCompleter GoToDefinition<cr>
+"map <leader>jj :YcmCompleter GoToDeclaration<cr>
+"map <leader>k :YcmCompleter GetType<cr>
+
+" " deoplete
+
+" if has('nvim')
+"     " Enable deoplete on startup
+"     let g:deoplete#enable_at_startup = 1
+" endif
+
+
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#source_importer = 1
+
+" " Enable autocomplete of unimported packages
+" let g:deoplete#sources#go#unimported_packages = 1
+
+" call deoplete#custom#option({
+" \ 'auto_complete_delay': 0,
+" \ 'auto_refresh_delay': 10,
+" \})
+
+" let g:deoplete#enable_ignore_case = 1
+" let g:deoplete#enable_smart_case = 1
+
+
+" " Enable completing of go pointers
+" let g:deoplete#sources#go#pointer = 1
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -464,7 +488,6 @@ endif
 
 "" Buffer nav
 noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
 noremap <leader>x :bn<CR>
 
 "" Close buffer
@@ -498,10 +521,66 @@ nnoremap <Leader>o :.Gbrowse<CR>
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
+"*****************************************************************************
+""  ale
+"*****************************************************************************
+
+" let g:airline#extensions#ale#enabled = 0
+" let g:ale_sign_error = '✗'
+" let g:ale_sign_warning = '⚠'
+" let g:ale_virtualtext_cursor = 1
+" let g:ale_echo_cursor = 0
+" let g:ale_virtualtext_delay = 30
+" let g:ale_virtualtext_prefix = 'ﮊ '
+
+"*****************************************************************************
+""  neomake
+"*****************************************************************************
+
+" autocmd BufWritePost * Neomake
+" let g:neomake_error_sign   = {'text': '✗', 'texthl': 'NeomakeErrorSign'}
+" let g:neomake_warning_sign = {'text': '⚠', 'texthl': 'NeomakeWarningSign'}
+" let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
+" let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+
+" " let g:neomake_verbose = 3
+" let g:neomake_logfile = '/home/machine/neomake.log'
+" hi NeomakeWarningSign ctermfg=yellow
+" let g:neomake_echo_current_error = 0
+" let g:neomake_cursormoved_delay = 30
+
+
+" " neomake configuration for Go.
+" " let g:neomake_go_enabled
+" let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
+" let g:neomake_go_gometalinter_maker = {
+"   \ 'args': [
+"   \   '--tests',
+"   \   '--enable-gc',
+"   \   '--concurrency=3',
+"   \   '--fast',
+"   \   '-D', 'aligncheck',
+"   \   '-D', 'dupl',
+"   \   '-D', 'gocyclo',
+"   \   '-D', 'gotype',
+"   \   '-E', 'misspell',
+"   \   '-E', 'staticcheck',
+"   \   '%:p:h',
+"   \ ],
+"   \ 'append_file': 0,
+"   \ 'errorformat':
+"   \   '%E%f:%l:%c:%trror: %m,' .
+"   \   '%W%f:%l:%c:%tarning: %m,' .
+"   \   '%E%f:%l::%trror: %m,' .
+"   \   '%W%f:%l::%tarning: %m'
+"   \ }
+
 
 " go
 " vim-go
 " run :GoBuild or :GoTestCompile based on the go file
+
+set autowrite
 function! s:build_go_files()
   let l:file = expand('%')
   if l:file =~# '^\f\+_test\.go$'
@@ -511,12 +590,13 @@ function! s:build_go_files()
   endif
 endfunction
 
+let g:go_auto_type_info = 1
+let g:go_gocode_unimported_packages = 1
+let g:go_auto_sameids = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
-let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
+" let g:syntastic_go_checkers = ['go', 'vet', 'errcheck', 'golint']
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -532,12 +612,29 @@ let g:go_highlight_extra_types = 1
 
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
-augroup completion_preview_close
-  autocmd!
-  if v:version > 703 || v:version == 703 && has('patch598')
-    autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
-  endif
-augroup END
+let g:go_term_height = 60
+let g:go_term_width = 60
+
+" gometalinter configuration
+let g:go_metalinter_command = "gometalinter"
+let g:go_metalinter_deadline = "12s"
+let g:go_metalinter_enabled = [
+    \'errcheck',
+    \ 'golint',
+    \ 'vet',
+    \ 'staticcheck',
+    \ 'ineffassign',
+    \ 'deadcode',
+    \ 'gosec',
+    \ 'goconst',
+    \ 'vetshadow'
+\]
+" augroup completion_preview_close
+"   autocmd!
+"   if v:version > 703 || v:version == 703 && has('patch598')
+"     autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
+"   endif
+" augroup END
 
 augroup go
 
@@ -589,11 +686,24 @@ let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
-" syntastic
-let g:syntastic_python_checkers=['python', 'flake8']
+"*****************************************************************************
+"" syntastic
+"*****************************************************************************
+" let g:syntastic_python_checkers=['python', 'flake8']
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_error_symbol='✗'
+" let g:syntastic_warning_symbol='⚠'
+" let g:syntastic_style_error_symbol = '✗'
+" let g:syntastic_style_warning_symbol = '⚠'
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_auto_loc_list=0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_auto_jump = 0
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
 
 " Syntax highlight
 " Default highlight is better than polyglot
@@ -622,7 +732,6 @@ endif
 "*****************************************************************************
 
 " vim-airline
-let g:airline_section_z = '%3p%% %3l:%2c'
 
 
 if !exists('g:airline_symbols')
