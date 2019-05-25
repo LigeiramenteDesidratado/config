@@ -42,19 +42,12 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
 Plug 'jreybert/vimagit'
 Plug 'majutsushi/tagbar'
-" Plug 'vim-syntastic/syntastic'
-" Plug 'w0rp/ale'
 Plug 'neomake/neomake'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
-" Plug 'Valloric/YouCompleteMe'
-" Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'ryanoasis/vim-devicons'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-" Plug 'tpope/vim-fugitive'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 if isdirectory('/usr/local/opt/fzf')
@@ -113,10 +106,6 @@ Plug 'racer-rust/vim-racer'
 
 " Rust.vim
 Plug 'rust-lang/rust.vim'
-
-
-"*****************************************************************************
-"*****************************************************************************
 
 "" Include user's extra bundle
 if filereadable(expand("~/.config/nvim/local_bundles.vim"))
@@ -204,8 +193,6 @@ else
 
 endif
 
-
-
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
 set scrolloff=3
@@ -234,7 +221,6 @@ endif
 
 " vim-airline
 let g:airline_theme = 'jellybeans'
-" let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
@@ -318,11 +304,10 @@ set autoread
 "*****************************************************************************
 "" Personal
 if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 set completeopt-=preview
-imap jk <Esc>:FixWhitespace<CR>
+imap <silent> jk <Esc>:FixWhitespace<CR>
 " Disable <C-J> in c files
 let g:C_Ctrl_j='off'
 " Compile
@@ -424,43 +409,6 @@ set shortmess+=c
 set signcolumn=yes
 inoremap <silent><expr> <c-space> coc#refresh()
 
-
-
-""YCM
-"let g:ycm_key_list_select_completion   = ['<C-j>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-"let g:ycm_key_list_stop_completion = ['<C-s>']
-"let g:ycm_use_ultisnips_completer = 1
-"map <leader>j :YcmCompleter GoToDefinition<cr>
-"map <leader>jj :YcmCompleter GoToDeclaration<cr>
-"map <leader>k :YcmCompleter GetType<cr>
-
-" " deoplete
-
-" if has('nvim')
-"     " Enable deoplete on startup
-"     let g:deoplete#enable_at_startup = 1
-" endif
-
-
-" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-" let g:deoplete#sources#go#source_importer = 1
-
-" " Enable autocomplete of unimported packages
-" let g:deoplete#sources#go#unimported_packages = 1
-
-" call deoplete#custom#option({
-" \ 'auto_complete_delay': 0,
-" \ 'auto_refresh_delay': 10,
-" \})
-
-" let g:deoplete#enable_ignore_case = 1
-" let g:deoplete#enable_smart_case = 1
-
-
-" " Enable completing of go pointers
-" let g:deoplete#sources#go#pointer = 1
-
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
@@ -521,61 +469,6 @@ nnoremap <Leader>o :.Gbrowse<CR>
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
-"*****************************************************************************
-""  ale
-"*****************************************************************************
-
-" let g:airline#extensions#ale#enabled = 0
-" let g:ale_sign_error = '✗'
-" let g:ale_sign_warning = '⚠'
-" let g:ale_virtualtext_cursor = 1
-" let g:ale_echo_cursor = 0
-" let g:ale_virtualtext_delay = 30
-" let g:ale_virtualtext_prefix = 'ﮊ '
-
-"*****************************************************************************
-""  neomake
-"*****************************************************************************
-
-" autocmd BufWritePost * Neomake
-" let g:neomake_error_sign   = {'text': '✗', 'texthl': 'NeomakeErrorSign'}
-" let g:neomake_warning_sign = {'text': '⚠', 'texthl': 'NeomakeWarningSign'}
-" let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
-" let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
-
-" " let g:neomake_verbose = 3
-" let g:neomake_logfile = '/home/machine/neomake.log'
-" hi NeomakeWarningSign ctermfg=yellow
-" let g:neomake_echo_current_error = 0
-" let g:neomake_cursormoved_delay = 30
-
-
-" " neomake configuration for Go.
-" " let g:neomake_go_enabled
-" let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
-" let g:neomake_go_gometalinter_maker = {
-"   \ 'args': [
-"   \   '--tests',
-"   \   '--enable-gc',
-"   \   '--concurrency=3',
-"   \   '--fast',
-"   \   '-D', 'aligncheck',
-"   \   '-D', 'dupl',
-"   \   '-D', 'gocyclo',
-"   \   '-D', 'gotype',
-"   \   '-E', 'misspell',
-"   \   '-E', 'staticcheck',
-"   \   '%:p:h',
-"   \ ],
-"   \ 'append_file': 0,
-"   \ 'errorformat':
-"   \   '%E%f:%l:%c:%trror: %m,' .
-"   \   '%W%f:%l:%c:%tarning: %m,' .
-"   \   '%E%f:%l::%trror: %m,' .
-"   \   '%W%f:%l::%tarning: %m'
-"   \ }
-
-
 " go
 " vim-go
 " run :GoBuild or :GoTestCompile based on the go file
@@ -629,12 +522,6 @@ let g:go_metalinter_enabled = [
     \ 'goconst',
     \ 'vetshadow'
 \]
-" augroup completion_preview_close
-"   autocmd!
-"   if v:version > 703 || v:version == 703 && has('patch598')
-"     autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
-"   endif
-" augroup END
 
 augroup go
 
@@ -686,20 +573,6 @@ let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
-"*****************************************************************************
-"" syntastic
-"*****************************************************************************
-" let g:syntastic_python_checkers=['python', 'flake8']
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_error_symbol='✗'
-" let g:syntastic_warning_symbol='⚠'
-" let g:syntastic_style_error_symbol = '✗'
-" let g:syntastic_style_warning_symbol = '⚠'
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_auto_loc_list=0
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_auto_jump = 0
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
@@ -732,7 +605,6 @@ endif
 "*****************************************************************************
 
 " vim-airline
-
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
