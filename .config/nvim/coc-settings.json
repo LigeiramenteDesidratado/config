@@ -1,0 +1,45 @@
+{
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextPrefix": "ﮊ ",
+    "diagnostic.errorSign": "✗",
+    "diagnostic.infoSign": "ℹ",
+    "diagnostic.hintSign": "",
+    "diagnostic.enableMessage": "never",
+    "diagnostic.messageTarget": "float",
+    "coc.preferences.hoverTarget": "float",
+    "signature.target": "float",
+    "suggest.enablePreview": true,
+    "suggest.echodocSupport": true,
+    "snippets.ultisnips.directories": [
+        "UltiSnips",
+        "gosnippets/UltiSnips"
+    ],
+    "git.enableGutters": true,
+    "git.signOffset": 12,
+    "git.addedSign.hlGroup": "GitGutterAdd",
+    "git.changedSign.hlGroup": "GitGutterChange",
+    "git.removedSign.hlGroup": "GitGutterDelete",
+    "git.topRemovedSign.hlGroup": "GitGutterDelete",
+    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+    "list.source.grep.command": "rg",
+
+    "languageserver": {
+
+    "ccls": {
+        "command": "ccls",
+        "filetypes": ["c", "cpp", "objc", "objcpp"],
+        "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+        "initializationOptions": {
+            "cache": {
+                "directory": "/tmp/ccls"
+            }
+        }
+    },
+
+    "golang": {
+        "command": "gopls",
+        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+        "filetypes": ["go"]
+        }
+    }
+}
