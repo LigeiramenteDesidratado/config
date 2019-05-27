@@ -1,8 +1,3 @@
-" vim-bootstrap b0a75e4
-
-"*****************************************************************************
-"" Vim-PLug core
-"*****************************************************************************
 if has('vim_starting')
   set nocompatible               " Be iMproved
 endif
@@ -10,10 +5,6 @@ endif
 set shell=/bin/dash
 
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-
-let g:vim_bootstrap_langs = "c,go,html,lua,python,rust"
-let g:vim_bootstrap_editor = "nvim"				" nvim or vim
-
 if !filereadable(vimplug_exists)
   if !executable("curl")
     echoerr "You have to install curl or first install vim-plug yourself!"
@@ -27,7 +18,6 @@ if !filereadable(vimplug_exists)
   autocmd VimEnter * PlugInstall
 endif
 
-" Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 "*****************************************************************************
@@ -36,40 +26,20 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/grep.vim'
+" Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
 Plug 'jreybert/vimagit'
 Plug 'majutsushi/tagbar'
-Plug 'neomake/neomake'
 Plug 'Yggdroot/indentLine'
-Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
 Plug 'ryanoasis/vim-devicons'
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-if isdirectory('/usr/local/opt/fzf')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
 let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
 endif
-
-"" Vim-Session
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
-if v:version >= 704
-  "" Snippets
-  Plug 'SirVer/ultisnips'
-endif
-
 Plug 'honza/vim-snippets'
 
 "*****************************************************************************
@@ -147,6 +117,7 @@ set hidden
 "" Searching
 set hlsearch
 set incsearch
+set inccommand=split
 set ignorecase
 set smartcase
 
@@ -215,10 +186,6 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
-
 " vim-airline
 let g:airline_theme = 'jellybeans'
 let g:airline#extensions#branch#enabled = 1
@@ -240,23 +207,6 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
-
-" grep.vim
-nnoremap <silent> <leader>f :Rgrep<CR>
-let Grep_Default_Options = '-IR'
-let Grep_Skip_Files = '*.log *.db'
-let Grep_Skip_Dirs = '.git node_modules'
-
-" vimshell.vim
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_prompt =  '$ '
-
-" terminal emulation
-if g:vim_bootstrap_editor == 'nvim'
-  nnoremap <silent> <leader>sh :terminal<CR>
-else
-  nnoremap <silent> <leader>sh :VimShellCreate<CR>
-endif
 
 "*****************************************************************************
 "" Functions
@@ -312,8 +262,10 @@ imap <silent> jk <Esc>:FixWhitespace<CR>
 let g:C_Ctrl_j='off'
 " Compile
 map <leader>a :w<CR>:!compiler <c-r>%<CR>
-
-
+set pyxversion=3
+let g:coc_git_status=1
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gd <Plug>(coc-git-commit)
 " mouse
 set mouse=a
 let g:airline_section_z = '%3p%% %3l:%2c'
@@ -325,21 +277,15 @@ noremap <Leader>v :<C-u>vsplit<CR>
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_concealcursor = 'inc'
 let g:indentLine_conceallevel = 2
-"" Git
-noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
-
-" session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
+" "" Git
+" noremap <Leader>ga :Gwrite<CR>
+" noremap <Leader>gc :Gcommit<CR>
+" noremap <Leader>gsh :Gpush<CR>
+" noremap <Leader>gll :Gpull<CR>
+" noremap <Leader>gs :Gstatus<CR>
+" noremap <Leader>gb :Gblame<CR>
+" noremap <Leader>gd :Gvdiff<CR>
+" noremap <Leader>gr :Gremove<CR>
 
 "" Tabs
 nnoremap <Tab> gt
@@ -355,42 +301,24 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "" Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-"" fzf.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 
-" The Silver Searcher
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
-" ripgrep
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <silent> <leader>ee :Buffers<CR>
-nnoremap <silent> <leader>q :FZF -m<CR>
-
-" snippets
-let g:UltiSnipsExpandTrigger="<C-l>"
-let g:UltiSnipsJumpForwardTrigger="<C-l>"
-let g:UltiSnipsJumpBackwardTrigger="<C-h>"
-let g:UltiSnipsEditSplit="vertical"
 
 
 " coc.nvim
-"
+let g:coc_force_debug = 1
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<CR>"
+
+let g:coc_snippet_next = "\<C-n>"
+let g:coc_snippet_prev = "\<C-N>"
+
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -400,7 +328,7 @@ endfunction
 " if hidden is not set, TextEdit might fail.
 set hidden
 " Better display for messages
-set cmdheight=2
+set cmdheight=1
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
 " don't give |ins-completion-menu| messages.
@@ -409,9 +337,47 @@ set shortmess+=c
 set signcolumn=yes
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" coc-snippets
+imap <C-s> <Plug>(coc-snippets-expand)
+
+" Use <C-l> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-l>'
+
+" Use <C-h> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-h>'
+
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
+
+" coc-lists
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
+vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <leader>g :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
+
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'CocList grep '.word
+endfunction
+
+
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -428,11 +394,6 @@ noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
-if has('macunix')
-  " pbcopy for OSX copy/paste
-  vmap <C-x> :!pbcopy<CR>
-  vmap <C-c> :w !pbcopy<CR><CR>
-endif
 
 "" Buffer nav
 noremap <leader>z :bp<CR>
@@ -459,7 +420,7 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 "" Open current line on GitHub
-nnoremap <Leader>o :.Gbrowse<CR>
+" nnoremap <Leader>o :.Gbrowse<CR>
 
 "*****************************************************************************
 "" Custom configs
@@ -540,10 +501,10 @@ augroup go
   au FileType go nmap <Leader>gt <Plug>(go-coverage-toggle)
   au FileType go nmap <Leader>i <Plug>(go-info)
   au FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
-  au FileType go nmap <C-g> :GoDecls<cr>
-  au FileType go nmap <leader>dr :GoDeclsDir<cr>
-  au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
-  au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
+  " au FileType go nmap <C-g> :GoDecls<cr>
+  " au FileType go nmap <leader>dr :GoDeclsDir<cr>
+  " au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
+  " au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
 
 augroup END
@@ -591,15 +552,6 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
-
-"*****************************************************************************
-"*****************************************************************************
-
-"" Include user's local vim config
-if filereadable(expand("~/.config/nvim/local_init.vim"))
-  source ~/.config/nvim/local_init.vim
-endif
-
 "*****************************************************************************
 "" Convenience variables
 "*****************************************************************************
@@ -610,7 +562,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-let g:airline#extensions#vimagit#enabled = 1
+" let g:airline#extensions#vimagit#enabled = 1
 if !exists('g:airline_powerline_fonts')
   let g:airline_left_sep = ''
   let g:airline#extensions#tabline#left_sep = ''
