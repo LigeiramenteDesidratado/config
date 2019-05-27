@@ -14,7 +14,7 @@
 set vicmd=vim
 " set vicmd=elvis\ -G\ termcap
 " set vicmd=vile
-
+set shell=/bin/dash
 " This makes vifm perform file operations on its own instead of relying on
 " standard utilities like `cp`.  While using `cp` and alike is a more universal
 " solution, it's also much slower when processing large amounts of files and
@@ -70,7 +70,7 @@ colorscheme solarized-dark
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
 " See man date or man strftime for details.
 
-set timefmt=%m/%d\ %H:%M
+set timefmt=%d/%b/%y\ %H:%M
 
 " Show list of matches on tab completion in command-line mode
 
@@ -146,9 +146,9 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep vim "+grep %a"
 command! reload :write | restart
-command! a sxiv -tbaq %d FD 2 /dev/null &
-command! A sxiv -tbarq %d FD 2 /dev/null &
-command! o $HOME/.scripts/thumbvid.sh && sxiv -tbaq %d %d/.thumb__ FD 2 /dev/null &
+command! a sxiv -tbaq %d > /dev/null 2>&1 &
+command! A sxiv -tbarq %d > /dev/null 2>&1 &
+command! o $HOME/.scripts/thumbvid.sh && sxiv -ptbaq %d %d/.thumb__ > /dev/null 2>&1 &
 " ------------------------------------------------------------------------------
 
 " The file type is for the default programs to be used with
@@ -289,7 +289,7 @@ filetype *.asc
        \ !!gpg --verify %c,
 
 " Torrent
-filetype *.torrent ktorrent %f &
+filetype *.torrent transadd %c
 fileviewer *.torrent dumptorrent -v %c
 
 " FuseZipMount
@@ -354,7 +354,7 @@ filextype */
         \ {View in thunar}
         \ Thunar %f &,
 
-filextype *.AppImage ./%f &
+filextype *.AppImage ./%c &
 " Syntax highlighting in preview
 "
 " Explicitly set highlight type for some extensions

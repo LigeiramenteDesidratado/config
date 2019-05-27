@@ -1,13 +1,13 @@
 #!/bin/sh
 
-# Profile file. Runs on login.
-
-#export PATH="$PATH:$HOME/.scripts/:/bin/vendor_perl/"
+#export PATH="$PATH:$HOME/.scripts/
 #export EDITOR="nvim"
 #export TERMINAL="st"
 #export BROWSER="brave-beta"
 #export TRUEBROWSER="brave-beta"
 #export READER="zathura"
+PS1="\[\033[38;5;160m\][\W] \[$(tput sgr0)\]"
+export PS1
 
 #[ -f ~/.bashrc ] && source ~/.bashrc
 
@@ -17,10 +17,4 @@
 #if [ "$(tty)" = "/dev/tty1" ]; then
 #	pgrep -x dwm || exec startx
 #fi
-
-# Switch escape and caps and use wal colors if tty:
-#sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
-#tty | grep tty >/dev/null && wal -Rns
-
-
 

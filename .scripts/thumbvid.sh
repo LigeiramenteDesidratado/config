@@ -2,7 +2,7 @@
 
 currentPath=$(pwd)
 
-pathThumb="$HOME/.cache/thumbnails/sxivThumbs"
+pathThumb="/home/machine/.cache/thumbnails/sxivThumbs"
 
 folderStruct=$(echo "${currentPath}" | sha1sum | head -c40)
 
@@ -24,7 +24,7 @@ function checkIfExists() {
     fi
 
     if [[ ! -L "${currentPath}/.thumb__" ]]; then
-        ln -sf "${dir}" "${currentPath}/.thumb__"
+        ln -fs "${dir}" "${currentPath}/.thumb__"
     fi
 
     if [[ ! -f "${dbFile}" ]]; then
@@ -37,7 +37,6 @@ checkIfExists
 
 function loadDB() {
 
-    #unset keyValuePair
     while read line; do
         keyValuePair["${line:0:44}"]="${line:45}"
     done < "${dbFile}"
@@ -47,10 +46,10 @@ function loadDB() {
 loadDB
 
 function closeDB() {
-    > "${dbFile}"
+    echo "" > "${dbFile}"
 
     for kv in "${!keyValuePair[@]}"; do
-        echo ${kv} ${keyValuePair[${kv}]} >> "${dbFile}"
+        echo "${kv} ${keyValuePair[${kv}]}" >> "${dbFile}"
     done
 
 }
@@ -76,3 +75,4 @@ for FILE in "${currentPath}/"*; do
 done
 
 closeDB
+

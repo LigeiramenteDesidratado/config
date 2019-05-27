@@ -61,10 +61,7 @@ for_window [instance="sxiv"] border pixel 0
 
 for_window [instance="brave-beta-bin"] fullscreen disable
 
-# #---Personal---# #
-
-# My ToDo script
-exec_always --no-startup-id /home/machine/dev/python/tarefas/./tarefas.py
+#exec_always --no-startup-id /home/machine/dev/python/tarefas/./tarefas.py
 assign [class="newspod"] → number "10:News"
 
 # #---Starting External Scripts---# #
@@ -88,10 +85,13 @@ exec --no-startup-id i3mpdupdate
 exec --no-startup-id nm-applet
 # mpd startup
 exec --no-startup-id mpd
+# My ToDo script
+exec --no-startup-id cleanTasks
 # Wallpaper
 #exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
 #exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
-exec --no-startup-id xwallpaper --daemon --stretch .config/wall.jpg
+# exec --no-startup-id xwallpaper --daemon --stretch .config/wall.jpg
+exec --no-startup-id /home/machine/.scripts/randWallpaper
 
 # Set Xresources colors:
 set_from_resource $darkblack		color0  #000000
@@ -157,7 +157,7 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|floatst
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|floatst|vifm).*$"] kill
 
 
-bindsym Ctrl+Shift+L		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Screenshot saved" "~/shots/$f"'
+bindsym $mod+Shift+P		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Screenshot saved" "~/shots/$f"'
 
 bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14
 bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
@@ -186,7 +186,7 @@ bindsym $mod+o			sticky toggle
 bindsym $mod+Ctrl+l		exec --no-startup-id "sh ~/.scripts/i3resize right"
 
 bindsym $mod+p			exec --no-startup-id lmc toggle
-bindsym $mod+Shift+p		exec --no-startup-id lmc pause
+#bindsym $mod+Shift+p		exec --no-startup-id lmc pause
 
 bindsym $mod+a			exec --no-startup-id winspawn dropdowncalc -f mono:pixelsize=14
 bindsym $mod+Shift+a		exec $term -e pulsemixer

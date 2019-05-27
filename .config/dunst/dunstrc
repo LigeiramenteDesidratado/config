@@ -232,8 +232,7 @@
     close = mod4+BackSpace
 
     # Close all notifications.
-    close_all = mod4+shift+i
-
+    # close_all = mod4+shift+i
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1". Make sure this key actually exists on your keyboard layout,

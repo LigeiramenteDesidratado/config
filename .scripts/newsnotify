@@ -1,13 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-if [[ "${#}" -eq 0 ]]
-then
-    # Debbuging
-    notify-send -i $HOME/.scripts/rss.png "RSS: something is wrong"
-    exit 1
-else
-    notify-send -i $HOME/.scripts/rss.png "Newsboat" "${1}"
+[ "${#}" -eq 0 ] && exit 1
 
-fi
-
+notify-send -i "${HOME}"/.scripts/rss.png "📰 Newsboat" "${1}"
 

@@ -265,7 +265,7 @@ map <leader>a :w<CR>:!compiler <c-r>%<CR>
 set pyxversion=3
 let g:coc_git_status=1
 nmap gs <Plug>(coc-git-chunkinfo)
-nmap gd <Plug>(coc-git-commit)
+nmap gc <Plug>(coc-git-commit)
 " mouse
 set mouse=a
 let g:airline_section_z = '%3p%% %3l:%2c'
@@ -537,7 +537,6 @@ let g:jedi#smart_auto_mappings = 0
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#whitespace#enabled = 0
 
 " Syntax highlight
 " Default highlight is better than polyglot
