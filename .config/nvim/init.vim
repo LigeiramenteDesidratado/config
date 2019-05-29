@@ -1,7 +1,3 @@
-if has('vim_starting')
-  set nocompatible               " Be iMproved
-endif
-
 set shell=/bin/dash
 
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
@@ -26,7 +22,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
 Plug 'jreybert/vimagit'
@@ -42,39 +37,21 @@ if exists('make')
 endif
 Plug 'honza/vim-snippets'
 
-"*****************************************************************************
-"" Custom bundles
-"*****************************************************************************
-
 " c
 Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 Plug 'ludwig/split-manpage.vim'
 
-
 " go
-"" Go Lang Bundle
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
-
 " html
-"" HTML Bundle
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 
-
-" python
-"" Python Bundle
-Plug 'davidhalter/jedi-vim'
-Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
-
 " rust
-" Vim racer
 Plug 'racer-rust/vim-racer'
-
-" Rust.vim
 Plug 'rust-lang/rust.vim'
 
 "" Include user's extra bundle
@@ -123,15 +100,10 @@ set smartcase
 
 "" Directories for swp files
 set nobackup
+set nowritebackup
 set noswapfile
 
 set fileformats=unix,dos,mac
-
-" session management
-let g:session_directory = "~/.config/nvim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
 
 "*****************************************************************************
 "" Visual Settings
@@ -179,19 +151,11 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-" vim-airline
-let g:airline_theme = 'jellybeans'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline_skip_empty_sections = 1
 
 "*****************************************************************************
 "" Abbreviations
@@ -256,19 +220,14 @@ set autoread
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-set completeopt-=preview
 imap <silent> jk <Esc>:FixWhitespace<CR>
 " Disable <C-J> in c files
 let g:C_Ctrl_j='off'
 " Compile
 map <leader>a :w<CR>:!compiler <c-r>%<CR>
 set pyxversion=3
-let g:coc_git_status=1
-nmap gs <Plug>(coc-git-chunkinfo)
-nmap gc <Plug>(coc-git-commit)
 " mouse
 set mouse=a
-let g:airline_section_z = '%3p%% %3l:%2c'
 set number relativenumber
 "" Split
 noremap <Leader>h :<C-u>split<CR>
@@ -277,15 +236,6 @@ noremap <Leader>v :<C-u>vsplit<CR>
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_concealcursor = 'inc'
 let g:indentLine_conceallevel = 2
-" "" Git
-" noremap <Leader>ga :Gwrite<CR>
-" noremap <Leader>gc :Gcommit<CR>
-" noremap <Leader>gsh :Gpush<CR>
-" noremap <Leader>gll :Gpull<CR>
-" noremap <Leader>gs :Gstatus<CR>
-" noremap <Leader>gb :Gblame<CR>
-" noremap <Leader>gd :Gvdiff<CR>
-" noremap <Leader>gr :Gremove<CR>
 
 "" Tabs
 nnoremap <Tab> gt
@@ -301,14 +251,13 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "" Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-
-
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>ee :Buffers<CR>
 
 
+"*****************************************************************************
 " coc.nvim
-let g:coc_force_debug = 1
+"*****************************************************************************
+
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -319,6 +268,9 @@ inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<CR>"
 let g:coc_snippet_next = "\<C-n>"
 let g:coc_snippet_prev = "\<C-N>"
 
+nnoremap <silent> <leader>ee :CocList buffers<CR>
+nnoremap <silent> <leader>f :CocList files<CR>
+nnoremap <silent> <leader>gc :CocList bcommits<CR>
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -351,6 +303,11 @@ nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " coc-lists
+
+let g:coc_git_status=1
+nnoremap <silent> <space>s  :<C-u>CocList --normal gstatus<CR>
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gd <Plug>(coc-git-commit)
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 
 function! s:GrepArgs(...)
@@ -376,8 +333,6 @@ function! s:GrepFromSelected(type)
   let @@ = saved_unnamed_register
   execute 'CocList grep '.word
 endfunction
-
-
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -514,29 +469,6 @@ augroup END
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 
-" python
-" vim-python
-augroup vimrc-python
-  autocmd!
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
-      \ formatoptions+=croq softtabstop=4
-      \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-augroup END
-
-" jedi-vim
-let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#smart_auto_mappings = 0
-
-
-" vim-airline
-let g:airline#extensions#virtualenv#enabled = 1
 
 " Syntax highlight
 " Default highlight is better than polyglot
@@ -555,29 +487,39 @@ au FileType rust nmap <leader>gd <Plug>(rust-doc)
 "" Convenience variables
 "*****************************************************************************
 
-" vim-airline
+" " vim-airline
 
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+let g:airline_section_z = '%3p%% %3l:%2c'
+let g:airline_section_b = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}"
+let g:coc_git_status = 1
+let b:coc_git_status = 1
+let g:airline_theme = 'jellybeans'
+
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-" let g:airline#extensions#vimagit#enabled = 1
+let g:airline#extensions#vimagit#enabled = 1
+let g:airline#extensions#virtualenv#enabled = 1
 if !exists('g:airline_powerline_fonts')
-  let g:airline_left_sep = ''
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
-  let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep     = '«'
+  let g:airline_left_sep = ''
+  let g:airline#extensions#tabline#left_sep = '' " ''
+  let g:airline#extensions#tabline#left_alt_sep = '' " ''
+  let g:airline_left_alt_sep      = '⪼' " '»'
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep     =  '⪻' " '«'
   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = '⊘'
+  let g:airline#extensions#readonly#symbol   = ''
   let g:airline#extensions#linecolumn#prefix = '¶'
   let g:airline#extensions#paste#symbol      = 'ρ'
   let g:airline_symbols.linenr    = '␊'
   let g:airline_symbols.branch    = ''
-  let g:airline_symbols.paste     = 'ρ'
   let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '∥'
   let g:airline_symbols.whitespace = 'Ξ'
 else
   let g:airline#extensions#tabline#left_sep = ''
@@ -592,3 +534,4 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+
