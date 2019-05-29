@@ -1,0 +1,33 @@
+#! /usr/bin/sh
+
+# Copyright (C) 2019 Vinicius de Oliveira (https://github.com/ContinuedBug)
+# Licensed under the terms of the GNU GPL v2 only.
+# POSIX-compliant random wallpaper setter
+
+WALLPAPERPATH="${WALLPAPERPATH:-${HOME}/wallpapers/}"
+test -n "${1}" && WALLPAPERPATH="${1}"
+
+MAXLENG=0
+COUNT=0
+STEP=2
+RAND=0
+
+
+while [ "${STEP}" -gt 0 ]; do
+
+for WALL in "${WALLPAPERPATH}"*; do
+
+    TESTFILE=$(file --mime-type -b -h "${WALL}" | cut -f 1 -d "/")
+    if [ "${TESTFILE}" = 'image' ]; then
+        [ "${STEP}" = 1 ] && [ "${RAND}" -eq "${COUNT}" ] && notify-send "Setting wallpaper" "$(basename "${WALL}")" && /usr/bin/xwallpaper --zoom "${WALL}" && exit 0
+        COUNT=$(( COUNT + 1 ))
+    fi
+done
+
+STEP=$(( STEP - 1 ))
+MAXLENG="${COUNT}"
+COUNT=0
+RAND=$( awk -v max="${MAXLENG}" 'BEGIN { srand(); printf("%d", ( max * rand() ) + 1 ); }' )
+
+done
+
