@@ -24,7 +24,10 @@ alias yt="youtube-viewer -7"
 alias starwars="telnet towel.blinkenlights.nl"
 
 # Adding color
-alias ls='ls -ct -hNF --color=always --group-directories-first'
+alias colors='$EDITOR $HOME/256-colors'
+alias l='clear && ls -ct -hNF --color=always --group-directories-first'
+alias ll='clear && ls -tlhNG --group-directories-first --color=always'
+
 alias a="overkill"
 alias h="c ~/"
 alias D="c ~/Documents"
@@ -32,16 +35,22 @@ alias d="c ~/Downloads"
 alias m="c /mnt"
 alias s="c ~/.scripts"
 alias cf="c ~/.config"
-alias ..="c .."
 alias .="c ."
+alias ..="c .."
+alias .2="c ../../".
+alias .3="c ../../../".
+alias .4="c ../../../../".
 alias lab="c ~/dev/golang/goworkspace/src/lab/"
 alias :q="exit"
+alias :Q="exit"
+alias :wq="exit"
 alias cfa="$EDITOR ~/.aliases"
 alias cfff="c $HOME/.config/fish"
 alias cff="$EDITOR $HOME/.config/fish/config.fish"
 alias cfc="$EDITOR ~/.scripts/configs"
 alias cfb="$EDITOR ~/.bashrc"
-alias cfv="$EDITOR ~/.vimrc"
+alias cfv="$EDITOR ~/.config/nvim/init.vim"
+alias vv="/usr/bin/vim"
 alias cfp="$EDITOR ~/.profile"
 alias cfi="$EDITOR ~/.config/i3/config"
 alias cfd="$EDITOR ~/.Xdefaults"
@@ -54,6 +63,15 @@ alias cfM="$EDITOR ~/.config/mpd/mpd.conf"
 alias mk="make && sudo make install"
 alias gp="c $GOPATH"
 alias cfx="$EDITOR ~/.xinitrc"
+
+# git stuff
+alias gc="git checkout"
+alias ga="git add"
+alias gci="git commit -m"
+alias gs="git status"
+alias gm="git merge"
+alias gg="git push"
+
 # easter egg
 alias yaourt="yay"
 alias yougurt="yaourt"

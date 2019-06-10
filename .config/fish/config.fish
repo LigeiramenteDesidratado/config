@@ -10,7 +10,7 @@ set -gx READER /usr/bin/zathura
 set -gx COCOS_X_ROOT /opt/cocos2d-x
 set -gx COCOS_CONSOLE_ROOT $COCOS_X_ROOT/tools/cocos2d-console/bin
 set -gx COCOS_TEMPLATES_ROOT $COCOS_X_ROOT/templates
-set PATH $GOPATH $GOBIN $COCOS_X_ROOT $COCOS_CONSOLE_ROOT $COCOS_TEMPLATES_ROOT $PATH /home/machine/.scripts/ $HOME/.cargo/bin $HOME/.scripts/i3blocks/
+set PATH $GOPATH $GOBIN $COCOS_X_ROOT $COCOS_CONSOLE_ROOT $COCOS_TEMPLATES_ROOT $PATH /home/machine/.scripts/ $HOME/.cargo/bin $HOME/.scripts/i3blocks/ (yarn global bin)
 
 source ~/.aliases
 

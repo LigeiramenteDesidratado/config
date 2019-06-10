@@ -12,7 +12,6 @@ dbFile="${dir}/.dbthumb__"
 
 declare -A keyValuePair
 
-
 function checkIfExists() {
 
     if [[ ! -d "${pathThumb}" ]]; then
@@ -60,7 +59,6 @@ for FILE in "${currentPath}/"*; do
     testFile=$(file --mime-type -b -h "${FILE}")
 
     if [[ "${testFile: 0:5}" == "video" ]]; then
-
 
 
         FILESHA=$(echo "${FILE}" | sha1sum | head -c40 | sed 's/$/.png/')
