@@ -2,20 +2,14 @@ set shell=/bin/dash
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-"*****************************************************************************
-"" Plug install packages
-"*****************************************************************************
 Plug 'tpope/vim-commentary'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'bronson/vim-trailing-whitespace'
-" Plug 'Raimondi/delimitMate'
-Plug 'jreybert/vimagit'
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
+" Plug 'mg979/vim-visual-multi'
 " Plug 'https://github.com/lifepillar/vim-colortemplate' "Color generator (see later)
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'honza/vim-snippets'
 
@@ -23,14 +17,8 @@ Plug 'honza/vim-snippets'
 Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 Plug 'ludwig/split-manpage.vim'
 
-" go
-" Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-
 " html
 Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
 
 " rust
 Plug 'racer-rust/vim-racer'
@@ -90,14 +78,11 @@ set ruler
 set number
 
 let no_buffers_menu=1
-if !exists('g:not_finish_vimplug')
-  colorscheme horizon "PaperColor
-endif
+
+colorscheme horizon "PaperColor
 
 set mousemodel=popup
 set t_Co=256
-set guioptions=egmrti
-set gfn=Monospace\ 10
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -193,6 +178,8 @@ if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 imap <silent> jk <Esc>:FixWhitespace<CR>
+
+
 " Disable <C-J> in c files
 let g:C_Ctrl_j='off'
 " Compile
@@ -202,28 +189,20 @@ set pyxversion=3
 set mouse=a
 set number relativenumber
 
-" set fillchars+=vert:\|
 set list
 set listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
+
 "" Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
+noremap <silent>,h :<C-u>split<CR>
+noremap <silent>,j :<C-u>vsplit<CR>
 
 
 "" Tabs
 nnoremap <silent> <S-t> :tabnew<CR>
 
-"" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
 
 "" Opens an edit command with the path of the currently edited file filled in
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-"" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-
 
 "*****************************************************************************
 " coc.nvim
@@ -233,26 +212,44 @@ inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<CR>"
 
-let g:coc_snippet_next = "\<C-n>"
-let g:coc_snippet_prev = "\<C-N>"
+let g:coc_snippet_next = "<C-e>"
+let g:coc_snippet_prev = "<C-q>"
 
-nnoremap <silent> <leader>ee :CocList buffers<CR>
+nnoremap <silent> <leader>o :CocList buffers<CR>
 nnoremap <silent> <leader>f :CocList files<CR>
 nnoremap <silent> <leader>gc :CocList bcommits<CR>
 nnoremap <silent> <leader>y :CocList yank<CR>
+nnoremap <silent> <leader>w :CocList files<cr>
+nmap <silent> <C-[> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-]> <Plug>(coc-diagnostic-next)
+
+nnoremap <silent> S :call <SID>show_documentation()<CR>
+
+nmap <silent>gr <Plug>(coc-references)
+nmap <silent>gi <Plug>(coc-implementation)
+nmap <silent>ge <Plug>(coc-definition)
+
+set belloff+=ctrlg
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" if hidden is not set, TextEdit might fail.
-set hidden
 " Better display for messages
-set cmdheight=1
+set cmdheight=2
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
 " don't give |ins-completion-menu| messages.
@@ -263,12 +260,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 " coc-snippets
 imap <C-s> <Plug>(coc-snippets-expand)
-
-" Use <C-l> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-l>'
-
-" Use <C-h> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-h>'
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -288,7 +279,6 @@ function! s:GrepArgs(...)
   return join(list, "\n")
 endfunction
 
-nnoremap <silent> <space>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -307,11 +297,10 @@ noremap XX "+x<CR>
 
 
 "" Buffer nav
-noremap <leader>z :bp<CR>
-noremap <leader>x :bn<CR>
-
-"" Close buffer
-noremap <leader>c :bd<CR>
+noremap <silent> ,q :bp<CR>
+noremap <silent> ,e :bn<CR>
+noremap <silent> ,c :bd<CR>
+noremap <silent> <C-w> :bd<CR>
 
 "" Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
@@ -341,104 +330,13 @@ vnoremap K :m '<-2<CR>gv=gv
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
-" " go
-" " vim-go
-" " run :GoBuild or :GoTestCompile based on the go file
-
-" set autowrite
-" function! s:build_go_files()
-"   let l:file = expand('%')
-"   if l:file =~# '^\f\+_test\.go$'
-"     call go#test#Test(0, 1)
-"   elseif l:file =~# '^\f\+\.go$'
-"     call go#cmd#Build(0)
-"   endif
-" endfunction
-
-" " " let g:go_auto_type_info = 1
-" " " let g:go_gocode_unimported_packages = 1
-" let g:go_auto_sameids = 1
-" let g:go_list_type = "quickfix"
-" " let g:go_fmt_command = "goimports"
-" let g:go_fmt_fail_silently = 1
-" " let g:syntastic_go_checkers = ['go', 'vet', 'errcheck', 'golint']
-" let g:go_highlight_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_function_calls = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_functions_calls = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_generate_tags = 1
-" let g:go_highlight_space_tab_error = 1
-" let g:go_echo_go_info = 0
-" let g:go_echo_command_info = 0
-" let g:go_code_completion_enabled = 0
-" let g:go_jump_to_error = 0
-" " let g:go_highlight_array_whitespace_error = 1
-" " let g:go_highlight_trailing_whitespace_error = 1
-" " let g:go_highlight_extra_types = 1
-
+" go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
-" let g:go_term_height = 8
-" let g:go_term_width = 30
-
-" " " gometalinter configuration
-" let g:go_metalinter_command = "gometalinter"
-" let g:go_metalinter_deadline = "30s"
-" let g:go_metalinter_enabled = [
-"     \'errcheck',
-"     \ 'golint',
-"     \ 'vet',
-"     \ 'staticcheck',
-"     \ 'ineffassign',
-"     \ 'deadcode',
-"     \ 'gosec',
-"     \ 'goconst',
-"     \ 'vetshadow'
-" \]
-
-" augroup go
-
-"   au!
-"   au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-"   au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-"   au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-"   au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-
-"   au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
-"   au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-"   au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-
-"   au FileType go nmap <silent><Leader>gk :GoKeyify
-"   au FileType go nmap <silent><Leader>gf :GoFillStruct
-
-"   au FileType go nmap <leader>r  <Plug>(go-run)
-"   au FileType go nmap <leader>rr  <Plug>(go-run-split)
-"   au FileType go nmap <leader>t  <Plug>(go-test)
-"   au FileType go nmap <Leader>gt <Plug>(go-coverage-toggle)
-"   au FileType go nmap <Leader>ii <Plug>(go-info)
-"   au FileType go nmap <Leader>i <Plug>(go-imports)
-"   au FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
-"    " au FileType go nmap <C-g> :GoDecls<cr>
-"   " au FileType go nmap <leader>dr :GoDeclsDir<cr>
-"   " au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
-"   " au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
-"   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
-
-" augroup END
-
-
 " html
-" for html files, 2 spaces
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-
+autocmd Filetype html setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " Syntax highlight
-" Default highlight is better than polyglot
 let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
 
@@ -451,54 +349,44 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 "*****************************************************************************
-"" Convenience variables
+"" Statusline Modifications
 "*****************************************************************************
 
-" " vim-airline
+" Left side
+set statusline=
+set statusline+=%1*\ %{StatuslineMode()}\ %3*\ 
+set statusline+=%2*%{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}%4*
+set statusline+=%6*\ %f%m%r%h%w
+set statusline+=%=
+" Right side
+set statusline+=%4*%2*%{&ff}\/%Y\ 
+set statusline+=%3*%5*%3p%%,\ %3l:%-3c
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-let g:airline_section_z = '%3p%% %3l:%2c'
-let g:airline_section_b = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}"
-let g:coc_git_status = 1
-let b:coc_git_status = 1
-let g:airline_theme = 'jellybeans'
+hi User1 cterm=bold  ctermbg=25  ctermfg=189 guibg=#005faf guifg=#d7d7ff
+hi User2 ctermbg=235 ctermfg=189 guibg=#f5f5f5 guifg=#d7d7ff
+hi User3 ctermbg=235 ctermfg=25 guibg=#005faf guifg=#005faf
+hi User4 ctermbg=0 ctermfg=235 guibg=#005faf guifg=#005faf
+hi User5 ctermbg=25  ctermfg=189 guibg=#005faf guifg=#d7d7ff
+hi User6 cterm=italic ctermbg=0  ctermfg=133 guibg=#005faf guifg=#d7d7ff
 
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline_skip_empty_sections = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
 
-let g:airline#extensions#vimagit#enabled = 1
-let g:airline#extensions#virtualenv#enabled = 1
-if !exists('g:airline_powerline_fonts')
-  let g:airline_left_sep = ''
-  let g:airline#extensions#tabline#left_sep = '' " ''
-  let g:airline#extensions#tabline#left_alt_sep = '' " ''
-  let g:airline_left_alt_sep      = '⪼' " '»'
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep     =  '⪻' " '«'
-  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = ''
-  let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = 'ρ'
-  let g:airline_symbols.linenr    = '␊'
-  let g:airline_symbols.branch    = ''
-  let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.whitespace = 'Ξ'
-else
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
-
-  " powerline symbols
-  let g:airline_left_sep          = '▶'
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep         = '◀'
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ''
-endif
-
+function! StatuslineMode()
+  let l:mode=mode()
+  if l:mode==#"n"
+    return "NORMAL"
+  elseif l:mode==?"v"
+    return "VISUAL"
+  elseif l:mode==#"i"
+    return "INSERT"
+  elseif l:mode==#"R"
+    return "REPLACE"
+  elseif l:mode==?"s"
+    return "SELECT"
+  elseif l:mode==#"t"
+    return "TERMINAL"
+  elseif l:mode==#"c"
+    return "COMMAND"
+  elseif l:mode==#"!"
+    return "SHELL"
+  endif
+endfunction
