@@ -30,13 +30,12 @@
 
     "coc.preferences.formatOnType": true,
     "coc.preferences.formatOnSaveFiletypes": ["go"],
-    "coc.preferences.snippetStatusText": "🌈",
- //  "diagnostic.virtualText": true,
- //   "diagnostic.virtualTextPrefix": "  ",
-    "diagnostic.errorSign": "✗",
-    "diagnostic.infoSign": "ℹ",
-    "diagnostic.hintSign": "",
-//    "diagnostic.checkCurrentLine": true,
+    "diagnostic.errorSign": ">>",
+    "diagnostic.infoSign": ">>",
+    "diagnostic.hintSign": ">>",
+    "diagnostic.warningSign": ">>",
+    "rust-client.disableRustup": true,
+
     "coc.preferences.messageLevel": "more",
     "diagnostic.enableMessage": "always",
     "diagnostic.messageTarget": "float",
@@ -93,12 +92,6 @@
             }
         },
 
-        "efm": {
-            "command": "efm-langserver",
-            "args": ["-c", "/home/machine/.config/efm-langserver/config.yaml"],
-            "filetypes": ["vim", "eruby", "markdown"]
-        },
-
         "ccls": {
             "command": "ccls",
             "filetypes": ["c", "cpp", "objc", "objcpp"],
@@ -109,6 +102,13 @@
                 }
             }
         },
+
+        "rust": {
+            "command": "ra_lsp_server",
+            "filetypes": ["rust"],
+            "rootPatterns": ["Cargo.toml"]
+        },
+
 
         "golang": {
             "command": "gopls",
