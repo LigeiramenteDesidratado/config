@@ -5,29 +5,16 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
-Plug 'lilydjwg/colorizer'
 Plug 'vifm/vifm.vim'
-Plug 'liuchengxu/space-vim-dark'
+Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/space-vim-theme'
+Plug 'lifepillar/vim-colortemplate'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'honza/vim-snippets'
 Plug 'ap/vim-buftabline'
-" c
-Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
-Plug 'ludwig/split-manpage.vim'
-
-" html
-Plug 'hail2u/vim-css3-syntax'
-
-" rust
-" Plug 'racer-rust/vim-racer'
-" Plug 'rust-lang/rust.vim'
-
-" off
-" Plug 'majutsushi/tagbar'
+Plug 'gregsexton/MatchTag'
+Plug 'fremff/vim-css-syntax'
 " Plug 'mg979/vim-visual-multi'
-" Plug 'liuchengxu/space-vim-theme'
-" Plug 'lifepillar/vim-colortemplate'
-" Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -87,9 +74,6 @@ let no_buffers_menu=1
 
 set mousemodel=popup
 set t_Co=256
-
-"" Disable the blinking cursor.
-set gcr=a:blinkon0
 set scrolloff=3
 
 "" Status bar
@@ -177,17 +161,28 @@ set autoread
 "" Mappings
 "*****************************************************************************
 "" Personal
-let g:colorizer_startup = 0
+
+let g:vifm_embed_split = 1
+let g:vifm_term = 'st -e'
+let g:vifm_replace_netrw = 1
+
+
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 imap <silent> jk <Esc>:FixWhitespace<CR>
+imap <silent> kj <Esc>:FixWhitespace<CR>
 
-let g:space_vim_dark_background = 233
-color space-vim-dark
-hi Comment guifg=#5C6370 ctermfg=59
-" set termguicolors
-" colorscheme space_vim_theme
+" let g:space_vim_dark_background = 233
+" color space-vim-dark
+" hi Comment guifg=#5C6370 ctermfg=59
+set termguicolors
+
+set background=dark
+colorscheme space_vim_theme
+let g:space_vim_italicize_strings = 1
+let g:space_vim_italic = 1
+
 
 
 " Disable <C-J> in c files
@@ -224,8 +219,23 @@ noremap <silent>,h :<C-u>split<CR>
 noremap <silent>,j :<C-u>vsplit<CR>
 
 
-"" Tabs
+"*****************************************************************************
+" buftabline
+"*****************************************************************************
 nnoremap <silent> <S-t> :tabnew<CR>
+let g:buftabline_numbers = 2
+let g:buftabline_show = 1
+
+nmap ,1 <Plug>BufTabLine.Go(1)
+nmap ,2 <Plug>BufTabLine.Go(2)
+nmap ,3 <Plug>BufTabLine.Go(3)
+nmap ,4 <Plug>BufTabLine.Go(4)
+nmap ,5 <Plug>BufTabLine.Go(5)
+nmap ,6 <Plug>BufTabLine.Go(6)
+nmap ,7 <Plug>BufTabLine.Go(7)
+nmap ,8 <Plug>BufTabLine.Go(8)
+nmap ,9 <Plug>BufTabLine.Go(9)
+nmap ,0 <Plug>BufTabLine.Go(10)
 
 
 "" Opens an edit command with the path of the currently edited file filled in
@@ -234,7 +244,6 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "*****************************************************************************
 " coc.nvim
 "*****************************************************************************
-
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -285,6 +294,8 @@ set shortmess+=c
 set signcolumn=yes
 inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <space>r  :<C-u>CocList -A --normal yank<cr>
+vmap <silent>f <Plug>(coc-format-selected)
 " coc-snippets
 imap <C-s> <Plug>(coc-snippets-expand)
 
@@ -298,6 +309,9 @@ let g:coc_git_status=1
 nnoremap <silent> <space>s  :<C-u>CocList --normal gstatus<CR>
 nmap gs <Plug>(coc-git-chunkinfo)
 nmap gd <Plug>(coc-git-commit)
+nmap gN <Plug>(coc-git-prevchunk)
+nmap gn <Plug>(coc-git-nextchunk)
+nnoremap <silent> ,f :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 
 function! s:GrepArgs(...)
@@ -361,11 +375,11 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " html
-autocmd Filetype html setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype css setlocal ts=2 sw=2 expandtab
 
 " Syntax highlight
 let g:polyglot_disabled = ['python']
-let python_highlight_all = 1
 
 
 " rust
@@ -376,29 +390,55 @@ autocmd BufNewFile,BufRead *.rs setlocal noexpandtab tabstop=4 shiftwidth=4 soft
 " au FileType rust nmap gx <Plug>(rust-def-vertical)
 " au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
+
+
+" Vista
+let g:vista_sidebar_width = 40
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+autocmd BufRead,BufNewFile *.gohtml set filetype=html
+
+let g:vista#renderer#enable_icon = 1
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+
+let g:vista_echo_cursor_strategy = 'floating_win'
+
 "*****************************************************************************
 "" Statusline Modifications
 "*****************************************************************************
 
 " Left side
 set statusline=
-set statusline+=%1*%{StatuslineMode()}
+set statusline+=%1*\ %{StatuslineMode()}\ 
 set statusline+=%2*\ %{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}
 set statusline+=%6*\ %f%m%r%h%w
 set statusline+=%=
 " Right side
+set statusline+=%{NearestMethodOrFunction()}\ 
 set statusline+=%2*%{&ff}\/%Y\ 
 set statusline+=%5*%3p%%,\ %3l:%-3c
 set statusline+=%7*%{Check_mixed_indent_file()}
 
-hi User1 cterm=bold  ctermbg=25  ctermfg=189 guibg=#005faf guifg=#d7d7ff
+hi User1 cterm=bold  ctermbg=25  ctermfg=189 gui=bold guibg=#6981c5 guifg=#262626
 hi User2 ctermbg=235 ctermfg=189 guibg=#262626  guifg=#d7d7ff
-hi User3 ctermbg=235 ctermfg=25 guibg=#262626 guifg=#005faf
+hi User3 ctermbg=235 ctermfg=25 guibg=#262626 guifg=#6981c5
 hi User4 ctermbg=0 ctermfg=235 guibg=#000000 guifg=#262626
-hi User5 ctermbg=25  ctermfg=189 guibg=#005faf guifg=#d7d7ff
-hi User6 cterm=italic ctermbg=0  ctermfg=133 guibg=#000000 guifg=#af5faf
-hi User7 cterm=bold ctermbg=209  ctermfg=0 guibg=#ff875f guifg=#000000
-
+hi User5 ctermbg=25  ctermfg=189 guibg=#6981c5 guifg=#262626
+hi User6 cterm=italic ctermbg=0  ctermfg=133 guibg=#161616 guifg=#a15ea7
+hi User7 cterm=bold ctermbg=209  ctermfg=0 guibg=#ca754b guifg=#000000
 
 function! StatuslineMode()
   let l:mode=mode()

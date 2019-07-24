@@ -1,0 +1,36 @@
+#!/usr/bin/sh
+
+# Copyright (C) 2019 Vinicius de Oliveira (https://github.com/ContinuedBug)
+# Use of this source code is governed by a BSD-style
+
+currentPath=$(pwd)
+
+pathThumb="$HOME/.cache/thumbnails/sxivThumbs"
+
+folderName=$(echo "$currentPath" | sha1sum | head -c40)
+
+dir="$pathThumb/$folderName"
+
+dbFile="$dir/.dbthumb__"
+
+
+[ ! -d "$pathThumb" ] && mkdir "$pathThumb"
+[ ! -d "$dir" ] && mkdir "${dir}"
+[ ! -L "$currentPath/.thumb__" ] && ln -fs "$dir" "$currentPath/.thumb__"
+[ ! -f "$dbFile" ] && touch "$dbFile"
+
+for FILE in "${currentPath}/"*; do
+
+    testFile=$(file --mime-type -b -h "$FILE" | cut -f 1 -d "/")
+
+    if [ "$testFile" = 'video' ]; then
+
+        fileSha=$(echo "$FILE" | sha1sum | head -c40 | sed 's/$/.png/')
+        pathFileShaOutput="$pathThumb/$folderName/$fileSha"
+
+        if ! grep -Fq "$fileSha" "$dbFile"; then echo "$fileSha $FILE" >> "$dbFile"; fi
+
+        [ ! -f "$pathFileShaOutput" ] && ffmpegthumbnailer -f -i "$FILE" -o "$pathFileShaOutput" > /dev/null 2>&1 &
+    fi
+done
+

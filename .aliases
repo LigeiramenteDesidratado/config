@@ -4,7 +4,6 @@
 alias sdn="sudo shutdown now"
 
 # Some aliases
-alias tixati="$HOME/programs/Tixati_portable/tixati_Linux64bit&"
 alias p="sudo pacman"
 alias SS="sudo systemctl"
 alias v="$EDITOR"
@@ -52,6 +51,8 @@ alias cfb="$EDITOR ~/.bashrc"
 alias cfv="$EDITOR ~/.config/nvim/init.vim"
 alias vv="/usr/bin/vim"
 alias cfp="$EDITOR ~/.profile"
+alias cfj="$EDITOR ~/.config/vifm/vifmrc"
+alias cfs="$EDITOR ~/.config/sxiv/exec/key-handler"
 alias cfi="$EDITOR ~/.config/i3/config"
 alias cfd="$EDITOR ~/.Xdefaults"
 alias cfu="$EDITOR ~/.config/newsboat/urls"
@@ -63,6 +64,7 @@ alias cfM="$EDITOR ~/.config/mpd/mpd.conf"
 alias mk="make && sudo make install"
 alias gp="c $GOPATH"
 alias cfx="$EDITOR ~/.xinitrc"
+alias pr="sudo pacman -Rns"
 
 # git stuff
 alias gc="git checkout"

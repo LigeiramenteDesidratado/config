@@ -12,9 +12,9 @@ do
 
 
     "p")
-        db="${PWD}/.thumb__/.dbthumb__"
-        vidFile=$(grep "${filename}" < "${db}" | sed -r 's/.{45}//')
-        mpv "${vidFile}" > /dev/null 2>&1 &
+        db="$PWD/.thumb__/.dbthumb__"
+        vidFile=$(grep "$filename" < "$db" | sed -r 's/.{45}//')
+        mpv "$vidFile" > /dev/null 2>&1 &
         ;;
     "w")
         postFix=$(echo "${filename}" | sed -r 's/.*(.{4})/\1/')

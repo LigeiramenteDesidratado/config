@@ -83,7 +83,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi WildMenu guifg=#e18254 guibg=#212026 guisp=NONE gui=bold cterm=bold
     hi Boolean guifg=#dc752f guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Character guifg=#bc6ec5 guibg=NONE guisp=NONE gui=NONE cterm=NONE
-    hi Comment guifg=#2aa1ae guibg=NONE guisp=NONE gui=italic cterm=italic
+    hi Comment guifg=#44505c guibg=NONE guisp=NONE gui=italic cterm=italic
     hi Conditional guifg=#4f97d7 guibg=NONE guisp=NONE gui=bold cterm=bold
     hi Constant guifg=#e18254 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Define guifg=#2d9574 guibg=NONE guisp=NONE gui=NONE cterm=NONE

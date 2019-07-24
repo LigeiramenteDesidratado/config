@@ -18,3 +18,5 @@ export PS1
 #	pgrep -x dwm || exec startx
 #fi
 
+
+export PATH="$HOME/.cargo/bin:$PATH"
