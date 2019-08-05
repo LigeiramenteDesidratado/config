@@ -13,7 +13,7 @@ unclutter&
 # ln -s ~/.config/sxhkd/sxhkdrc_normal ~/.config/sxhkd/sxhkdrc
 sxhkd > /dev/null 2>&1 &
 
-# ''> /home/machine/.isdwmrunning
+''> /home/machine/.isdwmrunning
 # # programming-mode&
 mpd&
 dwmbar&

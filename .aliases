@@ -40,6 +40,7 @@ alias .2="c ../../".
 alias .3="c ../../../".
 alias .4="c ../../../../".
 alias lab="c ~/dev/golang/goworkspace/src/lab/"
+alias dmp="c $GOPATH/src/dmp/"
 alias :q="exit"
 alias :Q="exit"
 alias :wq="exit"

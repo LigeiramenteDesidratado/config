@@ -28,13 +28,14 @@
         "default": "\uf29c"
     },
 
+
+    "smartf.timeout": 6000,
     "coc.preferences.formatOnType": true,
-    "coc.preferences.formatOnSaveFiletypes": ["go"],
+    "coc.preferences.formatOnSaveFiletypes": ["js", "go", "json"],
     "diagnostic.errorSign": ">>",
     "diagnostic.infoSign": ">>",
     "diagnostic.hintSign": ">>",
     "diagnostic.warningSign": ">>",
-    //"rust-client.disableRustup": true,
 
     "coc.preferences.messageLevel": "more",
     "diagnostic.enableMessage": "always",
@@ -50,7 +51,7 @@
     "git.removedSign.hlGroup": "GitGutterDelete",
     "git.topRemovedSign.hlGroup": "GitGutterDelete",
     "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-    "list.source.grep.command": "ag",
+    "list.source.grep.command": "rg",
 
     "list.source.outline.ctagsFilestypes": ["c", "cpp"],
     "coc.preferences.useQuickfixForLocations": true,
@@ -103,17 +104,18 @@
             }
         },
 
+
         "rust": {
             "command": "ra_lsp_server",
             "filetypes": ["rust"],
             "rootPatterns": ["Cargo.toml"]
         },
 
-
         "golang": {
             "command": "gopls",
             "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
             "filetypes": ["go"]
-            }
         }
+
+    }
 }

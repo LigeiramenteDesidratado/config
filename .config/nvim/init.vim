@@ -6,13 +6,14 @@ Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'vifm/vifm.vim'
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'lifepillar/vim-colortemplate'
+" Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'honza/vim-snippets'
 Plug 'ap/vim-buftabline'
-Plug 'gregsexton/MatchTag'
+" Plug 'gregsexton/MatchTag'
 Plug 'fremff/vim-css-syntax'
 " Plug 'mg979/vim-visual-multi'
 
@@ -162,6 +163,9 @@ set autoread
 "*****************************************************************************
 "" Personal
 
+" Autosave buffers before leaving them
+autocmd BufLeave * silent! :wa
+
 let g:vifm_embed_split = 1
 let g:vifm_term = 'st -e'
 let g:vifm_replace_netrw = 1
@@ -188,7 +192,6 @@ let g:space_vim_italic = 1
 " Disable <C-J> in c files
 let g:C_Ctrl_j='off'
 " Compile
-map <leader>a :w<CR>:!compiler <c-r>%<CR>
 set pyxversion=3
 " mouse
 set mouse=a
@@ -246,16 +249,22 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "*****************************************************************************
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ <SID>check_back_space() ? "\<CR>" :
       \ coc#refresh()
 
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<TAB>"
+inoremap <silent><C-h> <BS>
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 let g:coc_snippet_next = "<C-e>"
 let g:coc_snippet_prev = "<C-q>"
 
-nnoremap <silent> <leader>o :CocList buffers<CR>
+nnoremap <silent> <leader>a :CocList buffers<CR>
 nnoremap <silent> <leader>f :CocList files<CR>
 nnoremap <silent> <leader>gc :CocList bcommits<CR>
 nnoremap <silent> <leader>y :CocList yank<CR>
@@ -263,13 +272,14 @@ nnoremap <silent> <leader>w :CocList files<cr>
 nmap <silent> <C-[> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-]> <Plug>(coc-diagnostic-next)
 
-nnoremap <silent> S :call <SID>show_documentation()<CR>
 
 nmap <silent>gr <Plug>(coc-references)
 nmap <silent>gi <Plug>(coc-implementation)
 nmap <silent>ge <Plug>(coc-definition)
 
 set belloff+=ctrlg
+
+nnoremap <silent> S :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -279,10 +289,6 @@ function! s:show_documentation()
 endfunction
 
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 " Better display for messages
 set cmdheight=2
@@ -293,18 +299,26 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 inoremap <silent><expr> <c-space> coc#refresh()
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> <space>r  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> ,y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> ,r  :<C-u>CocList tags<cr>
 vmap <silent>f <Plug>(coc-format-selected)
 " coc-snippets
 imap <C-s> <Plug>(coc-snippets-expand)
 
-" Tagbar
-nmap <silent> <F4> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
+" smartf
+" press <esc> to cancel.
+nmap f <Plug>(coc-smartf-forward)
+nmap F <Plug>(coc-smartf-backward)
+nmap ; <Plug>(coc-smartf-repeat)
+nmap ,, <Plug>(coc-smartf-repeat-opposite)
+
+augroup Smartf
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+augroup end
+
 
 " coc-lists
-
 let g:coc_git_status=1
 nnoremap <silent> <space>s  :<C-u>CocList --normal gstatus<CR>
 nmap gs <Plug>(coc-git-chunkinfo)
@@ -312,6 +326,8 @@ nmap gd <Plug>(coc-git-commit)
 nmap gN <Plug>(coc-git-prevchunk)
 nmap gn <Plug>(coc-git-nextchunk)
 nnoremap <silent> ,f :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+
+" grep
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 
 function! s:GrepArgs(...)
@@ -320,6 +336,16 @@ function! s:GrepArgs(...)
   return join(list, "\n")
 endfunction
 
+vnoremap ,f :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  normal! `<v`>y
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'CocList grep '.word
+endfunction
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -393,28 +419,31 @@ autocmd BufNewFile,BufRead *.rs setlocal noexpandtab tabstop=4 shiftwidth=4 soft
 
 
 " Vista
-let g:vista_sidebar_width = 40
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
+" let g:vista_sidebar_width = 40
+" nmap <silent> <F4> :Vista!!<CR>
+" let g:vista_floating_delay = 1300
+" let g:vista_default_executive = "coc"
+" function! NearestMethodOrFunction() abort
+"   return get(b:, 'vista_nearest_method_or_function', '')
+" endfunction
 
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-autocmd BufRead,BufNewFile *.gohtml set filetype=html
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd BufRead,BufNewFile *.gohtml set filetype=html
 
-let g:vista#renderer#enable_icon = 1
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" let g:vista#renderer#enable_icon = 1
+" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
 " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+" let g:vista#renderer#icons = {
+" \   "function": "\uf794",
+" \   "variable": "\uf71b",
+" \  }
 
-let g:vista_echo_cursor_strategy = 'floating_win'
+" let g:vista_echo_cursor_strategy = 'floating_win'
 
 "*****************************************************************************
 "" Statusline Modifications
@@ -427,7 +456,6 @@ set statusline+=%2*\ %{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}
 set statusline+=%6*\ %f%m%r%h%w
 set statusline+=%=
 " Right side
-set statusline+=%{NearestMethodOrFunction()}\ 
 set statusline+=%2*%{&ff}\/%Y\ 
 set statusline+=%5*%3p%%,\ %3l:%-3c
 set statusline+=%7*%{Check_mixed_indent_file()}
@@ -471,3 +499,17 @@ function! Check_mixed_indent_file()
     return ''
   endif
 endfunction
+
+" let g:go_metalinter_command = "gometalinter"
+" let g:go_metalinter_deadline = "300s"
+" let g:go_metalinter_enabled = [
+"     \'errcheck',
+"     \ 'golint',
+"     \ 'vet',
+"     \ 'staticcheck',
+"     \ 'ineffassign',
+"     \ 'deadcode',
+"     \ 'gosec',
+"     \ 'goconst',
+"     \ 'vetshadow'
+"     \]
