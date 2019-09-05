@@ -1,0 +1,4 @@
+#!/bin/sh
+
+(pgrep -x transmission-da || (transmission-daemon && notify-send "Starting daemon...")) && transmission-remote-cli
+

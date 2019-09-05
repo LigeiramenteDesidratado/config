@@ -1,0 +1,23 @@
+#!/bin/sh
+
+vid="${1}"
+
+palette='/tmp/palette.png'
+
+palleter() {
+
+	ffmpeg -y -ss 4 -t 2 -i "${vid}" -vf fps=16,scale=800:-1:flags=lanczos,palettegen "${palette}"
+}
+
+
+generate_gif() {
+
+	ffmpeg -ss 4 -t 2 -i "${vid}" -i "${palette}" -filter_complex "fps=16,scale=800:-1:flags=lanczos[x];[x][1:v]paletteuse" output.gif
+
+}
+
+palleter
+
+generate_gif
+
+rm "${palette}"

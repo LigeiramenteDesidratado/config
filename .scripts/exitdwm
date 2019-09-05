@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Bye bye" > /home/machine/.isdwmrunning
+echo "Exiting..."
+sleep 1
+killall dwm -w
+exit

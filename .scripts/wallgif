@@ -1,4 +1,7 @@
-#!/bin/sh [ -z "$1" ] && exit killall xwinwrap
+#!/bin/sh
+
+[ -z "$1" ] && exit
+killall xwinwrap
 
 sleep 0.3
 

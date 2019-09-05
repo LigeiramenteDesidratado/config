@@ -1,0 +1,11 @@
+#! /bin/sh
+
+# $"{1}" Task name
+# $"{2}" Emoj
+# $"{3}" end
+
+taskFile="$HOME/.tasks"
+now=$(date +%s)
+
+ifCat=$(grep "$2 $1" < "$taskFile")
+[ -z "$ifCat" ] && echo "$2" "$1" "$(( now + "$3" ))" >> "$taskFile" && notify-send "$2 Task" "$1"

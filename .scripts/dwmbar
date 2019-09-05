@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# This script sets the statusbar with the xsetroot command at the end. Have it
+# started by ~/.xinitrc or ~/.xprofile.
+
+# Handle SIGTRAP signals sent by refbar to update the status bar immediately.
+trap 'update' 5
+
+# Set the deliminter character.
+delim="|"
+
+# Here is the (big) function that outputs the appearance of the statusbar. It
+# can really be broken down into many submodules which I've commented and
+# explained.
+status() { \
+
+    shuf '/home/machine/.tasks' | awk '{ print $1" "$2}' | head -n 1
+	echo "$delim"
+
+	# Show unread mail if mutt-wizard is installed.
+	command -v mw >/dev/null 2>&1 &&
+		du -a ~/.local/share/mail/*/INBOX/new/* 2>/dev/null | wc -l | sed 's/^/ /'
+		echo "$delim"
+
+	# Date and time.
+    date '+%Y %m(%b) %d(%a) %I:%M%p'
+	}
+
+update() { \
+	# So all that big status function was just a command that quicking gets
+	# what we want to be the statusbar. This xsetroot command is what sets
+	# it. Note that the tr command replaces newlines with spaces. This is
+	# to prevent some weird issues that cause significant slowing of
+	# everything in dwm. Note entirely sure of the cause, but again, the tr
+	# command easily avoids it.
+	xsetroot -name "$(status | tr '\n' ' ')" &
+    wait
+    wait
+    }
+
+
+while :; do
+    update
+	# Sleep for a minute after changing the status bar before updating it
+	# again. We run sleep in the background and use wait until it finishes,
+    # because traps can interrupt wait immediately, but they can't do that
+    # with sleep.
+	sleep 5 &
+    wait
+done

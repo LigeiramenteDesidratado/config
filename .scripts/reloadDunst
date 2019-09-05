@@ -1,0 +1,11 @@
+#!/bin/sh
+
+killall dunst
+
+sleep 0.04
+
+dunst -config ~/.config/dunst/dunstrc &
+
+notify-send -u critical "Test message: " "critical"
+notify-send -u normal "Test message: " "normal"
+notify-send -u low "Test message: " "low"
