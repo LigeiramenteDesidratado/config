@@ -3,7 +3,7 @@ set shell=/bin/dash
 call plug#begin(expand('~/.vim/plugged'))
 
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 

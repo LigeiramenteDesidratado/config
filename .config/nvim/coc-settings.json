@@ -52,6 +52,8 @@
     "git.topRemovedSign.hlGroup": "GitGutterDelete",
     "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
     "list.source.grep.command": "rg",
+    "emmet.includeLanguages": {"gohtmltmpl": "html"},
+    "coc.preferences.bracketEnterImprove": true,
 
     "list.source.outline.ctagsFilestypes": ["c", "cpp"],
     "coc.preferences.useQuickfixForLocations": true,

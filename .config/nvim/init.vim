@@ -162,7 +162,14 @@ set autoread
 "" Mappings
 "*****************************************************************************
 "" Personal
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+inoremap <expr> <cr>
+   \   getline(".") =~ '\S\s*{$'                 ? "<bs><cr>{<cr>}<esc>O"
+   \ : getline('.') =~ '^\s*{$'                  ? "<cr>}<esc>O"
+   \ : getline(".")[col(".")-2:col(".")-1]=="{}" ? "<cr><esc>O"
+   \ :                                             "<cr>"
 
+autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 " Autosave buffers before leaving them
 autocmd BufLeave * silent! :wa
 
@@ -180,10 +187,11 @@ imap <silent> kj <Esc>:FixWhitespace<CR>
 " let g:space_vim_dark_background = 233
 " color space-vim-dark
 " hi Comment guifg=#5C6370 ctermfg=59
-set termguicolors
 
 set background=dark
 colorscheme space_vim_theme
+"horizon  codedark
+set notermguicolors
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
 
@@ -399,6 +407,7 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
 " go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
 
 " html
 autocmd Filetype html setlocal ts=2 sw=2 expandtab

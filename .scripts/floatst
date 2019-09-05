@@ -9,8 +9,8 @@ then
 
 else
 	echo "Window not detected... spawning."
-	i3 "exec --no-startup-id $TERMINAL -n $1 -f $2 " && i3 "[instance=\"$1\"] scratchpad show; [instance=\"$1\"] move position center"
+	swaymsg "exec --no-startup-id $TERMINAL -n $1 -f $2 " && swaymsg "[instance=\"$1\"] scratchpad show; [instance=\"$1\"] move position center"
 
 	sleep .25 # This sleep is my laziness, will fix later (needed for immediate appearance after spawn).
 fi
-i3 "[instance=\"$1\"] scratchpad show; [instance=\"$1\"] move position center"
+swaymsg "[instance=\"$1\"] scratchpad show; [instance=\"$1\"] move position center"

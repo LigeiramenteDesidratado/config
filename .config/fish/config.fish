@@ -11,10 +11,11 @@ set -gx READER /usr/bin/zathura
 set PATH $GOPATH $GOBIN $COCOS_X_ROOT $COCOS_CONSOLE_ROOT $COCOS_TEMPLATES_ROOT $PATH $HOME/.scripts/ $HOME/.local/bin/ $HOME/.cargo/bin $HOME/.scripts/i3blocks/ (yarn global bin)
 
 source ~/.aliases
+remaps&
 
- # Start X at login
-if status is-login
-    if test -z "$DISPLAY" -a $XDG_VTNR = 1
-        exec startx -- -keeptty
-    end
-end
+# Start X at login
+# if status is-login
+#     if test -z "$DISPLAY" -a $XDG_VTNR = 1
+#         exec startx -- -keeptty
+#     end
+# end

@@ -34,32 +34,32 @@ hi! DiffChange ctermbg=23 ctermfg=241 guibg=#384851 guifg=#b3c3cc
 hi! DiffDelete ctermbg=52 ctermfg=167 guibg=#53343b guifg=#ceb0b6
 hi! DiffText cterm=NONE ctermbg=24 ctermfg=233 gui=NONE guibg=#5b7881 guifg=#1c1e26
 hi! Directory ctermfg=203 guifg=#e95678
-hi! Error ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#eC6a88
-hi! ErrorMsg ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#ec6a88
-hi! WarningMsg ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#eC6a88
-hi! EndOfBuffer ctermbg=233 ctermfg=236 guibg=#1c1e26 guifg=#2e303e
-hi! NonText ctermbg=233 ctermfg=236 guifg=#2e303e guibg=#1c1e26
+hi! Error ctermbg=233 ctermfg=203 guibg=#121212 guifg=#eC6a88
+hi! ErrorMsg ctermbg=233 ctermfg=203 guibg=#121212 guifg=#ec6a88
+hi! WarningMsg ctermbg=233 ctermfg=203 guibg=#121212 guifg=#eC6a88
+hi! EndOfBuffer ctermbg=233 ctermfg=236 guibg=#121212 guifg=#2e303e
+hi! NonText ctermbg=233 ctermfg=236 guifg=#2e303e guibg=#121212
 hi! SpecialKey ctermbg=233 ctermfg=174 guibg=#e95678 guifg=#2e303e
-hi! Folded ctermbg=233 ctermfg=242 guibg=#1c1e26 guifg=#6c6f93
-hi! FoldColumn ctermbg=233 ctermfg=242 guibg=#1c1e26 guifg=#6c6f93
+hi! Folded ctermbg=233 ctermfg=242 guibg=#121212 guifg=#6c6f93
+hi! FoldColumn ctermbg=233 ctermfg=242 guibg=#121212 guifg=#6c6f93
 hi! Function ctermfg=37 guifg=#25b0bc
 hi! Identifier cterm=NONE ctermfg=203 guifg=#e95678 gui=italic
 hi! Statement ctermfg=171 gui=NONE guifg=#b877db
 hi! Include ctermfg=171 guifg=#b877db
-hi! LineNr ctermbg=233 ctermfg=239 guibg=#1c1e26 guifg=#6c6f93
+hi! LineNr ctermbg=233 ctermfg=239 guibg=#121212 guifg=#6c6f93
 hi! MatchParen ctermbg=237 ctermfg=255 guibg=#3e445e guifg=#ffffff
 hi! MoreMsg ctermfg=48 guifg=#09f7a0
-hi! Normal ctermbg=233 ctermfg=252 guibg=#1c1e26 guifg=#d5d8da
+hi! Normal ctermbg=233 ctermfg=252 guibg=#121212 guifg=#d5d8da
 hi! Operator ctermfg=37 guifg=#25b0bc
-hi! Pmenu ctermbg=232 ctermfg=133 guibg=NONE guifg=#d5d8da
+hi! Pmenu ctermbg=232 ctermfg=133 guibg=#1c1e26 guifg=#d5d8da
 hi! PmenuSbar ctermbg=236 guibg=#3d425b
 hi! PmenuSel ctermbg=236 ctermfg=209 guibg=#5b6389 guifg=#eff0f4
-hi! PmenuThumb ctermbg=233 guibg=#1c1e26
+hi! PmenuThumb ctermbg=233 guibg=#121212
 hi! PreProc ctermfg=150 guifg=#09f7a0
 hi! Question ctermfg=150 guifg=#09f7a0
 hi! QuickFixLine ctermbg=233 ctermfg=252 guibg=#272c42 guifg=#1c1e26
 hi! Search ctermbg=99 ctermfg=231 guibg=#e4aa80 guifg=#392313
-hi! SignColumn ctermbg=233 ctermfg=242 guibg=#1c1e26 guifg=#6c6f93
+hi! SignColumn ctermbg=233 ctermfg=242 guibg=#121212 guifg=#6c6f93
 hi! Special ctermfg=203 guifg=#e95678
 hi! SpellBad ctermbg=95 ctermfg=252 gui=undercurl guisp=#eC6a88
 hi! SpellCap ctermbg=24 ctermfg=252 gui=undercurl guisp=#25b0bc
@@ -84,8 +84,8 @@ hi! VertSplit cterm=NONE ctermbg=233 ctermfg=233 guibg=#0f1117 guifg=#0f1117 gui
 hi! Visual ctermbg=236 guibg=#272c42
 hi! diffAdded ctermfg=48 guifg=#09f7a0
 hi! diffRemoved ctermfg=203 guifg=#eC6a88
-hi! ALEErrorSign ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#eC6a88
-hi! ALEWarningSign ctermbg=233 ctermfg=209 guibg=#1c1e26 guifg=#fab795
+hi! ALEErrorSign ctermbg=233 ctermfg=203 guibg=#121212 guifg=#eC6a88
+hi! ALEWarningSign ctermbg=233 ctermfg=209 guibg=#121212 guifg=#fab795
 hi! ALEVirtualTextError ctermfg=203 guifg=#eC6a88
 hi! ALEVirtualTextWarning ctermfg=209 guifg=#fab795
 hi! CtrlPMode1 ctermbg=241 ctermfg=234 guibg=#5a5f72 guifg=#17171b
@@ -93,17 +93,23 @@ hi! EasyMotionShade ctermfg=239 guifg=#3d425b
 hi! EasyMotionTarget ctermfg=48 guifg=#09f7a0
 hi! EasyMotionTarget2First ctermfg=209 guifg=#fab795
 hi! EasyMotionTarget2Second ctermfg=209 guifg=#fab795
-hi! GitGutterAdd ctermbg=233 ctermfg=48 guibg=#1c1e26 guifg=#09f7a0
-hi! GitGutterChange ctermbg=233 ctermfg=109 guibg=#1c1e26 guifg=#e95678
-hi! GitGutterChangeDelete ctermbg=233 ctermfg=109 guibg=#1c1e26 guifg=#e95678
-hi! GitGutterDelete ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#eC6a88
+hi! GitGutterAdd ctermbg=233 ctermfg=48 gui=bold guibg=#121212 guifg=#09f7a0
+hi! GitGutterChange ctermbg=233 ctermfg=109 gui=bold  guibg=#121212 guifg=#e95678
+hi! GitGutterChangeDelete ctermbg=233 ctermfg=109 gui=bold guibg=#121212 guifg=#e95678
+hi! GitGutterDelete ctermbg=233 ctermfg=203 gui=bold guibg=#121212 guifg=#eC6a88
 hi! Sneak ctermbg=140 ctermfg=234 guibg=#f09483 guifg=#e95678
 hi! SneakScope ctermbg=236 ctermfg=242 guibg=#272c42 guifg=#d5d8da
-hi! SyntasticErrorSign ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#eC6a88
-hi! SyntasticStyleErrorSign ctermbg=233 ctermfg=203 guibg=#1c1e26 guifg=#eC6a88
-hi! SyntasticStyleWarningSign ctermbg=233 ctermfg=209 guibg=#1c1e26 guifg=#fab795
-hi! SyntasticWarningSign ctermbg=233 ctermfg=209 guibg=#1c1e26 guifg=#fab795
+hi! SyntasticErrorSign ctermbg=233 ctermfg=203 guibg=#121212 guifg=#eC6a88
+hi! SyntasticStyleErrorSign ctermbg=233 ctermfg=203 guibg=#121212 guifg=#eC6a88
+hi! SyntasticStyleWarningSign ctermbg=233 ctermfg=209 guibg=#121212 guifg=#fab795
+hi! SyntasticWarningSign ctermbg=233 ctermfg=209 guibg=#121212 guifg=#fab795
 hi! ZenSpace ctermbg=203 guibg=#eC6a88
+
+
+hi! link BufTabLineCurrent SyntasticStyleErrorSign
+hi! link BufTabLineActive GitGutterDelete
+hi! link BufTabLineHidden EasyMotionTarget2First
+hi! link BufTabLineFill ALEWarningSign
 
 hi! link cssBraces Delimiter
 hi! link cssClassName Special

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Use -n= to give a name
 
@@ -29,7 +29,7 @@ then
 
 else
 	echo "Window not detected... spawning."
-	i3 "exec --no-startup-id $TERMINAL -n $PNAME $(echo "${@:2}") -e $1 " && i3 "[instance=\"$PNAME\"] scratchpad show; [instance=\"$PNAME\"] move position center"
+	swaymsg "exec --no-startup-id $TERMINAL -n $PNAME $(echo "${@:2}") -e $1 " && swaymsg "[instance=\"$PNAME\"] scratchpad show; [instance=\"$PNAME\"] move position center"
 	sleep .25 # This sleep is my laziness, will fix later (needed for immediate appearance after spawn).
 fi
-i3 "[instance=\"$PNAME\"] scratchpad show; [instance=\"$PNAME\"] move position center"
+swaymsg "[instance=\"$PNAME\"] scratchpad show; [instance=\"$PNAME\"] move position center"
