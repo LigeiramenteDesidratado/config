@@ -26,14 +26,12 @@ bind-key U show-urls
 bind-key x pb-delete
 bind-key ^t next-unread
 
-color background         default   default
-color listnormal         color133   default
-color listnormal_unread  color171   default
-color listfocus          color209   color236
-color listfocus_unread   color209   color236
-color info               default   black
-color article            default   default
-
+color listnormal cyan default
+color listfocus black yellow standout bold
+color listnormal_unread blue default
+color listfocus_unread yellow default bold
+color info red black bold
+color article cyan default
 # highlights
 highlight article "^(Title):.*$" blue default
 highlight article "https?://[^ ]+" red default

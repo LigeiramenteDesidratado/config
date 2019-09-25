@@ -6,6 +6,7 @@ alias sdn="sudo shutdown now"
 # Some aliases
 alias p="sudo pacman"
 alias SS="sudo systemctl"
+alias ss="sudo systemctl"
 alias v="$EDITOR"
 alias vim="$EDITOR"
 alias sv="sudo $EDITOR"
@@ -39,7 +40,7 @@ alias ..="c .."
 alias .2="c ../../".
 alias .3="c ../../../".
 alias .4="c ../../../../".
-alias lab="c ~/dev/golang/goworkspace/src/lab/"
+alias lab="c $GOPATH/src/lab/"
 alias dmp="c $GOPATH/src/dmp/"
 alias :q="exit"
 alias :Q="exit"

@@ -33,3 +33,5 @@ export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 # history with data
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

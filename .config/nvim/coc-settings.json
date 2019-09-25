@@ -29,7 +29,6 @@
     },
 
 
-    "smartf.timeout": 6000,
     "coc.preferences.formatOnType": true,
     "coc.preferences.formatOnSaveFiletypes": ["js", "go", "json"],
     "diagnostic.errorSign": ">>",
@@ -111,13 +110,6 @@
             "command": "ra_lsp_server",
             "filetypes": ["rust"],
             "rootPatterns": ["Cargo.toml"]
-        },
-
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["go"]
         }
-
     }
 }

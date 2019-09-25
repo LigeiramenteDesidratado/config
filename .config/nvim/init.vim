@@ -6,12 +6,14 @@ Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'vifm/vifm.vim'
-" Plug 'liuchengxu/vista.vim'
+Plug 'sainnhe/gruvbox-material'
+Plug 'liuchengxu/vista.vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'lifepillar/vim-colortemplate'
 " Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
 Plug 'ap/vim-buftabline'
 " Plug 'gregsexton/MatchTag'
 Plug 'fremff/vim-css-syntax'
@@ -70,8 +72,6 @@ set ruler
 set number
 
 let no_buffers_menu=1
-
-" colorscheme horizon "PaperColor
 
 set mousemodel=popup
 set t_Co=256
@@ -143,39 +143,24 @@ augroup vimrc-wrapping
   autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
 
-"" make/cmake
-
-let g:make = 'gmake'
-if exists('make')
-        let g:make = 'make'
-endif
-
-augroup vimrc-make-cmake
-  autocmd!
-  autocmd FileType make setlocal noexpandtab
-  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
-augroup END
-
 set autoread
 
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
-"" Personal
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-inoremap <expr> <cr>
-   \   getline(".") =~ '\S\s*{$'                 ? "<bs><cr>{<cr>}<esc>O"
-   \ : getline('.') =~ '^\s*{$'                  ? "<cr>}<esc>O"
-   \ : getline(".")[col(".")-2:col(".")-1]=="{}" ? "<cr><esc>O"
-   \ :                                             "<cr>"
 
-autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
+"" Personal
+
 " Autosave buffers before leaving them
 autocmd BufLeave * silent! :wa
+
+"" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 let g:vifm_embed_split = 1
 let g:vifm_term = 'st -e'
 let g:vifm_replace_netrw = 1
+
 
 
 if (has("nvim"))
@@ -184,23 +169,13 @@ endif
 imap <silent> jk <Esc>:FixWhitespace<CR>
 imap <silent> kj <Esc>:FixWhitespace<CR>
 
-" let g:space_vim_dark_background = 233
-" color space-vim-dark
-" hi Comment guifg=#5C6370 ctermfg=59
-
 set background=dark
-colorscheme space_vim_theme
+colorscheme horizon " space_vim_theme gruvbox-material
 "horizon  codedark
-set notermguicolors
+set termguicolors
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
 
-
-
-" Disable <C-J> in c files
-let g:C_Ctrl_j='off'
-" Compile
-set pyxversion=3
 " mouse
 set mouse=a
 set number relativenumber
@@ -223,8 +198,6 @@ augroup terminal-mode
 augroup end
 
 set list
-set listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
-
 "" Split
 noremap <silent>,h :<C-u>split<CR>
 noremap <silent>,j :<C-u>vsplit<CR>
@@ -249,8 +222,6 @@ nmap ,9 <Plug>BufTabLine.Go(9)
 nmap ,0 <Plug>BufTabLine.Go(10)
 
 
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "*****************************************************************************
 " coc.nvim
@@ -263,6 +234,10 @@ inoremap <silent><expr> <C-j>
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<TAB>"
 inoremap <silent><C-h> <BS>
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -296,8 +271,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-
-
 " Better display for messages
 set cmdheight=2
 " Smaller updatetime for CursorHold & CursorHoldI
@@ -306,25 +279,13 @@ set updatetime=300
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
+
 inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <silent> ,y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> ,r  :<C-u>CocList tags<cr>
 vmap <silent>f <Plug>(coc-format-selected)
 " coc-snippets
 imap <C-s> <Plug>(coc-snippets-expand)
-
-" smartf
-" press <esc> to cancel.
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap ,, <Plug>(coc-smartf-repeat-opposite)
-
-augroup Smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-augroup end
-
 
 " coc-lists
 let g:coc_git_status=1
@@ -394,8 +355,6 @@ vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"" Open current line on GitHub
-" nnoremap <Leader>o :.Gbrowse<CR>
 
 "*****************************************************************************
 "" Custom configs
@@ -405,9 +364,17 @@ vnoremap K :m '<-2<CR>gv=gv
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
+autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
+
 " go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
+autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+
 
 " html
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
@@ -428,31 +395,31 @@ autocmd BufNewFile,BufRead *.rs setlocal noexpandtab tabstop=4 shiftwidth=4 soft
 
 
 " Vista
-" let g:vista_sidebar_width = 40
-" nmap <silent> <F4> :Vista!!<CR>
-" let g:vista_floating_delay = 1300
-" let g:vista_default_executive = "coc"
-" function! NearestMethodOrFunction() abort
-"   return get(b:, 'vista_nearest_method_or_function', '')
-" endfunction
+let g:vista_sidebar_width = 40
+nmap <silent> <F4> :Vista!!<CR>
+let g:vista_floating_delay = 1300
+let g:vista_default_executive = "coc"
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
 
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-" autocmd BufRead,BufNewFile *.gohtml set filetype=html
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+autocmd BufRead,BufNewFile *.gohtml set filetype=html
 
-" let g:vista#renderer#enable_icon = 1
-" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#enable_icon = 1
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
 " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-" let g:vista#renderer#icons = {
-" \   "function": "\uf794",
-" \   "variable": "\uf71b",
-" \  }
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 
-" let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista_echo_cursor_strategy = 'floating_win'
 
 "*****************************************************************************
 "" Statusline Modifications
@@ -508,17 +475,3 @@ function! Check_mixed_indent_file()
     return ''
   endif
 endfunction
-
-" let g:go_metalinter_command = "gometalinter"
-" let g:go_metalinter_deadline = "300s"
-" let g:go_metalinter_enabled = [
-"     \'errcheck',
-"     \ 'golint',
-"     \ 'vet',
-"     \ 'staticcheck',
-"     \ 'ineffassign',
-"     \ 'deadcode',
-"     \ 'gosec',
-"     \ 'goconst',
-"     \ 'vetshadow'
-"     \]

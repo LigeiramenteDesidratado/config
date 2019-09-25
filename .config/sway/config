@@ -88,6 +88,8 @@ exec --no-startup-id programming-mode
 # exec --no-startup-id "sh -c 'sleep 5; exec st -c newspod -e newspod'"
 # Redshift
 exec --no-startup-id rs
+exec --no-startup-id mako --font "PragmataPro" --margin 5 --default-timeout 15000 --border-color "#b2b2b2" --background-color "#121212" --border-radius 1 --border-size 4 --text-color "#e1e1e1"
+
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 # Starts clipboard history
@@ -247,16 +249,16 @@ bindsym $mod+semicolon		workspace next
 bindsym $mod+apostrophe		split horizontal ;; exec $term
 bindsym $mod+slash		split vertical ;; exec $term
 
-set $ws1 "1:一"
-set $ws2 "2:二"
-set $ws3 "3:三"
-set $ws4 "4:四"
-set $ws5 "5:五"
-set $ws6 "6:六"
-set $ws7 "7:七"
-set $ws8 "8:八"
-set $ws9 "9:九"
-set $ws10 "10:News"
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
 
 
 # switch to workspace
