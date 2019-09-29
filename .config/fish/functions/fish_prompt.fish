@@ -17,7 +17,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # PWD
     set_color red --bold
-    echo -n [(basename $PWD)]\ 
+    echo -n (basename $PWD)]\ 
     set_color normal
     echo -n "$suffix"
 end

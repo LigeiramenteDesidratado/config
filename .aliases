@@ -2,6 +2,8 @@
 
 # System Maintainence
 alias sdn="sudo shutdown now"
+alias pac="pacman -Slq | fzf -m --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias ya="yay -Slq | fzf -m --preview 'yay -Si {1}' | xargs -ro yay -S"
 
 # Some aliases
 alias p="sudo pacman"
@@ -55,7 +57,7 @@ alias vv="/usr/bin/vim"
 alias cfp="$EDITOR ~/.profile"
 alias cfj="$EDITOR ~/.config/vifm/vifmrc"
 alias cfs="$EDITOR ~/.config/sxiv/exec/key-handler"
-alias cfi="$EDITOR ~/.config/i3/config"
+alias cfi="$EDITOR ~/.config/sway/config"
 alias cfd="$EDITOR ~/.Xdefaults"
 alias cfu="$EDITOR ~/.config/newsboat/urls"
 alias cfn="$EDITOR ~/.config/newsboat/config"

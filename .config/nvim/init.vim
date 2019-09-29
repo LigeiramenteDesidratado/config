@@ -7,7 +7,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'vifm/vifm.vim'
 Plug 'sainnhe/gruvbox-material'
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'lifepillar/vim-colortemplate'
 " Plug 'fatih/vim-go'
@@ -16,7 +16,6 @@ Plug 'honza/vim-snippets'
 " Plug 'SirVer/ultisnips'
 Plug 'ap/vim-buftabline'
 " Plug 'gregsexton/MatchTag'
-Plug 'fremff/vim-css-syntax'
 " Plug 'mg979/vim-visual-multi'
 
 call plug#end()
@@ -79,6 +78,7 @@ set scrolloff=3
 
 "" Status bar
 set laststatus=2
+set noshowmode
 
 "" Use modeline overrides
 set modeline
@@ -370,7 +370,7 @@ autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,exte
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
-autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+" autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
@@ -395,31 +395,31 @@ autocmd BufNewFile,BufRead *.rs setlocal noexpandtab tabstop=4 shiftwidth=4 soft
 
 
 " Vista
-let g:vista_sidebar_width = 40
-nmap <silent> <F4> :Vista!!<CR>
-let g:vista_floating_delay = 1300
-let g:vista_default_executive = "coc"
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
+" let g:vista_sidebar_width = 40
+" nmap <silent> <F4> :Vista!!<CR>
+" let g:vista_floating_delay = 1300
+" let g:vista_default_executive = "coc"
+" function! NearestMethodOrFunction() abort
+"   return get(b:, 'vista_nearest_method_or_function', '')
+" endfunction
 
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-autocmd BufRead,BufNewFile *.gohtml set filetype=html
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd BufRead,BufNewFile *.gohtml set filetype=html
 
-let g:vista#renderer#enable_icon = 1
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" let g:vista#renderer#enable_icon = 1
+" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
 " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+" let g:vista#renderer#icons = {
+" \   "function": "\uf794",
+" \   "variable": "\uf71b",
+" \  }
 
-let g:vista_echo_cursor_strategy = 'floating_win'
+" let g:vista_echo_cursor_strategy = 'floating_win'
 
 "*****************************************************************************
 "" Statusline Modifications

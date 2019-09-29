@@ -74,9 +74,15 @@ input 1267:259:HID_04f3:0103 {
     xkb_model abnt2
 }
 
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Layan-dark'
+    gsettings set $gnome-schema icon-theme 'Suru++'
+}
+
 # #---Starting External Scripts---# #
 #
-output * bg /home/machine/wallpapers/roses.jpg fill
+output * bg /home/machine/wallpapers/sun.jpg fill
 bindsym $mod+Shift+r reload
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
@@ -88,7 +94,8 @@ exec --no-startup-id programming-mode
 # exec --no-startup-id "sh -c 'sleep 5; exec st -c newspod -e newspod'"
 # Redshift
 exec --no-startup-id rs
-exec --no-startup-id mako --font "PragmataPro" --margin 5 --default-timeout 15000 --border-color "#b2b2b2" --background-color "#121212" --border-radius 1 --border-size 4 --text-color "#e1e1e1"
+
+exec --no-startup-id mako --font "PragmataPro" --margin 5 --default-timeout 15000 --border-color "#4c1a35" --background-color "#853e64" --border-size 8 --text-color "#e1e1e1"
 
 # Starts dunst for notifications:
 exec --no-startup-id dunst
@@ -132,31 +139,34 @@ set $darkwhite	#a8a19f
 set $white		#f1efee
 set $transparent				#FFFFFF00
 
-#                       BORDER		BACKGROUND	TEXT		INDICATOR   		CHILD_BORDER
-client.focused		$transparent	$transparent	$transparent	$strongorange		$strongorange
-client.unfocused	$transparent	$blue		$white		$strongorange		$darkblack
-client.focused_inactive	$transparent	$blue		$white		$strongorange		$darkblack
-client.urgent		$transparent	$vividblue	$black		$vividblue		$vividblue
-client.background $black
+set $color1 #853e64
+set $color2 #4c1a35
+
+#                       BORDER          BACKGROUND      TEXT            INDICATOR           CHILD_BORDER
+client.focused          $transparent    $transparent    $transparent    $strongorange       $color1
+client.unfocused        $transparent    $color1         $white          $strongorange       $darkblack
+client.focused_inactive $transparent    $color2         $white          $strongorange       $darkblack
+client.urgent           $transparent    $vividblue      $black          $vividblue          $vividblue
+client.background       $black
 
 bar {
-	font pango:mono 10
-	colors {
-			background		$darkblack
-			statusline		$darkwhite
-			separator		$strongorange
+    font pango:mono 10
+    colors {
+            background          $darkblack
+            statusline          $darkwhite
+            separator           $color1
 
-#			colorclass		border		background	text
-			focused_workspace	$strongorange	$darkblack	$white
-			active_workspace	$blue		$blue		$darkwhite
-			inactive_workspace	$darkblack	$darkblack	$white
-			urgent_workspace	$darkblack	$darkblack	$white
-		}
-	status_command i3blocks
-	strip_workspace_numbers yes
-	position top
-	mode dock
-	# modifier None
+#           colorclass          border          background	text
+            focused_workspace	$color1         $darkblack	$white
+            active_workspace	$color1         $color1		$darkwhite
+            inactive_workspace	$color2         $darkblack	$darkwhite
+            urgent_workspace	$darkblack      $darkblack	$white
+        }
+    status_command i3blocks
+    strip_workspace_numbers yes
+    position top
+    mode dock
+    # modifier None
 }
 
 
