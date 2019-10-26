@@ -6,15 +6,17 @@ Plug 'lifepillar/vim-colortemplate'
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
-Plug 'vifm/vifm.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ap/vim-buftabline'
 Plug 'godlygeek/tabular'
+Plug 'voldikss/vim-floaterm'
+Plug 'vifm/vifm.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " Plug 'fatih/vim-go'
 " Plug 'honza/vim-snippets'
 " Plug 'fatih/vim-go'
 " Plug 'SirVer/ultisnips'
-Plug 'gregsexton/MatchTag'
 " Plug 'mg979/vim-visual-multi'
 
 call plug#end()
@@ -148,6 +150,13 @@ set autoread
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
+"
+"floaterm
+let g:floaterm_position = 'center'
+let g:floaterm_keymap_toggle = ',s'
+let g:floaterm_keymap_new    = ',t'
+let g:floaterm_keymap_next   = ',n'
+
 
 "" Personal
 
@@ -155,6 +164,8 @@ map j gj
 map k gk
 nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
 nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
+nmap ,o :Files<CR>
+nmap ,f :Rg<CR>
 
 vnoremap <silent> ,r :call VisualSelection('replace')<CR>
 
@@ -260,12 +271,61 @@ hi! link BufTabLineActive PmenuSel
 hi! link BufTabLineHidden TabLine
 hi! link BufTabLineFill TabLineFill
 
+
+" fzf.vim
+
+"set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = float2nr(20)
+  let width = float2nr(90)
+  let horizontal = float2nr((&columns - width) / 2)
+  let vertical = 6
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
+
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['fg', 'VertSplit'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+
+
 "*****************************************************************************
 " coc.nvim
 "*****************************************************************************
-map ,s :CocComman session.save <C-R>=expand('%:p:h:t')<cr>
-map ,l :CocComman session.load <C-R>=expand('%:p:h:t')<cr>
-
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<CR>" :
@@ -284,15 +344,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = "<C-s>"
-let g:coc_snippet_prev = "<C-S>"
-
-
-nnoremap <silent> <leader>a :CocList buffers<CR>
-nnoremap <silent> <leader>f :CocList files<CR>
-nnoremap <silent> <leader>gc :CocList bcommits<CR>
-nnoremap <silent> <leader>y :CocList yank<CR>
-nnoremap <silent> <leader>w :CocList files<cr>
 nmap <silent> <C-[> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-]> <Plug>(coc-diagnostic-next)
 
@@ -303,7 +354,7 @@ nmap <silent>ge <Plug>(coc-definition)
 
 set belloff+=ctrlg
 
-nnoremap <silent> S :call <SID>show_documentation()<CR>
+nnoremap ,d :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -326,27 +377,13 @@ nnoremap <silent> ,y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> ,r  :<C-u>CocList tags<cr>
 vmap <silent>f <Plug>(coc-format-selected)
 " coc-snippets
-" imap <C-s> <Plug>(coc-snippets-expand)
 
 " coc-lists
 let g:coc_git_status=1
-nnoremap <silent> <space>s  :<C-u>CocList --normal gstatus<CR>
 nmap gs <Plug>(coc-git-chunkinfo)
 nmap gd <Plug>(coc-git-commit)
 nmap gN <Plug>(coc-git-prevchunk)
 nmap gn <Plug>(coc-git-nextchunk)
-nnoremap <silent> ,f :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-
-" grep
-command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
-
-function! s:GrepArgs(...)
-  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
-        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
-  return join(list, "\n")
-endfunction
-
-vnoremap ,f :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -374,9 +411,8 @@ noremap XX "+x<CR>
 
 
 "" Buffer nav
-noremap <silent> ,q :bp<CR>
-noremap <silent> ,e :bn<CR>
-noremap <silent> ,c :bd<CR>
+noremap <silent> <S-J> :bp<CR>
+noremap <silent> <S-K> :bn<CR>
 noremap <silent> <C-w> :bd<CR>
 
 "" Clean search (highlight)

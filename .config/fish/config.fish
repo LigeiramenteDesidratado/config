@@ -1,7 +1,8 @@
-set fish_emoj_width 2
-set fish_ambiguous_width 1
 set -gx GOPATH $HOME/dev/golang
 set -gx GOBIN $GOPATH/bin
+
+set -gx QT_QPA_PLATFORM wayland
+set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
 
 set -gx EDITOR /bin/nvim
 set -gx TERMINAL /usr/local/bin/st
@@ -35,4 +36,6 @@ if status is-login
     end
 end
 
+set fish_emoj_width 1
+set fish_ambiguous_width 2
 #yay --editmenu --removemake --sudoloop --save
