@@ -1,7 +1,8 @@
 #! /bin/sh
 
-IP=$(curl -s ifconfig.me/ip 2> /dev/null)
+IP=$(curl -s ifconfig.co 2> /dev/null)
+COUNTRY=$(curl -s ifconfig.co/country 2> /dev/null)
 
 echo "$IP" | xclip
 
-notify-send "🌐 IP copied" "${IP}"
+notify-send "🌐 IP copied" "${IP}\n${COUNTRY}"

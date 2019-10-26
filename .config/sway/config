@@ -190,12 +190,12 @@ bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdowncalc|tmuxdd|fl
 # bindsym $mod+Shift+P		exec --no-startup-id scrot '%Y-%m-%d_%H:%M:%S.png' -q 100 -e 'mv $f ~/shots/ && notify-send "Screenshot saved" "~/shots/$f"'
 bindsym $mod+Shift+P		exec --no-startup-id grim ~/shots/$(date +'%Y-%m-%d_%H:%M:%S.png') && notify-send "Screenshot saved"
 
-bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14
-bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24
+bindsym $mod+s			exec --no-startup-id floatst floatst mono:pixelsize=14:style=Regular
+bindsym $mod+c			exec --no-startup-id winspawn clip -f mono:pixelsize=24:style=Regular
 
 bindsym $mod+w			exec --no-startup-id $BROWSER
 
-bindsym $mod+e			exec --no-startup-id winspawn vifm -f mono:pixelsize=14
+bindsym $mod+e			exec --no-startup-id winspawn vifm -f mono:pixelsize=14:style=Regular
 bindsym $mod+g			exec --no-startup-id dmenuunicode
 
 bindsym $mod+r 			exec --no-startup-id keepassxc
@@ -214,7 +214,7 @@ bindsym $mod+o			sticky toggle
 bindsym $mod+p			exec --no-startup-id lmc toggle
 #bindsym $mod+Shift+p		exec --no-startup-id lmc pause
 
-bindsym $mod+a			exec --no-startup-id winspawn dropdowncalc -f mono:pixelsize=14
+bindsym $mod+a			exec --no-startup-id winspawn dropdowncalc -f mono:pixelsize=14:style=Regular
 bindsym $mod+Shift+a		exec $term -e pulsemixer
 
 bindsym $mod+Shift+s		gaps inner current minus 5

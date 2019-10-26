@@ -9,9 +9,9 @@ alias ya="yay -Slq | fzf -m --preview 'yay -Si {1}' | xargs -ro yay -S"
 alias p="sudo pacman"
 alias SS="sudo systemctl"
 alias ss="sudo systemctl"
-alias v="$EDITOR"
-alias vim="$EDITOR"
-alias sv="sudo $EDITOR"
+alias v="$EDITOR -u ~/.config/nvim/light.vim"
+alias vim="$EDITOR -u ~/.config/nvim/light.vim"
+alias sv="sudo $EDITOR -u ~/.config/nvim/light.vim"
 alias ka="killall"
 alias ref="source $HOME/.aliases"
 alias g="go run"
@@ -24,11 +24,14 @@ alias YT="youtube-dl --add-metadata -ic" # Download video link
 alias yta="YT -x -f bestaudio/best" # Download only audio
 alias yt="youtube-viewer -7"
 alias starwars="telnet towel.blinkenlights.nl"
+alias duo="/usr/lib/brave-dev-bin/brave --profile-directory=Default --app=https://www.duolingo.com/learn"
+alias yd="youtube-dl"
 
 # Adding color
 alias colors='$EDITOR $HOME/256-colors'
 alias l='clear && ls -ct -hNF --color=always --group-directories-first'
 alias ll='clear && ls -tlhNG --group-directories-first --color=always'
+alias diff="diff --color"
 
 alias a="overkill"
 alias h="c ~/"
@@ -53,7 +56,7 @@ alias cff="$EDITOR $HOME/.config/fish/config.fish"
 alias cfc="$EDITOR ~/.scripts/configs"
 alias cfb="$EDITOR ~/.bashrc"
 alias cfv="$EDITOR ~/.config/nvim/init.vim"
-alias vv="/usr/bin/vim"
+alias vv="$EDITOR"
 alias cfp="$EDITOR ~/.profile"
 alias cfj="$EDITOR ~/.config/vifm/vifmrc"
 alias cfs="$EDITOR ~/.config/sxiv/exec/key-handler"

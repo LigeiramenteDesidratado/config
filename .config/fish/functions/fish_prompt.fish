@@ -1,6 +1,5 @@
 function fish_prompt --description 'Write out the prompt'
     set -l color_cwd
-    set -l prefix
     set -l suffix
     switch "$USER"
         case root toor
@@ -18,6 +17,6 @@ function fish_prompt --description 'Write out the prompt'
     # PWD
     set_color red --bold
     echo -n (basename $PWD)]\ 
-    set_color normal
     echo -n "$suffix"
+    set_color normal
 end

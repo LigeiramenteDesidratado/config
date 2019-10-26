@@ -7,6 +7,11 @@ label=🎹
 interval=once
 signal=11
 
+[link]
+interval=1
+signal=11
+
+
 [tasks]
 command=shuf /home/machine/.tasks | awk '{ print $1 " " $2 }'
 signal=13

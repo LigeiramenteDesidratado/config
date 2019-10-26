@@ -1,21 +1,20 @@
 set shell=/bin/dash
 
 call plug#begin(expand('~/.config/nvim/plugged'))
-
+Plug 'machakann/vim-sandwich'
+Plug 'lifepillar/vim-colortemplate'
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'vifm/vifm.vim'
-Plug 'sainnhe/gruvbox-material'
-" Plug 'liuchengxu/vista.vim'
-Plug 'liuchengxu/space-vim-theme'
-Plug 'lifepillar/vim-colortemplate'
-" Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'honza/vim-snippets'
-" Plug 'SirVer/ultisnips'
 Plug 'ap/vim-buftabline'
-" Plug 'gregsexton/MatchTag'
+Plug 'godlygeek/tabular'
+" Plug 'fatih/vim-go'
+" Plug 'honza/vim-snippets'
+" Plug 'fatih/vim-go'
+" Plug 'SirVer/ultisnips'
+Plug 'gregsexton/MatchTag'
 " Plug 'mg979/vim-visual-multi'
 
 call plug#end()
@@ -37,6 +36,7 @@ set binary
 "" Fix backspace indent
 set backspace=indent,eol,start
 set splitbelow
+set splitright
 
 "" Tabs. May be overriten by autocmd rules
 set tabstop=4
@@ -151,6 +151,40 @@ set autoread
 
 "" Personal
 
+map j gj
+map k gk
+nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
+nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
+
+vnoremap <silent> ,r :call VisualSelection('replace')<CR>
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
 " Autosave buffers before leaving them
 autocmd BufLeave * silent! :wa
 
@@ -170,7 +204,7 @@ imap <silent> jk <Esc>:FixWhitespace<CR>
 imap <silent> kj <Esc>:FixWhitespace<CR>
 
 set background=dark
-colorscheme horizon " space_vim_theme gruvbox-material
+colorscheme space_vim_theme "tequila-sunrise horizon   gruvbox-material
 "horizon  codedark
 set termguicolors
 let g:space_vim_italicize_strings = 1
@@ -221,11 +255,17 @@ nmap ,8 <Plug>BufTabLine.Go(8)
 nmap ,9 <Plug>BufTabLine.Go(9)
 nmap ,0 <Plug>BufTabLine.Go(10)
 
-
+hi! link BufTabLineCurrent TabLineSel
+hi! link BufTabLineActive PmenuSel
+hi! link BufTabLineHidden TabLine
+hi! link BufTabLineFill TabLineFill
 
 "*****************************************************************************
 " coc.nvim
 "*****************************************************************************
+map ,s :CocComman session.save <C-R>=expand('%:p:h:t')<cr>
+map ,l :CocComman session.load <C-R>=expand('%:p:h:t')<cr>
+
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<CR>" :
@@ -233,7 +273,7 @@ inoremap <silent><expr> <C-j>
 
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<TAB>"
-inoremap <silent><C-h> <BS>
+" inoremap <silent><C-h> <BS>
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -244,8 +284,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = "<C-e>"
-let g:coc_snippet_prev = "<C-q>"
+let g:coc_snippet_next = "<C-s>"
+let g:coc_snippet_prev = "<C-S>"
+
 
 nnoremap <silent> <leader>a :CocList buffers<CR>
 nnoremap <silent> <leader>f :CocList files<CR>
@@ -285,7 +326,7 @@ nnoremap <silent> ,y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent> ,r  :<C-u>CocList tags<cr>
 vmap <silent>f <Plug>(coc-format-selected)
 " coc-snippets
-imap <C-s> <Plug>(coc-snippets-expand)
+" imap <C-s> <Plug>(coc-snippets-expand)
 
 " coc-lists
 let g:coc_git_status=1
@@ -375,6 +416,16 @@ autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
+function! g:IfErr() " go get -u github.com/koron/iferr
+  let bpos = wordcount()['cursor_bytes']
+  let out = systemlist('goret -pos ' . bpos, bufnr('%'))
+  if len(out) == 0
+    return
+  endif
+  return out[0]
+endfunction
+
+command! -buffer -nargs=0 IfErr call s:IfErr()
 
 " html
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
@@ -392,35 +443,6 @@ autocmd BufNewFile,BufRead *.rs setlocal noexpandtab tabstop=4 shiftwidth=4 soft
 " au FileType rust nmap gx <Plug>(rust-def-vertical)
 " au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
-
-
-" Vista
-" let g:vista_sidebar_width = 40
-" nmap <silent> <F4> :Vista!!<CR>
-" let g:vista_floating_delay = 1300
-" let g:vista_default_executive = "coc"
-" function! NearestMethodOrFunction() abort
-"   return get(b:, 'vista_nearest_method_or_function', '')
-" endfunction
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-" autocmd BufRead,BufNewFile *.gohtml set filetype=html
-
-" let g:vista#renderer#enable_icon = 1
-" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-" let g:vista#renderer#icons = {
-" \   "function": "\uf794",
-" \   "variable": "\uf71b",
-" \  }
-
-" let g:vista_echo_cursor_strategy = 'floating_win'
-
 "*****************************************************************************
 "" Statusline Modifications
 "*****************************************************************************
@@ -432,17 +454,17 @@ set statusline+=%2*\ %{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}
 set statusline+=%6*\ %f%m%r%h%w
 set statusline+=%=
 " Right side
-set statusline+=%2*%{&ff}\/%Y\ 
+set statusline+=%2*\ %{&ff}\/%Y\ 
 set statusline+=%5*%3p%%,\ %3l:%-3c
 set statusline+=%7*%{Check_mixed_indent_file()}
 
-hi User1 cterm=bold  ctermbg=25  ctermfg=189 gui=bold guibg=#6981c5 guifg=#262626
+hi User1 cterm=bold  ctermbg=25  ctermfg=189 gui=bold guibg=#853e64 guifg=#121212
 hi User2 ctermbg=235 ctermfg=189 guibg=#262626  guifg=#d7d7ff
 hi User3 ctermbg=235 ctermfg=25 guibg=#262626 guifg=#6981c5
 hi User4 ctermbg=0 ctermfg=235 guibg=#000000 guifg=#262626
-hi User5 ctermbg=25  ctermfg=189 guibg=#6981c5 guifg=#262626
-hi User6 cterm=italic ctermbg=0  ctermfg=133 guibg=#161616 guifg=#a15ea7
-hi User7 cterm=bold ctermbg=209  ctermfg=0 guibg=#ca754b guifg=#000000
+hi User5 ctermbg=25  ctermfg=189 guibg=#853e64 guifg=#121212
+hi User6 cterm=italic ctermbg=0  ctermfg=133 guibg=#161616 guifg=#853e64
+hi User7 cterm=bold ctermbg=209  ctermfg=0 guibg=#ca754b guifg=#121212
 
 function! StatuslineMode()
   let l:mode=mode()
@@ -470,7 +492,7 @@ function! Check_mixed_indent_file()
   let indent_tabs = search('\v(^\t+)', 'nw')
   let indent_spc  = search(head_spc, 'nw')
   if indent_tabs > 0 && indent_spc > 0
-    return printf("Mix tab:%d spc:%d", indent_tabs, indent_spc)
+    return printf(" Mix tab:%d spc:%d ", indent_tabs, indent_spc)
   else
     return ''
   endif
