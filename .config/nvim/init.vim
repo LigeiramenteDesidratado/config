@@ -166,6 +166,7 @@ nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
 nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
 nmap ,o :Files<CR>
 nmap ,f :Rg<CR>
+vmap ,f :Rg<CR>
 
 vnoremap <silent> ,r :call VisualSelection('replace')<CR>
 
@@ -271,35 +272,39 @@ hi! link BufTabLineActive PmenuSel
 hi! link BufTabLineHidden TabLine
 hi! link BufTabLineFill TabLineFill
 
-
 " fzf.vim
 
 "set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
+if has('nvim') && exists('&winblend') && &termguicolors
+  set winblend=10
 
-  let height = float2nr(20)
-  let width = float2nr(90)
-  let horizontal = float2nr((&columns - width) / 2)
-  let vertical = 6
+  if exists('g:fzf_colors.bg')
+    call remove(g:fzf_colors, 'bg')
+  endif
 
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
+  if stridx($FZF_DEFAULT_OPTS, '--border') == -1
+    let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+  endif
 
-  call nvim_open_win(buf, v:true, opts)
-endfunction
+  function! FloatingFZF()
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let opts = { 'relative': 'editor',
+               \ 'row': (&lines - height) / 2,
+               \ 'col': (&columns - width) / 2,
+               \ 'width': width,
+               \ 'height': height }
 
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+  endfunction
 
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
+
+let g:floaterm_background = '#212026'
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -308,13 +313,13 @@ command! -bang -nargs=* Rg
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['fg', 'VertSplit'],
+  \ 'bg':      ['bg', 'Normal'],
   \ 'hl':      ['fg', 'Comment'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
   \ 'hl+':     ['fg', 'Statement'],
   \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
+  \ 'border':  ['fg', 'Label'],
   \ 'prompt':  ['fg', 'Conditional'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
@@ -372,10 +377,6 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
-inoremap <silent><expr> <c-space> coc#refresh()
-nnoremap <silent> ,y  :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> ,r  :<C-u>CocList tags<cr>
-vmap <silent>f <Plug>(coc-format-selected)
 " coc-snippets
 
 " coc-lists
@@ -384,15 +385,6 @@ nmap gs <Plug>(coc-git-chunkinfo)
 nmap gd <Plug>(coc-git-commit)
 nmap gN <Plug>(coc-git-prevchunk)
 nmap gn <Plug>(coc-git-nextchunk)
-
-function! s:GrepFromSelected(type)
-  let saved_unnamed_register = @@
-  normal! `<v`>y
-  let word = substitute(@@, '\n$', '', 'g')
-  let word = escape(word, '| ')
-  let @@ = saved_unnamed_register
-  execute 'CocList grep '.word
-endfunction
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
