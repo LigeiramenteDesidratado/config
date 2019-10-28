@@ -1,5 +1,3 @@
-set shell=/bin/dash
-
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'machakann/vim-sandwich'
 Plug 'lifepillar/vim-colortemplate'
@@ -156,10 +154,19 @@ let g:floaterm_position = 'center'
 let g:floaterm_keymap_toggle = ',s'
 let g:floaterm_keymap_new    = ',t'
 let g:floaterm_keymap_next   = ',n'
+let g:floaterm_winblend = '10'
+let g:floaterm_background = '#121212'
+
+function s:floatermSettings()
+    set shell=/bin/fish
+endfunction
+
+autocmd FileType terminal call s:floatermSettings()
 
 
 "" Personal
 
+set shell=/bin/dash
 map j gj
 map k gk
 nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
@@ -303,8 +310,6 @@ if has('nvim') && exists('&winblend') && &termguicolors
 
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
-
-let g:floaterm_background = '#212026'
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
