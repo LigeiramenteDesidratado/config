@@ -4,13 +4,16 @@ Plug 'lifepillar/vim-colortemplate'
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " coc-json coc-tsserver coc-html coc-emmet coc-yank coc-pairs coc-css coc-go coc-highlight coc-git
 Plug 'ap/vim-buftabline'
 Plug 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
 Plug 'voldikss/vim-floaterm'
 Plug 'vifm/vifm.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'rhysd/clever-f.vim'
+" Plug 'liuchengxu/vista.vim'
 " Plug 'fatih/vim-go'
 " Plug 'honza/vim-snippets'
 " Plug 'fatih/vim-go'
@@ -162,6 +165,9 @@ function s:floatermSettings()
 endfunction
 
 autocmd FileType terminal call s:floatermSettings()
+
+" clever-f
+let g:clever_f_across_no_line = 1
 
 
 "" Personal
@@ -416,7 +422,7 @@ noremap <silent> <C-w> :bd<CR>
 nnoremap <silent> <leader><space> :noh<cr>
 
 "" Switching windows
-noremap <C-j> <C-w>j
+" noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
@@ -530,3 +536,31 @@ function! Check_mixed_indent_file()
     return ''
   endif
 endfunction
+
+let g:tagbar_type_go = {
+            \ 'ctagstype' : 'go',
+            \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+            \ ],
+            \ 'sro' : '.',
+            \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+            \ },
+            \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+            \ },
+            \ 'ctagsbin'  : 'gotags',
+            \ 'ctagsargs' : '-sort -silent'
+            \ }

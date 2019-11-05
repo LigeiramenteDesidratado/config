@@ -53,6 +53,13 @@
     "emmet.includeLanguages": {"gohtmltmpl": "html"},
     "coc.preferences.bracketEnterImprove": true,
 
+    "go.goplsOptions": {
+        "usePlaceholders": true,
+        "completeUnimported": true,
+        "deepCompletion": true,
+        "staticcheck": true
+    },
+
     "list.source.outline.ctagsFilestypes": ["c", "cpp"],
     "coc.preferences.useQuickfixForLocations": true,
     "languageserver": {

@@ -35,6 +35,4 @@ if status is-login
     end
 end
 
-set fish_emoj_width 1
-set fish_ambiguous_width 2
 #yay --editmenu --removemake --sudoloop --save

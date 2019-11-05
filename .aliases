@@ -20,7 +20,7 @@ alias grep="grep --color=auto" # Color grep - highlight desired sequence.
 alias ccat="highlight --out-format=ansi" # Color cat - print file with syntax highlighting.
 
 # Internet
-alias YT="youtube-dl --add-metadata -ic" # Download video link
+alias YT="youtube-dl --add-metadata --restrict-filenames -ic" # Download video link
 alias yta="YT -x -f bestaudio/best" # Download only audio
 alias yt="youtube-viewer -7"
 alias starwars="telnet towel.blinkenlights.nl"
