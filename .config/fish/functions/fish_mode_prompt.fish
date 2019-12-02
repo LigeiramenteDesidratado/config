@@ -9,6 +9,8 @@ function fish_mode_prompt --description 'Displays the current mode'
                                     echo N
                                 case insert
                                     echo I
+                                case replace
+                                    echo R
                                 case replace-one
                                     echo R
                                 case visual

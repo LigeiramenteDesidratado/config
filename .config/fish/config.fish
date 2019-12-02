@@ -13,13 +13,15 @@ set -gx FZF_DEFAULT_COMMAND "rg --files --no-ignore-vcs --hidden"
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_OPEN_COMMAND $FZF_DEFAULT_COMMAND
 
-set PATH $GOPATH $GOBIN $PATH $HOME/.local/bin/ $HOME/.cargo/bin $HOME/.local/bin/i3blocks/ (yarn global bin)
+set PATH $GOPATH $GOBIN $PATH $HOME/.local/bin/ $HOME/.cargo/bin $HOME/.local/bin/i3blocks/ $HOME/.local/bin/cron/ (yarn global bin)
 
+set fish_cursor_insert line
 bind -M insert \co fzf_open
 bind -M insert \cf forward-char
 bind -M default \cf forward-char
 bind -M visual \cf forward-char
 
+# man pages colorfull
 set -xU LESS_TERMCAP_md (printf "\e[01;31m")
 set -xU LESS_TERMCAP_me (printf "\e[0m")
 set -xU LESS_TERMCAP_se (printf "\e[0m")

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+
+    1)
+        link="$(xclip -o)"
+        filename=$(youtube-dl --get-filename "$link")
+        notify-send "Starting Download" "$filename"
+        youtube-dl --add-metadata -ic "$link" -o "$HOME/Downloads/.g/%(title)s.%(ext)s" && notify-send "Download terminated successfully" "$filename" && exit 0 || notify-send "Download Failed" "Trying again" &&  youtube-dl --add-metadata -ic "$link" -o "$HOME/Downloads/.g/%(id)s.%(ext)s" && notify-send "2nd try terminated successfully" "$filename" && exit 0|| notify-send "2nd try failed" "Exiting..." exit 1
+        ;;
+
+esac
+
+echo "$(xclip -o | sed -ne 's/.*\(http[^"]*\).*/\1/p' | cut -c1-20 )..."

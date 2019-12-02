@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mpv --volume=70 --no-terminal "$HOME/.scripts/coin.flac"
+mpv --volume=70 --no-terminal "$HOME/.local/bin/coin.flac"

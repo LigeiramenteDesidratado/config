@@ -26,11 +26,11 @@ bind-key U show-urls
 bind-key x pb-delete
 bind-key ^t next-unread
 
-color listnormal cyan default
-color listfocus black yellow standout bold
+color listnormal white default
+color listfocus black red standout
 color listnormal_unread blue default
-color listfocus_unread yellow default bold
-color info red black bold
+color listfocus_unread red default
+color info yellow black bold
 color article cyan default
 # highlights
 highlight article "^(Title):.*$" blue default

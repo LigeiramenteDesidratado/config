@@ -29,8 +29,10 @@ alias yd="youtube-dl"
 
 # Adding color
 alias colors='$EDITOR $HOME/256-colors'
-alias l='clear && ls -ct -hNF --color=always --group-directories-first'
-alias ll='clear && ls -tlhNG --group-directories-first --color=always'
+# alias l='clear && ls -ct -hNF --color=always --group-directories-first'
+alias l='clear && exa --colour=always --reverse --sort=modified  --group-directories-first'
+# alias ll='clear && ls -tlhNG --group-directories-first --color=always'
+alias ll='clear && exa --sort=modified --reverse --group-directories-first  --colour=always -l'
 alias diff="diff --color"
 
 alias a="overkill"
@@ -39,6 +41,7 @@ alias D="c ~/Documents"
 alias d="c ~/Downloads"
 alias m="c /mnt"
 alias s="c ~/.local/bin/"
+alias rm="rm -I"
 alias cf="c ~/.config"
 alias .="c ."
 alias ..="c .."
@@ -47,6 +50,7 @@ alias .3="c ../../../".
 alias .4="c ../../../../".
 alias lab="c $GOPATH/src/lab/"
 alias dmp="c $GOPATH/src/dmp/"
+alias dmplab="c $GOPATH/src/dmplab/"
 alias :q="exit"
 alias :Q="exit"
 alias :wq="exit"

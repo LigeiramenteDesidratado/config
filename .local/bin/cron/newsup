@@ -1,0 +1,11 @@
+#!/bin/sh
+
+ping -q -c 1 1.1.1.1 > /dev/null || exit
+unread="/usr/bin/newsboat -x print-unread | awk '{ print  \$1 }'"
+
+echo " $(eval "$unread") 🔃" > ~/.newsup
+pkill -RTMIN+6 i3blocks
+/usr/bin/newsboat -x reload
+echo " $(eval "$unread")" > ~/.newsup
+pkill -RTMIN+6 i3blocks
+

@@ -1,10 +1,12 @@
+set shell=/bin/dash
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'machakann/vim-sandwich'
 Plug 'lifepillar/vim-colortemplate'
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " coc-json coc-tsserver coc-html coc-emmet coc-yank coc-pairs coc-css coc-go coc-highlight coc-git
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'rakr/vim-one'
 Plug 'ap/vim-buftabline'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
@@ -13,6 +15,8 @@ Plug 'vifm/vifm.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'
+Plug 'acarapetis/vim-colors-github'
+
 " Plug 'liuchengxu/vista.vim'
 " Plug 'fatih/vim-go'
 " Plug 'honza/vim-snippets'
@@ -171,15 +175,28 @@ let g:clever_f_across_no_line = 1
 
 
 "" Personal
-
-set shell=/bin/dash
+" let g:C_Ctrl_j='off'
+set lcs=tab:<->
 map j gj
 map k gk
 nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
 nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
-nmap ,o :Files<CR>
-nmap ,f :Rg<CR>
-vmap ,f :Rg<CR>
+nmap <silent> ,o :Files<CR>
+nmap <silent> ,f :Rg<CR>
+vmap <silent> ,f :Rg<CR>
+
+function s:MKDir(...)
+    if         !a:0
+           \|| stridx('`+', a:1[0])!=-1
+           \|| a:1=~#'\v\\@<![ *?[%#]'
+           \|| isdirectory(a:1)
+           \|| filereadable(a:1)
+           \|| isdirectory(fnamemodify(a:1, ':p:h'))
+        return
+    endif
+    return mkdir(fnamemodify(a:1, ':p:h'), 'p')
+endfunction
+command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <args>
 
 vnoremap <silent> ,r :call VisualSelection('replace')<CR>
 
@@ -214,7 +231,7 @@ endfunction
 autocmd BufLeave * silent! :wa
 
 "" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+noremap ,e :E
 
 let g:vifm_embed_split = 1
 let g:vifm_term = 'st -e'
@@ -229,8 +246,7 @@ imap <silent> jk <Esc>:FixWhitespace<CR>
 imap <silent> kj <Esc>:FixWhitespace<CR>
 
 set background=dark
-colorscheme space_vim_theme "tequila-sunrise horizon   gruvbox-material
-"horizon  codedark
+colorscheme space_vim_theme " srcery  ayu   one tequila-sunrise horizon   gruvbox-material horizon  codedark
 set termguicolors
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
@@ -258,8 +274,8 @@ augroup end
 
 set list
 "" Split
-noremap <silent>,h :<C-u>split<CR>
-noremap <silent>,j :<C-u>vsplit<CR>
+noremap <silent>,j :<C-u>split<CR>
+noremap <silent>,h :<C-u>vsplit<CR>
 
 
 "*****************************************************************************
@@ -285,10 +301,16 @@ hi! link BufTabLineActive PmenuSel
 hi! link BufTabLineHidden TabLine
 hi! link BufTabLineFill TabLineFill
 
+"*****************************************************************************
 " fzf.vim
+"*****************************************************************************
 
-"set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+" set wildmode=list:longest,list:full
+set wildignore=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*/tmp/*
 
 if has('nvim') && exists('&winblend') && &termguicolors
   set winblend=10
@@ -342,23 +364,44 @@ let g:fzf_colors =
 "*****************************************************************************
 " coc.nvim
 "*****************************************************************************
+"
+let g:coc_global_extensions = [
+    \ 'coc-git',
+    \ 'coc-json',
+    \ 'coc-tsserver',
+    \ 'coc-html',
+    \ 'coc-emmet',
+    \ 'coc-yank',
+    \ 'coc-pairs',
+    \ 'coc-eslint',
+    \ 'coc-prettier',
+    \ 'coc-css',
+    \ 'coc-go',
+    \ 'coc-highlight'
+  \ ]
+"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<CR>" :
+      \ <SID>check_back_space() ? "\<C-j>" :
       \ coc#refresh()
+
+let g:coc_snippet_next = '<C-e>'
+let g:coc_snippet_prev = '<C-q>'
 
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<TAB>"
-" inoremap <silent><C-h> <BS>
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <silent><expr> <c-space> coc#refresh()
 
 nmap <silent> <C-[> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-]> <Plug>(coc-diagnostic-next)
@@ -370,7 +413,7 @@ nmap <silent>ge <Plug>(coc-definition)
 
 set belloff+=ctrlg
 
-nnoremap ,d :call <SID>show_documentation()<CR>
+nnoremap <silent> ,d :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -419,13 +462,13 @@ noremap <silent> <S-K> :bn<CR>
 noremap <silent> <C-w> :bd<CR>
 
 "" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
+nnoremap <silent> ,, :noh<cr>
 
 "" Switching windows
-" noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
+noremap <C-space>j <C-w>j
+noremap <C-space>k <C-w>k
+noremap <C-space>l <C-w>l
+noremap <C-space>h <C-w>h
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
@@ -444,9 +487,9 @@ vnoremap K :m '<-2<CR>gv=gv
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
-autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 
 " go
+autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
@@ -466,9 +509,8 @@ endfunction
 
 command! -buffer -nargs=0 IfErr call s:IfErr()
 
-" html
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype css setlocal ts=2 sw=2 expandtab
+" web
+autocmd Filetype typescript,javascript,css,html setlocal ts=2 sw=2 expandtab
 
 " Syntax highlight
 let g:polyglot_disabled = ['python']
@@ -539,28 +581,28 @@ endfunction
 
 let g:tagbar_type_go = {
             \ 'ctagstype' : 'go',
-            \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-            \ ],
-            \ 'sro' : '.',
-            \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-            \ },
-            \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-            \ },
-            \ 'ctagsbin'  : 'gotags',
-            \ 'ctagsargs' : '-sort -silent'
+                \ 'kinds'     : [
+                    \ 'p:package',
+                    \ 'i:imports:1',
+                    \ 'c:constants',
+                    \ 'v:variables',
+                    \ 't:types',
+                    \ 'n:interfaces',
+                    \ 'w:fields',
+                    \ 'e:embedded',
+                    \ 'm:methods',
+                    \ 'r:constructor',
+                    \ 'f:functions'
+                \ ],
+                \ 'sro' : '.',
+                    \ 'kind2scope' : {
+                        \ 't' : 'ctype',
+                        \ 'n' : 'ntype'
+                    \ },
+                \ 'scope2kind' : {
+                    \ 'ctype' : 't',
+                    \ 'ntype' : 'n'
+                \ },
+                \ 'ctagsbin'  : 'gotags',
+                \ 'ctagsargs' : '-sort -silent'
             \ }

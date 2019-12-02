@@ -24,6 +24,7 @@ signal=7
 [news]
 label=📰
 interval=once
+command=cat ~/.newsup
 signal=6
 
 [mailbox]

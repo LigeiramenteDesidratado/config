@@ -84,7 +84,7 @@ exec_always {
 
 # #---Starting External Scripts---# #
 #
-output * bg /home/machine/wallpapers/sun.jpg fill
+output * bg "$HOME/wallpapers/wal-leaf.jpg" fill
 bindsym $mod+Shift+r reload
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
@@ -100,7 +100,7 @@ exec --no-startup-id rs
 exec --no-startup-id mako --font "PragmataPro" --margin 5 --default-timeout 15000 --border-color "#4c1a35" --background-color "#853e64" --border-size 8 --text-color "#e1e1e1"
 
 # Starts dunst for notifications:
-exec --no-startup-id dunst
+# exec --no-startup-id dunst
 # Starts clipboard history
 # exec --no-startup-id clipman -d
 # Runs the key remapping scripts
