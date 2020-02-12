@@ -2,4 +2,4 @@
 
 pgrep -x redshift > /dev/null 2>&1 && killall -w redshift
 
-redshift -P -l -22.116640:-45.0527 -b 0.8:0.8 -t 4100K:3500k > /dev/null 2>&1 &
+redshift -P -l -22.116640:-45.0527 -b 0.8:0.7 -t 3900K:3100k > /dev/null 2>&1 &

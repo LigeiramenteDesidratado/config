@@ -1,12 +1,23 @@
 2018:
-	1 - O Mundo Assombrado pelos Demônios
-	2 - O Livro Ilustrado dos Maus Argumentos
+        1 - O Mundo Assombrado pelos Demônios
+        2 - O Livro Ilustrado dos Maus Argumentos
 2019:
-	jan:
-		1 - A Revolução do bixos
-		2 - Introducing Go Build Reliable, Scalable Programs(09/01/2019 - 14/01/2019)
-		3 - O Guia do Mochileiro das Galáxias - Douglas Adams(14/01/2019 - 14/01/2019)
-		4 - The Go Programming Language(14/01/2019 - )
-		5 - The UNIX programming environment 1984(26/01/2019 - )
-		6 - Learn C the hard way(05/02/2019 - )
+    jan:
+        1 - A Revolução do bixos
+        2 - Introducing Go Build Reliable, Scalable Programs(09/01/2019 - 14/01/2019)
+        3 - O Guia do Mochileiro das Galáxias - Douglas Adams(14/01/2019)
+        4 - The Go Programming Language(14/01/2019 - )
+        5 - The UNIX programming environment 1984(26/01/2019 - )
+    feb:
+        6 - Learn C the hard way(05/02/2019 - )
+    mar:
         7 - learncpp(27/03/2019)
+    dec:
+        8 - Let's Go! Learn to Build Professional Web Applications With Golang(20/12/2019 - 04/01/2020)
+2020:
+    jan:
+        9 - Brian W. Kernighan, Dennis M. Ritchie - C Programming Language -Prentice Hall (1988)(03/01/2020)
+next:
+    Buildong microservices with go
+    Go Web Development Cookbook
+    Go: Design Patterns for Real-Wold Projects

@@ -1,18 +1,42 @@
-set shell=/bin/dash
-
+set shell=/bin/zsh
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'machakann/vim-sandwich'
-Plug 'tpope/vim-commentary'
+
+Plug 'lifepillar/vim-colortemplate'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-buftabline'
-Plug 'machakann/vim-highlightedyank'
 Plug 'godlygeek/tabular'
+Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'rhysd/clever-f.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
+Plug 'gregsexton/MatchTag'
+Plug 'alok/notational-fzf-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'inkarkat/vim-LineJuggler'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-visualrepeat'
+Plug 'matze/vim-move'
+Plug 'jreybert/vimagit'
+" Plug 'govim/govim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+" Plug 'machakann/vim-sandwich'
+" Plug 'posva/vim-vue'
+" Plug 'vifm/vifm.vim'
+" Plug 'majutsushi/tagbar'
+" Plug 'liuchengxu/vista.vim'
+" Plug 'fatih/vim-go'
+" Plug 'honza/vim-snippets'
 " Plug 'fatih/vim-go'
 " Plug 'SirVer/ultisnips'
-" Plug 'gregsexton/MatchTag'
 " Plug 'mg979/vim-visual-multi'
 
 call plug#end()
@@ -36,6 +60,8 @@ set backspace=indent,eol,start
 set splitbelow
 set splitright
 
+set nofoldenable
+
 "" Tabs. May be overriten by autocmd rules
 set tabstop=4
 set softtabstop=0
@@ -49,6 +75,7 @@ let mapleader=' '
 set hidden
 
 "" Searching
+set autoread
 set hlsearch
 set incsearch
 set ignorecase
@@ -86,6 +113,30 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 
+set background=dark
+set termguicolors
+
+" mouse
+set mouse=a
+set number relativenumber
+set list
+
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+
+" Disable visualbell
+set noerrorbells visualbell t_vb=
+set belloff+=ctrlg
+"" Copy/Paste/Cut
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
@@ -110,17 +161,6 @@ cnoreabbrev Q q
 cnoreabbrev Qall qall
 
 "*****************************************************************************
-"" Functions
-"*****************************************************************************
-if !exists('*s:setupWrapping')
-  function s:setupWrapping()
-    set wrap
-    set wm=2
-    set textwidth=79
-  endfunction
-endif
-
-"*****************************************************************************
 "" Autocmd Rules
 "*****************************************************************************
 "" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
@@ -135,109 +175,94 @@ augroup vimrc-remember-cursor-position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-"" txt
-augroup vimrc-wrapping
-  autocmd!
-  autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
-augroup END
 
-set autoread
 
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
-" fzf.vim
+"
+"floaterm
+let g:floaterm_position = 'center'
+let g:floaterm_keymap_toggle = ',s'
+let g:floaterm_keymap_new    = ',t'
+let g:floaterm_keymap_next   = ',n'
+let g:floaterm_winblend = '10'
+let g:floaterm_background = '#121212'
 
-"set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = float2nr(20)
-  let width = float2nr(90)
-  let horizontal = float2nr((&columns - width) / 2)
-  let vertical = 6
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['fg', 'VertSplit'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+" clever-f
+let g:clever_f_across_no_line = 1
+let g:clever_f_smart_case = 1
 
 
 "" Personal
-map j gj
-map k gk
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ 'go' : ['gopls']
+    \ }
+let g:LanguageClient_hoverPreview = "Always"
+nnoremap <silent> ,d :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+vmap <S-l>   <Plug>(LineJugglerDupRangeUp)
+vmap <S-h> <Plug>(LineJugglerDupRangeDown)
+
+" move line
+" nmap <C-k>   <Plug>(LineJugglerMoveUp)
+" nmap <C-j> <Plug>(LineJugglerMoveDown)
+
+" move one char up and dow
+" nmap <C-k>   <Plug>(LineJugglerMoveIntraUp)
+" nmap <C-j> <Plug>(LineJugglerMoveIntraDown)
+
+" nmap <C-k>   <Plug>(LineJugglerDupRangeUp)
+" nmap <C-j> <Plug>(LineJugglerDupRangeDown)
+
+" move selected
+" vmap <C-k>   <Plug>(LineJugglerMoveUp)
+" vmap <C-j> <Plug>(LineJugglerMoveDown)
+"
+" duplucate selected word
+
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
+" Switch CWD to the directory of the open buffer:
+map ,cd :cd %:p:h<cr>:pwd<cr>
+nnoremap ,. :NV<cr>
+
+let g:nv_use_ignore_files = 0
+let g:nv_search_paths = ['~/Notes/Notes']
+let g:move_key_modifier = 'C'
+" let g:C_Ctrl_j='off'
+" let g:notes_directories = ['~/Notes']
+let g:vue_pre_processors = 'detect_on_enter'
+" map j gj
+" map k gk
 nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
 nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
-let g:highlightedyank_highlight_duration = 500
-nmap ,o :Files<CR>
-nmap ,f :Rg<CR>
+nmap <silent> ,o :Files<CR>
+nmap <silent> ,f :Rg<CR>
+vmap <silent> ,f :Rg<CR>
+nmap <silent> ,a :Buf<CR>
 
 vnoremap <silent> ,r :call VisualSelection('replace')<CR>
 
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-function! VisualSelection(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
 
 " Autosave buffers before leaving them
 autocmd BufLeave * silent! :wa
 
 "" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
 
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -245,21 +270,13 @@ endif
 imap <silent> jk <Esc>:FixWhitespace<CR>
 imap <silent> kj <Esc>:FixWhitespace<CR>
 
-set background=dark
-colorscheme space_vim_theme "tequila-sunrise horizon   gruvbox-material
-"horizon  codedark
-set termguicolors
+colorscheme space_vim_theme " deep-space ayu  spacecamp srcery     one tequila-sunrise horizon   gruvbox-material horizon  codedark
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
-
-" mouse
-set mouse=a
-set number relativenumber
-
-set list
+"
 "" Split
-noremap <silent>,h :<C-u>split<CR>
-noremap <silent>,j :<C-u>vsplit<CR>
+noremap <silent>,j :<C-u>split<CR>
+noremap <silent>,h :<C-u>vsplit<CR>
 
 
 "*****************************************************************************
@@ -281,29 +298,80 @@ nmap ,9 <Plug>BufTabLine.Go(9)
 nmap ,0 <Plug>BufTabLine.Go(10)
 
 hi! link BufTabLineCurrent TabLineSel
-hi! link  BufTabLineActive PmenuSel
+hi! link BufTabLineActive PmenuSel
 hi! link BufTabLineHidden TabLine
 hi! link BufTabLineFill TabLineFill
 
-" Better display for messages
-set cmdheight=2
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
+"*****************************************************************************
+" fzf.vim
+"*****************************************************************************
+augroup terminal-mode
+    autocmd!
+    au TermOpen * setlocal nonumber
+    au TermOpen * setlocal norelativenumber
+    au TermOpen * setlocal noruler
+    au TermOpen * setlocal noshowcmd
+augroup end
 
-" Disable visualbell
-set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
+autocmd! FileType fzf
+autocmd  FileType fzf set noshowmode noruler nonu
+" set wildmode=list:longest,list:full
+set wildignore=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*/tmp/*
+
+if has('nvim') && exists('&winblend') && &termguicolors
+  set winblend=10
+
+  if exists('g:fzf_colors.bg')
+    call remove(g:fzf_colors, 'bg')
+  endif
+
+  if stridx($FZF_DEFAULT_OPTS, '--border') == -1
+    let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+  endif
+
+  function! FloatingFZF()
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let opts = { 'relative': 'editor',
+               \ 'row': (&lines - height) / 2,
+               \ 'col': (&columns - width) / 2,
+               \ 'width': width,
+               \ 'height': height }
+
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+  endfunction
+
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
 
-"" Copy/Paste/Cut
-if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
-endif
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+command! -bang -nargs=* Buf
+  \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%:hidden', '?'))
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Label'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
@@ -313,39 +381,45 @@ noremap XX "+x<CR>
 "" Buffer nav
 noremap <silent> <S-J> :bp<CR>
 noremap <silent> <S-K> :bn<CR>
-noremap <silent> ,q :bp<CR>
-noremap <silent> ,e :bn<CR>
-noremap <silent> ,c :bd<CR>
-noremap <silent> <C-w> :bd<CR>
+noremap <silent> ,w :bd<CR>
 
 "" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
+nnoremap <silent> ,, :noh<cr>
 
 "" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
+noremap <C-space>j <C-w>j
+noremap <C-space>k <C-w>k
+noremap <C-space>l <C-w>l
+noremap <C-space>h <C-w>h
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
 
-"" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+ "" Move visual block
+vmap <silent> J :t'><cr>
+vmap <silent> K :t .-1<cr>
 
+"*****************************************************************************
+"" Custom configs
+"*****************************************************************************
 
 " c
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
-autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 
 " go
+autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
+autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
+autocmd Filetype template setlocal ts=2 sw=2 expandtab
+" autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 function! g:IfErr() " go get -u github.com/koron/iferr
   let bpos = wordcount()['cursor_bytes']
@@ -358,21 +432,11 @@ endfunction
 
 command! -buffer -nargs=0 IfErr call s:IfErr()
 
-" html
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype css setlocal ts=2 sw=2 expandtab
+" web
+autocmd Filetype typescript,javascript,css,html,vue setlocal ts=2 sw=2 expandtab
 
 " Syntax highlight
 let g:polyglot_disabled = ['python']
-
-
-" rust
-autocmd BufNewFile,BufRead *.rs setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-" Vim racer
-" au FileType rust nmap gd <Plug>(rust-def)
-" au FileType rust nmap gs <Plug>(rust-def-split)
-" au FileType rust nmap gx <Plug>(rust-def-vertical)
-" au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 "*****************************************************************************
 "" Statusline Modifications
@@ -392,10 +456,15 @@ set statusline+=%7*%{Check_mixed_indent_file()}
 hi User1 cterm=bold  ctermbg=25  ctermfg=189 gui=bold guibg=#853e64 guifg=#121212
 hi User2 ctermbg=235 ctermfg=189 guibg=#262626  guifg=#d7d7ff
 hi User3 ctermbg=235 ctermfg=25 guibg=#262626 guifg=#6981c5
-hi User4 ctermbg=0 ctermfg=235 guibg=#040404 guifg=#262626
+hi User4 ctermbg=0 ctermfg=235 guibg=#000000 guifg=#262626
 hi User5 ctermbg=25  ctermfg=189 guibg=#853e64 guifg=#121212
 hi User6 cterm=italic ctermbg=0  ctermfg=133 guibg=#161616 guifg=#853e64
 hi User7 cterm=bold ctermbg=209  ctermfg=0 guibg=#ca754b guifg=#121212
+
+
+"*****************************************************************************
+"" Functions
+"*****************************************************************************
 
 function! StatuslineMode()
   let l:mode=mode()
@@ -427,4 +496,46 @@ function! Check_mixed_indent_file()
   else
     return ''
   endif
+endfunction
+
+" Create a dir if not exists
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
 endfunction

@@ -192,7 +192,7 @@ filextype *.ps,*.eps,*.ps.gz,*.epub
 " Djvu
 filextype *.djvu
         \ {View in zathura}
-        \ zathura %f,
+        \ zathura %f> /dev/null 2>&1 &,
         \ {View in apvlv}
         \ apvlv %f,
 

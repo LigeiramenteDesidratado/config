@@ -29,13 +29,14 @@ bind-key ^t next-unread
 color listnormal white default
 color listfocus black red standout
 color listnormal_unread blue default
-color listfocus_unread red default
+color listfocus_unread color113 default
 color info yellow black bold
 color article cyan default
 # highlights
-highlight article "^(Title):.*$" blue default
-highlight article "https?://[^ ]+" red default
+highlight article "^[a-zA-Z0-9]+:" magenta
+highlight article "https?://[^ ]+" color39 default underline
 highlight article "\\[image\\ [0-9]+\\]" green default
+highlight-article "author =~ \"Andreas Krennmair\"" white red bold
 
 browser linkhandler
 macro , open-in-browser

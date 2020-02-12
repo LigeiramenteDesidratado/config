@@ -1,29 +1,24 @@
-#vim: filetype=i3
+##vim: filetype=i3
 
-# Needed for i3-gaps
+## Needed for i3-gaps
 
 for_window [class="^.*"] border pixel 1
 gaps inner 15
 gaps outer 15
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
-set $shutdown sudo -A shutdown -h now
-set $reboot sudo -A reboot
 smart_borders on
 
-set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
-set $hibernate sudo -A systemctl suspend
+## #---Dropdown Windows---# #
 
-# #---Dropdown Windows---# #
+## I use for basic arithmetic
+#for_window [instance="dropdowncalc"] floating enable
+#for_window [instance="dropdowncalc"] resize set 500 300
+#for_window [instance="dropdowncalc"] move scratchpad
+#for_window [instance="dropdowncalc"] border pixel 2
+#for_window [instance="dropdowncalc"] sticky enable
 
-# I use for basic arithmetic
-for_window [instance="dropdowncalc"] floating enable
-for_window [instance="dropdowncalc"] resize set 500 300
-for_window [instance="dropdowncalc"] move scratchpad
-for_window [instance="dropdowncalc"] border pixel 2
-for_window [instance="dropdowncalc"] sticky enable
-
-for_window [instance="sxiv"] floating enable
+#for_window [instance="sxiv"] floating enable
 for_window [app_id="nautilus"] border none
 
 for_window [instance="floatst"] floating enable
@@ -38,17 +33,17 @@ for_window [class="feh"] resize set 800 600
 for_window [class="feh"] move position center
 
 
-for_window [instance="clip"] floating enable
-for_window [instance="clip"] resize set 600 300
-for_window [instance="clip"] move scratchpad
-for_window [instance="clip"] border pixel 1
+#for_window [instance="clip"] floating enable
+#for_window [instance="clip"] resize set 600 300
+#for_window [instance="clip"] move scratchpad
+#for_window [instance="clip"] border pixel 1
 
 
-for_window [instance="vifm"] floating enable
-for_window [instance="vifm"] move scratchpad
-for_window [instance="vifm"] resize set 600 700
-for_window [instance="vifm"] sticky enable
-for_window [instance="vifm"] border pixel 1
+#for_window [instance="vifm"] floating enable
+#for_window [instance="vifm"] move scratchpad
+#for_window [instance="vifm"] resize set 600 700
+#for_window [instance="vifm"] sticky enable
+#for_window [instance="vifm"] border pixel 1
 
 
 for_window [class="Pinentry"] sticky enable
@@ -60,8 +55,6 @@ for_window [window_role="task_dialog"] floating enable
 
 
 for_window [instance="sxiv"] border pixel 0
-
-for_window [instance="brave-beta-bin"] fullscreen disable
 
 input 1:1:AT_Translated_Set_2_keyboard {
     repeat_delay 250
@@ -84,16 +77,13 @@ exec_always {
 
 # #---Starting External Scripts---# #
 #
-output * bg "$HOME/wallpapers/wal-leaf.jpg" fill
+output * bg "$HOME/wallpapers/rose_red_flower_bud_119651_1920x1080.jpg" fill
 bindsym $mod+Shift+r reload
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
+exec wl-paste -t text --watch clipman store
+bindsym $mod+Shift+h exec clipman pick
 floating_modifier $mod
-# Composite manager:
-#exec --no-startup-id compton -f -CGb --blur-background --backend glx
-exec --no-startup-id programming-mode
-# start newsboat
-# exec --no-startup-id "sh -c 'sleep 5; exec st -c newspod -e newspod'"
 # Redshift
 exec --no-startup-id rs
 
@@ -102,25 +92,12 @@ exec --no-startup-id mako --font "PragmataPro" --margin 5 --default-timeout 1500
 # Starts dunst for notifications:
 # exec --no-startup-id dunst
 # Starts clipboard history
-# exec --no-startup-id clipman -d
 # Runs the key remapping scripts
 exec --no-startup-id remaps
-# Unclutter makes the mouse invisible after a brief period
-# exec --no-startup-id unclutter
-# Run the script to update the mpd i3block on change.
-exec --no-startup-id i3mpdupdate
-# Network manager applet
-exec --no-startup-id nm-applet
 # mpd startup
 exec --no-startup-id mpd
 # My ToDo script
 exec --no-startup-id cleanTasks
-# Wallpaper
-#exec --no-startup-id feh --bg-scale ~/.config/wallpaper.png
-#exec --no-startup-id wallgif /home/machine/Wallpapers/gif/coffee.gif
-# exec --no-startup-id xwallpaper --daemon --stretch .config/wall.jpg
-# exec --no-startup-id /home/machine/.scripts/randWallpaper
-# exec --no-startup-id sxhkd
 
 # Set Xresources colors:
 set $darkblack	#1b1918

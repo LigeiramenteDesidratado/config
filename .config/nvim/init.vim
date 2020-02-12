@@ -3,7 +3,6 @@ set shell=/bin/zsh
 " {{{ plug
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-Plug 'lifepillar/vim-colortemplate'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -15,7 +14,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-repeat'
 Plug 'gregsexton/MatchTag'
 Plug 'alok/notational-fzf-vim'
 Plug 'plasticboy/vim-markdown'
@@ -28,8 +27,11 @@ Plug 'jreybert/vimagit'
 Plug 'junegunn/goyo.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'godoctor/godoctor.vim'
-Plug 'sebdah/vim-delve'
-
+" Plug 'sebdah/vim-delve'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'fmoralesc/molokayo'
+Plug 'tomasr/molokai'
+Plug 'machakann/vim-highlightedundo'
 " Plug 'liuchengxu/graphviz.vim'
 " Plug 'machakann/vim-sandwich'
 " Plug 'posva/vim-vue'
@@ -122,7 +124,7 @@ set termguicolors
 " mouse
 set mouse=a
 set number relativenumber
-set list
+" set list
 
 " Better display for messages
 set cmdheight=2
@@ -167,6 +169,12 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+
+" using <C-l> to trigger abbr
+inoremap <C-l> <C-]>
+
+iabbrev wr w http.ResponseWriter, r *http.Request<right>
+iabbrev iferr if err != nil {<CR>
 
 "  }}}
 
@@ -258,6 +266,9 @@ noremap <silent>,h :<C-u>vsplit<CR>
 map ,cd :cd %:p:h<cr>:pwd<cr>
 nnoremap ,. :NV<cr>
 
+autocmd InsertEnter,InsertLeave * set cul!
+set guicursor=
+
 let g:nv_use_ignore_files = 0
 let g:nv_search_paths = ['~/Notes/Notes']
 let g:move_key_modifier = 'C'
@@ -268,18 +279,22 @@ nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
 
 vnoremap <silent> ,r :call VisualSelection('replace')<CR>
 
-
+nmap u     <Plug>(highlightedundo-undo)
+nmap <C-r> <Plug>(highlightedundo-redo)
+nmap U     <Plug>(highlightedundo-Undo)
+nmap g-    <Plug>(highlightedundo-gminus)
+nmap g+    <Plug>(highlightedundo-gplus)
 "" Opens an edit command with the path of the currently edited file filled in
 
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-colorscheme horizon "  space_vim_themespacecamp srcery ayu one tequila-sunrise gruvbox-material horizon codedark
+colorscheme  deep-space "space_vim_theme  agila molokayo horizon   plastic srcery horizon  spacecamp srcery ayu one tequila-sunrise gruvbox-material  codedark
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
+let g:deepspace_italics=1
 "
-
 
 "*****************************************************************************
 " buftabline
@@ -337,6 +352,7 @@ set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*
 if has('nvim') && exists('&winblend') && &termguicolors
     set winblend=10
 
+    let $FZF_DEFAULT_OPTS .= ' --inline-info'
     if exists('g:fzf_colors.bg')
         call remove(g:fzf_colors, 'bg')
     endif
@@ -370,8 +386,8 @@ command! -bang -nargs=* Buf
             \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%:hidden', '?'))
 
 let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Pmenu'],
+            \ { 'fg':    ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
             \ 'hl':      ['fg', 'Comment'],
             \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
             \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
@@ -425,7 +441,7 @@ let g:coc_snippet_next = '<C-e>'
 let g:coc_snippet_prev = '<C-q>'
 
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<TAB>"
+inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-]>"
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -469,7 +485,7 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
 
 " go
-autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
+" autocmd BufNewFile,BufRead *.go setlocal listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
@@ -477,9 +493,9 @@ autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
 autocmd Filetype template setlocal ts=2 sw=2 expandtab
 
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+autocmd FileType go nmap ,gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap ,gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap ,gtx :CocCommand go.tags.clear<cr>
 
 nnoremap ,gr :Rename<space>
 vnoremap ,gv :Refactor var<space>

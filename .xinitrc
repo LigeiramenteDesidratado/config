@@ -6,15 +6,16 @@
 remaps&
 rs&
 dunst&
-/usr/bin/xwallpaper --zoom "$HOME/wallpapers/roses.jpg"
-unclutter&
-sxhkd > /dev/null 2>&1 &
-''> /home/machine/.isdwmrunning
 mpd&
+unclutter&
 dwmbar&
-nm-applet&
+# /usr/bin/xwallpaper --zoom "$HOME/wallpapers/roses.jpg"
+''> /home/machine/.isdwmrunning
 while : ; do
-    dwm 2>&1 | sed -e "s/^/$(date '+[%Y-%m-%d] [%T]') /" >> ~/dwmlogs
+
+    #with logs
+    # dwm 2>&1 | sed -e "s/^/$(date '+[%Y-%m-%d] [%T]') /" >> ~/dwmlogs
+    dwm > /dev/null
     [ -s "/home/machine/.isdwmrunning" ] && break
     sleep 1
 done

@@ -28,6 +28,30 @@
         "default": "\uf29c"
     },
 
+    "prettier.eslintIntegration": true,
+    "prettier.tslintIntegration": true,
+    "prettier.stylelintIntegration": true,
+    "prettier.statusItemText": "",
+    "prettier.singleQuote": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.semi": true,
+    "prettier.arrowParens": "always",
+
+    // eslint
+    "eslint.filetypes": [
+        "javascript",
+        "javascript.jsx",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "javascriptvue",
+    ],
+    "eslint.autoFix": true,
+    "eslint.autoFixOnSave": true,
+
+    // tslint
+    "tslint.autoFixOnSave": true,
 
     "coc.preferences.formatOnType": true,
     "coc.preferences.formatOnSaveFiletypes": ["js", "go", "json"],
@@ -38,10 +62,6 @@
 
     "coc.preferences.messageLevel": "more",
     "diagnostic.enableMessage": "always",
-    "diagnostic.messageTarget": "float",
-    "coc.preferences.hoverTarget": "float",
-    "signature.target": "float",
-    "suggest.enablePreview": true,
     "suggest.echodocSupport": true,
     "git.enableGutters": true,
     "git.signOffset": 12,
@@ -50,14 +70,18 @@
     "git.removedSign.hlGroup": "GitGutterDelete",
     "git.topRemovedSign.hlGroup": "GitGutterDelete",
     "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-    "emmet.includeLanguages": {"gohtmltmpl": "html"},
+    "emmet.includeLanguages": {"gohtmltmpl": "html", "template": "html"},
     "coc.preferences.bracketEnterImprove": true,
+    "go.trace.server": "verbose",
 
     "go.goplsOptions": {
         "usePlaceholders": true,
         "completeUnimported": true,
         "deepCompletion": true,
-        "staticcheck": true
+        "staticcheck": true,
+        "completionDocumentation": true,
+        "fuzzyMatching": true,
+        "hoverKind": "SynopsisDocumentation"
     },
 
     "list.source.outline.ctagsFilestypes": ["c", "cpp"],
