@@ -92,7 +92,7 @@ export FZF_DEFAULT_COMMAND="rg --files --no-messages --no-ignore-vcs --hidden"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_OPEN_COMMAND=$FZF_DEFAULT_COMMAND
 
-export PATH=$PATH:$GOPATH:$GOBIN:$HOME/.local/bin/:$HOME/.cargo/bin:$HOME/.local/bin/i3blocks:$HOME/.local/bin/cron
+export PATH=$PATH:$GOPATH:$GOBIN:$HOME/.local/bin/:$HOME/.cargo/bin:$HOME/.local/bin/i3blocks:$HOME/.local/bin/cron:$(yarn global bin)
 source ~/.aliases
 function c {
     builtin cd "$@" && clear && l
@@ -131,4 +131,5 @@ setopt extendedglob
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export PATH=${PATH}:${HOME}/dev/flutter/sdk/flutter/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

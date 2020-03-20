@@ -14,8 +14,8 @@ dir="$pathThumb/$folderName"
 dbFile="$dir/.dbthumb__"
 
 
-[ ! -d "$pathThumb" ] && mkdir "$pathThumb"
-[ ! -d "$dir" ] && mkdir "${dir}"
+[ ! -d "$pathThumb" ] && mkdir -p "$pathThumb"
+[ ! -d "$dir" ] && mkdir -p "${dir}"
 [ ! -L "$currentPath/.thumb__" ] && ln -fs "$dir" "$currentPath/.thumb__"
 [ ! -f "$dbFile" ] && touch "$dbFile"
 

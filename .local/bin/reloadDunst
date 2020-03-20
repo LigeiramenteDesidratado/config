@@ -1,8 +1,6 @@
 #!/bin/sh
 
-killall dunst
-
-sleep 0.04
+killall -w dunst
 
 dunst -config ~/.config/dunst/dunstrc &
 

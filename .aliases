@@ -12,7 +12,6 @@ alias SS="sudo systemctl"
 alias ss="sudo systemctl"
 alias v="$EDITOR"
 alias vl="$EDITOR -u ~/.config/nvim/light.vim"
-alias vim="$EDITOR"
 alias sv="sudo $EDITOR"
 alias ka="killall"
 alias ref="source $HOME/.aliases"
@@ -34,7 +33,7 @@ alias colors256='$EDITOR $HOME/256-colors'
 # alias l='clear && ls -ct -hNF --color=always --group-directories-first'
 alias l='clear && exa --colour=always --reverse --sort=modified  --group-directories-first'
 # alias ll='clear && ls -tlhNG --group-directories-first --color=always'
-alias ll='clear && exa --sort=modified --reverse --group-directories-first  --colour=always -l'
+alias ll='clear && exa --sort=modified --reverse --group-directories-first --colour=always -lg'
 alias diff="diff --color"
 
 alias modrm="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"

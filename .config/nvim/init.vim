@@ -2,9 +2,9 @@ set shell=/bin/zsh
 
 " {{{ plug
 call plug#begin(expand('~/.config/nvim/plugged'))
-
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
+" Plug 'neovim/nvim-lsp'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ap/vim-buftabline'
 Plug 'godlygeek/tabular'
@@ -13,9 +13,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-repeat'
-Plug 'gregsexton/MatchTag'
+Plug 'machakann/vim-sandwich'
+Plug 'psliwka/vim-smoothie'
+Plug 'tommcdo/vim-exchange'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'alok/notational-fzf-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -27,11 +28,17 @@ Plug 'jreybert/vimagit'
 Plug 'junegunn/goyo.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'godoctor/godoctor.vim'
+Plug 'romainl/vim-cool'
+Plug 'cohama/lexima.vim'
+Plug 'alvan/vim-closetag'
 " Plug 'sebdah/vim-delve'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'fmoralesc/molokayo'
 Plug 'tomasr/molokai'
+Plug 'artanikin/vim-synthwave84'
+Plug 'andymass/vim-matchup'
 Plug 'machakann/vim-highlightedundo'
+" Plug 'jaredgorski/spacecamp'
 " Plug 'liuchengxu/graphviz.vim'
 " Plug 'machakann/vim-sandwich'
 " Plug 'posva/vim-vue'
@@ -48,7 +55,6 @@ call plug#end()
 
 " Required:
 filetype plugin indent on
-
 
 "*****************************************************************************
 "" Basic Setup
@@ -99,6 +105,7 @@ set fileformats=unix,dos,mac
 syntax on
 set ruler
 set number
+set nrformats=alpha,octal,hex,bin
 
 let no_buffers_menu=1
 
@@ -268,7 +275,56 @@ nnoremap ,. :NV<cr>
 
 autocmd InsertEnter,InsertLeave * set cul!
 set guicursor=
+"
+" Move by line
+nnoremap j gj
+nnoremap k gk
 
+nnoremap <silent> ,cc :ColorizerToggle<cr>
+let g:CoolTotalMatches = 1
+let g:closetag_filetypes = 'html,vue'
+
+" lua << EOF
+" require'nvim_lsp'.gopls.setup{}
+" EOF
+
+" {{{ TextYankPost highlight
+function! s:hl_yank(operator, regtype, inclusive) abort
+    if a:operator !=# 'y' || a:regtype ==# ''
+        return
+    endif
+    " edge cases:
+    "   ^v[count]l ranges multiple lines
+
+    " TODO:
+    "   bug: ^v where the cursor cannot go past EOL, so '] reports a lesser column.
+
+    let bnr = bufnr('%')
+    let ns = nvim_create_namespace('')
+    call nvim_buf_clear_namespace(bnr, ns, 0, -1)
+
+    let [_, lin1, col1, off1] = getpos("'[")
+    let [lin1, col1] = [lin1 - 1, col1 - 1]
+    let [_, lin2, col2, off2] = getpos("']")
+    let [lin2, col2] = [lin2 - 1, col2 - (a:inclusive ? 0 : 1)]
+    for l in range(lin1, lin1 + (lin2 - lin1))
+        let is_first = (l == lin1)
+        let is_last = (l == lin2)
+        let c1 = is_first || a:regtype[0] ==# "\<C-v>" ? (col1 + off1) : 0
+        let c2 = is_last || a:regtype[0] ==# "\<C-v>" ? (col2 + off2) : -1
+        call nvim_buf_add_highlight(bnr, ns, 'TextYank', l, c1, c2)
+    endfor
+    call timer_start(300, {-> nvim_buf_is_valid(bnr) && nvim_buf_clear_namespace(bnr, ns, 0, -1)})
+endfunc
+highlight default link TextYank MatchParen
+augroup vimrc_hlyank
+    autocmd!
+    autocmd TextYankPost * call s:hl_yank(v:event.operator, v:event.regtype, v:event.inclusive)
+augroup END
+" }}}
+
+" un-join (split) the current line at the cursor position
+nnoremap gj i<c-j><esc>k$
 let g:nv_use_ignore_files = 0
 let g:nv_search_paths = ['~/Notes/Notes']
 let g:move_key_modifier = 'C'
@@ -290,12 +346,15 @@ if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-colorscheme  deep-space "space_vim_theme  agila molokayo horizon   plastic srcery horizon  spacecamp srcery ayu one tequila-sunrise gruvbox-material  codedark
+colorscheme  molokai " spacecamp space_vim_theme deep-space space_vim_theme agila molokayo horizon plastic srcery horizon spacecamp srcery ayu one tequila-sunrise gruvbox-material codedark
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
 let g:deepspace_italics=1
 "
 
+hi MatchWordCur cterm=underline gui=underline
+hi MatchParenCur cterm=underline gui=underline
+hi MatchWord cterm=underline gui=underline
 "*****************************************************************************
 " buftabline
 "*****************************************************************************
@@ -350,7 +409,6 @@ set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
 set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*/tmp/*
 
 if has('nvim') && exists('&winblend') && &termguicolors
-    set winblend=10
 
     let $FZF_DEFAULT_OPTS .= ' --inline-info'
     if exists('g:fzf_colors.bg')
@@ -411,19 +469,17 @@ nmap <silent> ,a :Buf<CR>
 "*****************************************************************************
 " {{{ coc
 
+" if has("coc_status")
 let g:coc_global_extensions = [
             \ 'coc-git',
             \ 'coc-json',
             \ 'coc-tsserver',
             \ 'coc-html',
             \ 'coc-emmet',
-            \ 'coc-yank',
-            \ 'coc-pairs',
             \ 'coc-eslint',
             \ 'coc-prettier',
             \ 'coc-css',
             \ 'coc-go',
-            \ 'coc-highlight'
             \ ]
 "
 
@@ -471,6 +527,7 @@ nmap gs <Plug>(coc-git-chunkinfo)
 nmap gd <Plug>(coc-git-commit)
 nmap gN <Plug>(coc-git-prevchunk)
 nmap gn <Plug>(coc-git-nextchunk)
+" endif
 
 "}}}
 

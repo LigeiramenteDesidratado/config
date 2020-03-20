@@ -1,0 +1,33 @@
+#! /bin/sh
+
+src="$HOME/Documents/keepass"
+dst="$HOME/backups/keepass"
+
+CMD='sha1sum "$src/passw.kdbx" | awk "{print \$1}"'
+TRY=0
+
+HASH=$(eval "$CMD")
+
+while true; do
+    if [ "$HASH" != "$(eval "$CMD")" ]
+    then
+        notify-send -u low '🍜 Starting Backup'
+        rsync -ab --backup-dir="$(date +'__%Y_%m_%d_%Hh%Mm%Ss')" \
+            "$src" \
+            "$dst"
+
+        sleep 2
+
+        if ! rclone sync "/home/machine/backups/" gdrive:/backup
+        then
+            TRY=$(( TRY + 1 )) && notify-send -u critical -t 180000 'Backup failed' "[$TRY] - Trying again..."
+        else
+            HASH=$(eval "$CMD")
+            notify-send '🍜 Backup finished'
+        fi
+
+    fi
+
+    if [ "$TRY" -lt 3 ];then sleep 30; else TRY=0 && sleep 600;fi
+done
+
