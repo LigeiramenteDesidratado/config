@@ -8,7 +8,7 @@ do
 
     case "$1" in
     "d")
-        rm "${file}" && notify-send "Deleted file" "${file}" ;;
+        rm "$file" && notify-send "Deleted file" "$file" ;;
 
 
     "p")
@@ -18,17 +18,15 @@ do
         ;;
     "w")
         postFix=$(echo "${filename}" | sed -r 's/.*(.{4})/\1/')
-        if [ "${postFix}" = '.gif' ]
+        if [ "$postFix" = '.gif' ]
         then
-            killall xwinwrap > /dev/null 2>&1 &
-            notify-send "Setting Background" "${filename}"
-            sleep 1
-            wallgif "${file}" > /dev/null 2>&1 &
+            killall -w xwinwrap > /dev/null 2>&1 &
+            notify-send "Setting Background" "$filename"
+            wallgif "$file" > /dev/null 2>&1 &
         else
-            killall xwinwrap > /dev/null 2>&1 &
-            notify-send "Setting Background" "${filename}"
-            sleep 1
-            /usr/bin/xwallpaper --daemon --zoom "${file}" > /dev/null 2>&1 &
+            killall -w xwinwrap > /dev/null 2>&1 &
+            notify-send "Setting Background" "$filename"
+            eval "$WALLCMD $file" > /dev/null 2>&1 &
         fi;;
 esac
 done

@@ -1,36 +1,30 @@
 #!/usr/bin/sh
 
-# Copyright (C) 2019 Vinicius de Oliveira (https://github.com/ContinuedBug)
+# Copyright (C) 2019 Vinicius de Oliveira (https://github.com/bugslab)
 # Use of this source code is governed by a BSD-style
 
-currentPath=$(pwd)
+CWD=$(pwd)
+THUMBPATH="$HOME/.cache/thumbnails/sxivThumbs"
+FOLDERNAME=$(echo "$CWD" | sha1sum | head -c40)
+DIR="$THUMBPATH/$FOLDERNAME"
+DBFILE="$DIR/.dbthumb__"
 
-pathThumb="$HOME/.cache/thumbnails/sxivThumbs"
+[ ! -d "$THUMBPATH" ] && mkdir -p "$THUMBPATH"
+[ ! -d "$DIR" ] && mkdir -p "$DIR"
+[ ! -L "$CWD/.thumb__" ] && ln -fs "$DIR" "$CWD/.thumb__"
+[ ! -f "$DBFILE" ] && touch "$DBFILE"
 
-folderName=$(echo "$currentPath" | sha1sum | head -c40)
+for FILE in "${CWD}/"*; do
 
-dir="$pathThumb/$folderName"
+    # Check if the mime type is equal to 'video'
+    file --mime-type -b -h "$FILE" | cut -f 1 -d "/" | xargs -I % test % != 'video' && continue
 
-dbFile="$dir/.dbthumb__"
+    FILESHA=$(echo "$FILE" | sha1sum | head -c40 | sed 's/$/.png/')
+    PATHFILESHAOUTPUT="$THUMBPATH/$FOLDERNAME/$FILESHA"
 
+    # Check if the file already exists in the database
+    ! grep -Fq "$FILESHA" "$DBFILE" && echo "$FILESHA $FILE" >> "$DBFILE"
 
-[ ! -d "$pathThumb" ] && mkdir -p "$pathThumb"
-[ ! -d "$dir" ] && mkdir -p "${dir}"
-[ ! -L "$currentPath/.thumb__" ] && ln -fs "$dir" "$currentPath/.thumb__"
-[ ! -f "$dbFile" ] && touch "$dbFile"
-
-for FILE in "${currentPath}/"*; do
-
-    testFile=$(file --mime-type -b -h "$FILE" | cut -f 1 -d "/")
-
-    if [ "$testFile" = 'video' ]; then
-
-        fileSha=$(echo "$FILE" | sha1sum | head -c40 | sed 's/$/.png/')
-        pathFileShaOutput="$pathThumb/$folderName/$fileSha"
-
-        if ! grep -Fq "$fileSha" "$dbFile"; then echo "$fileSha $FILE" >> "$dbFile"; fi
-
-        [ ! -f "$pathFileShaOutput" ] && ffmpegthumbnailer -f -i "$FILE" -o "$pathFileShaOutput" > /dev/null 2>&1 &
-    fi
+    [ ! -f "$PATHFILESHAOUTPUT" ] && ffmpegthumbnailer -f -i "$FILE" -o "$PATHFILESHAOUTPUT" > /dev/null 2>&1 &
 done
 

@@ -19,7 +19,7 @@ for WALL in "$WALLPAPERPATH"*; do
 
     TESTFILE=$(file --mime-type -b -h "$WALL" | cut -f 1 -d "/")
     if [ "$TESTFILE" = 'image' ]; then
-        [ "$STEP" = 1 ] && [ "$RAND" -eq "$COUNT" ] && /usr/bin/xwallpaper --zoom "$WALL" && exit 0
+        [ "$STEP" = 1 ] && [ "$RAND" -eq "$COUNT" ] && eval "$WALLCMD $WALL" && exit 0
         COUNT=$(( COUNT + 1 ))
     fi
 done

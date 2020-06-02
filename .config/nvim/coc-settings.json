@@ -1,145 +1,135 @@
 {
+  "suggest.completionItemKindLabels": {
+    "keyword": "\uf1de",
+    "variable": "\ue79b",
+    "value": "\uf89f",
+    "operator": "\u03a8",
+    "function": "\u0192",
+    "reference": "\ufa46",
+    "constant": "\uf8fe",
+    "method": "\uf09a",
+    "struct": "\ufb44",
+    "class": "\uf0e8",
+    "interface": "\uf417",
+    "text": "\ue612",
+    "enum": "\uf435",
+    "enumMember": "\uf02b",
+    "module": "\uf40d",
+    "color": "\ue22b",
+    "property": "\ue624",
+    "field": "\uf9be",
+    "unit": "\uf475",
+    "event": "\ufacd",
+    "file": "\uf723",
+    "folder": "\uf114",
+    "snippet": "\ue60b",
+    "typeParameter": "\uf728",
+    "default": "\uf29c"
+  },
 
-    "suggest.completionItemKindLabels": {
-        "keyword": "\uf1de",
-        "variable": "\ue79b",
-        "value": "\uf89f",
-        "operator": "\u03a8",
-        "function": "\u0192",
-        "reference": "\ufa46",
-        "constant": "\uf8fe",
-        "method": "\uf09a",
-        "struct": "\ufb44",
-        "class": "\uf0e8",
-        "interface": "\uf417",
-        "text": "\ue612",
-        "enum": "\uf435",
-        "enumMember": "\uf02b",
-        "module": "\uf40d",
-        "color": "\ue22b",
-        "property": "\ue624",
-        "field": "\uf9be",
-        "unit": "\uf475",
-        "event": "\ufacd",
-        "file": "\uf723",
-        "folder": "\uf114",
-        "snippet": "\ue60b",
-        "typeParameter": "\uf728",
-        "default": "\uf29c"
-    },
+  "prettier.eslintIntegration": true,
+  "prettier.tslintIntegration": true,
+  "prettier.stylelintIntegration": true,
+  "prettier.statusItemText": "",
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.semi": true,
+  "prettier.arrowParens": "always",
 
-    "prettier.eslintIntegration": true,
-    "prettier.tslintIntegration": true,
-    "prettier.stylelintIntegration": true,
-    "prettier.statusItemText": "",
-    "prettier.singleQuote": true,
-    "prettier.jsxSingleQuote": true,
-    "prettier.semi": true,
-    "prettier.arrowParens": "always",
+  "eslint.filetypes": [
+    "javascript",
+    "javascript.jsx",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "javascriptvue"
+  ],
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
 
-    // eslint
-    "eslint.filetypes": [
-        "javascript",
-        "javascript.jsx",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "javascriptvue",
-    ],
-    "eslint.autoFix": true,
-    "eslint.autoFixOnSave": true,
+  // tslint
 
-    // tslint
-    "tslint.autoFixOnSave": true,
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.format.semicolons": "insert",
+  "typescript.format.enabled": true,
 
-    "coc.preferences.formatOnType": true,
-    "coc.preferences.formatOnSaveFiletypes": ["js", "go", "json"],
-    "diagnostic.errorSign": ">>",
-    "diagnostic.infoSign": ">>",
-    "diagnostic.hintSign": ">>",
-    "diagnostic.warningSign": ">>",
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": ["js", "go", "json", "ts"],
+  "diagnostic.errorSign": ">>",
+  "diagnostic.infoSign": ">>",
+  "diagnostic.hintSign": ">>",
+  "diagnostic.warningSign": ">>",
 
-    "coc.preferences.messageLevel": "more",
-    "diagnostic.enableMessage": "always",
-    "suggest.echodocSupport": true,
-    "git.enableGutters": true,
-    "git.signOffset": 12,
-    "git.addedSign.hlGroup": "GitGutterAdd",
-    "git.changedSign.hlGroup": "GitGutterChange",
-    "git.removedSign.hlGroup": "GitGutterDelete",
-    "git.topRemovedSign.hlGroup": "GitGutterDelete",
-    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-    "emmet.includeLanguages": {"gohtmltmpl": "html", "template": "html"},
-    "coc.preferences.bracketEnterImprove": true,
-    "go.trace.server": "verbose",
+  "coc.preferences.messageLevel": "more",
+  "diagnostic.enableMessage": "always",
+  "suggest.echodocSupport": true,
+  "git.enableGutters": true,
+  "git.signOffset": 12,
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "emmet.includeLanguages": { "gohtmltmpl": "html", "template": "html" },
+  "coc.preferences.bracketEnterImprove": true,
+  "go.trace.server": "verbose",
 
-    "go.goplsOptions": {
-        "usePlaceholders": true,
-        "completeUnimported": true,
-        "deepCompletion": true,
-        "staticcheck": true,
-        "completionDocumentation": true,
-        "fuzzyMatching": true,
-        "hoverKind": "SynopsisDocumentation"
-    },
+  "go.goplsOptions": {
+    "usePlaceholders": true,
+    "completeUnimported": true,
+    "deepCompletion": true,
+    "staticcheck": true,
+    "completionDocumentation": true,
+    "fuzzyMatching": true,
+    "hoverKind": "SynopsisDocumentation",
+    "linkTarget": ""
+  },
 
-    "list.source.outline.ctagsFilestypes": ["c", "cpp"],
-    "coc.preferences.useQuickfixForLocations": true,
-    "languageserver": {
-        "dls": {
-            "command": "diagnostic-languageserver",
-            "args": ["--stdio"],
-            "filetypes": [ "sh" ],
-            "initializationOptions": {
-                "linters": {
-                    "shellcheck": {
-                        "command": "shellcheck",
-                        "debounce": 100,
-                        "args": [ "--format=gcc", "-"],
-                        "offsetLine": 0,
-                        "offsetColumn": 0,
-                        "sourceName": "shellcheck",
-                        "formatLines": 1,
-                        "formatPattern": [
-                            "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
-                            {
-                                "line": 1,
-                                "column": 2,
-                                "message": 4,
-                                "security": 3
-                            }
-                        ],
-                        "securities": {
-                            "error": "error",
-                            "warning": "warning",
-                            "note": "info"
-                        }
-                    }
-                },
-
-                "filetypes": {
-                    "sh": "shellcheck"
-                }
+  "list.source.outline.ctagsFilestypes": ["c", "cpp"],
+  "coc.preferences.useQuickfixForLocations": true,
+  "languageserver": {
+    "dls": {
+      "command": "diagnostic-languageserver",
+      "args": ["--stdio"],
+      "filetypes": ["sh"],
+      "initializationOptions": {
+        "linters": {
+          "shellcheck": {
+            "command": "shellcheck",
+            "debounce": 100,
+            "args": ["--format=gcc", "-"],
+            "offsetLine": 0,
+            "offsetColumn": 0,
+            "sourceName": "shellcheck",
+            "formatLines": 1,
+            "formatPattern": [
+              "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
+              {
+                "line": 1,
+                "column": 2,
+                "message": 4,
+                "security": 3
+              }
+            ],
+            "securities": {
+              "error": "error",
+              "warning": "warning",
+              "note": "info"
             }
+          }
         },
 
-        "ccls": {
-            "command": "ccls",
-            "filetypes": ["c", "cpp", "objc", "objcpp"],
-            "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-            "initializationOptions": {
-                "cache": {
-                    "directory": "/tmp/ccls"
-                }
-            }
-        },
-
-
-        "rust": {
-            "command": "ra_lsp_server",
-            "filetypes": ["rust"],
-            "rootPatterns": ["Cargo.toml"]
+        "filetypes": {
+          "sh": "shellcheck"
         }
+      }
+    },
+
+    "rust": {
+      "command": "ra_lsp_server",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
     }
+  }
 }

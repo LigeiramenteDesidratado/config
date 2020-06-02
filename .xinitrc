@@ -10,9 +10,9 @@ mpd&
 unclutter&
 dwmbar&
 backup&
+clipmenud&
 export _JAVA_AWT_WM_NONREPARENTING=1
-export WALLCMD="feh --bg-fill "
-# /usr/bin/xwallpaper --zoom "$HOME/wallpapers/roses.jpg"
+export WALLCMD="/usr/bin/xwallpaper --daemon --zoom "
 ''> /home/machine/.isdwmrunning
 while : ; do
 

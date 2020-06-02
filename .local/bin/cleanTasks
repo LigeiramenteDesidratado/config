@@ -1,27 +1,18 @@
 #! /bin/sh
 
+TASK="$HOME/.tasks"
+CURLINE=0
 
-task="$HOME/.tasks"
-currentLine=0
+[ ! -e "$TASK" ] || [ -z "$(cat "$TASK")" ] && echo "⚒️ tasks" > "$TASK"
 
-if [ ! -e "$task" ] || [ -z "$(cat "$task")" ]; then
-    echo "⚒️ Tasks" > "$task"
-fi
 
-while IFS='' read -r line || [ -n "$line" ]; do
-    currentLine=$(( currentLine + 1 ))
+while IFS='' read -r LINE; do
 
-    if [ "$currentLine" -gt 1 ]; then
+    CURLINE=$(( CURLINE + 1 ))
 
-        end=$(echo "$line" | awk '{ print $3 }')
-
-        if [ "$(date +%s)" -gt "$end" ]; then
-            sed -i "${currentLine}d" $task
-        else
-            emoj=$(echo "$line" | awk '{ print $1 }')
-            taskcur=$(echo "$line" | awk '{ print $2 }')
-            notify-send "$emoj $taskcur"
-            sleep 3
-        fi
+    if [ "$CURLINE" -gt 1 ]; then
+        END=$(echo "$LINE" | awk '{ print $3 }')
+        [ "$(date +%s)" -gt "$END" ] && sed -i "${CURLINE}d" "$TASK" || notify-send "$(echo "$LINE" | awk '{ print $1 " " $2 }')"
+        sleep 3
     fi
-done < "$task"
+done < "$TASK"

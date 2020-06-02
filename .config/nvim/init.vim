@@ -11,33 +11,36 @@ Plug 'godlygeek/tabular'
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'alok/notational-fzf-vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
-Plug 'psliwka/vim-smoothie'
 Plug 'tommcdo/vim-exchange'
 Plug 'norcalli/nvim-colorizer.lua'
-Plug 'alok/notational-fzf-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'inkarkat/vim-LineJuggler'
-Plug 'inkarkat/vim-ingo-library'
-Plug 'inkarkat/vim-visualrepeat'
-Plug 'matze/vim-move'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/goyo.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'godoctor/godoctor.vim'
-Plug 'romainl/vim-cool'
+" Plug 'romainl/vim-cool'
 Plug 'cohama/lexima.vim'
 Plug 'alvan/vim-closetag'
-" Plug 'sebdah/vim-delve'
-Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'fmoralesc/molokayo'
-Plug 'tomasr/molokai'
-Plug 'artanikin/vim-synthwave84'
 Plug 'andymass/vim-matchup'
 Plug 'machakann/vim-highlightedundo'
+
+" Line Move
+Plug 'inkarkat/vim-LineJuggler'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-visualrepeat'
+Plug 'matze/vim-move'
+
+" Colorschemes
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'fmoralesc/molokayo'
+Plug 'artanikin/vim-synthwave84'
+Plug 'tomasr/molokai'
+" Plug 'sebdah/vim-delve'
 " Plug 'jaredgorski/spacecamp'
 " Plug 'liuchengxu/graphviz.vim'
 " Plug 'machakann/vim-sandwich'
@@ -80,6 +83,7 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
+set spell
 
 "" Map leader to ,
 let mapleader=','
@@ -98,13 +102,15 @@ set inccommand=nosplit
 "" Directories for swp files
 set nobackup
 set nowritebackup
-set noswapfile
+" set noswapfile
+set dir=~/.cache/nvim
 
 set fileformats=unix,dos,mac
 
 syntax on
 set ruler
-set number
+" set number
+" set number relativenumber
 set nrformats=alpha,octal,hex,bin
 
 let no_buffers_menu=1
@@ -130,7 +136,6 @@ set termguicolors
 
 " mouse
 set mouse=a
-set number relativenumber
 " set list
 
 " Better display for messages
@@ -227,7 +232,7 @@ let g:floaterm_position = 'center'
 let g:floaterm_keymap_toggle = ',s'
 let g:floaterm_keymap_new    = ',t'
 let g:floaterm_keymap_next   = ',n'
-let g:floaterm_winblend = '10'
+let g:floaterm_winblend = 10
 let g:floaterm_background = '#121212'
 
 
@@ -272,21 +277,55 @@ noremap <silent>,h :<C-u>vsplit<CR>
 " Switch CWD to the directory of the open buffer:
 map ,cd :cd %:p:h<cr>:pwd<cr>
 nnoremap ,. :NV<cr>
-
+set lazyredraw
+set ttyfast
 autocmd InsertEnter,InsertLeave * set cul!
 set guicursor=
+vnoremap p "_dP
 "
 " Move by line
 nnoremap j gj
 nnoremap k gk
+
+nnoremap ,x *``cgn
+
+" highlight last inserted text
+nnoremap gV `[v`]
 
 nnoremap <silent> ,cc :ColorizerToggle<cr>
 let g:CoolTotalMatches = 1
 let g:closetag_filetypes = 'html,vue'
 
 " lua << EOF
-" require'nvim_lsp'.gopls.setup{}
+" local nvim_lsp = require('nvim_lsp')
+" local buf_set_keymap = vim.api.nvim_buf_set_keymap
+
+" local on_attach = function(_, bufnr)
+"   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+"     -- Mappings.
+"     local opts = { noremap=true, silent=true }
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>d', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+"   end
+
+"   local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver',  'jsonls'}
+"   for _, lsp in ipairs(servers) do
+"     nvim_lsp[lsp].setup {
+"       on_attach = on_attach,
+"     }
+"   end
 " EOF
+" let g:LspDiagnosticsErrorSign = '>'
+" let g:LspDiagnosticsWarningSign = '>'
+" let g:LspDiagnosticsInformationSign = '>'
+" let g:LspDiagnosticsHintSign = '>'
 
 " {{{ TextYankPost highlight
 function! s:hl_yank(operator, regtype, inclusive) abort
@@ -346,7 +385,7 @@ if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-colorscheme  molokai " spacecamp space_vim_theme deep-space space_vim_theme agila molokayo horizon plastic srcery horizon spacecamp srcery ayu one tequila-sunrise gruvbox-material codedark
+colorscheme  molokai " agila spacecamp space_vim_theme deep-space space_vim_theme molokayo horizon plastic srcery horizon spacecamp srcery ayu one tequila-sunrise gruvbox-material codedark
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
 let g:deepspace_italics=1
@@ -364,16 +403,16 @@ nnoremap <silent> <S-t> :tabnew<CR>
 let g:buftabline_numbers = 2
 let g:buftabline_show = 1
 
-nmap ,1 <Plug>BufTabLine.Go(1)
-nmap ,2 <Plug>BufTabLine.Go(2)
-nmap ,3 <Plug>BufTabLine.Go(3)
-nmap ,4 <Plug>BufTabLine.Go(4)
-nmap ,5 <Plug>BufTabLine.Go(5)
-nmap ,6 <Plug>BufTabLine.Go(6)
-nmap ,7 <Plug>BufTabLine.Go(7)
-nmap ,8 <Plug>BufTabLine.Go(8)
-nmap ,9 <Plug>BufTabLine.Go(9)
-nmap ,0 <Plug>BufTabLine.Go(10)
+" nmap ,1 <Plug>BufTabLine.Go(1)
+" nmap ,2 <Plug>BufTabLine.Go(2)
+" nmap ,3 <Plug>BufTabLine.Go(3)
+" nmap ,4 <Plug>BufTabLine.Go(4)
+" nmap ,5 <Plug>BufTabLine.Go(5)
+" nmap ,6 <Plug>BufTabLine.Go(6)
+" nmap ,7 <Plug>BufTabLine.Go(7)
+" nmap ,8 <Plug>BufTabLine.Go(8)
+" nmap ,9 <Plug>BufTabLine.Go(9)
+" nmap ,0 <Plug>BufTabLine.Go(10)
 
 " hi! link BufTabLineCurrent TabLineSel
 " hi! link BufTabLineActive PmenuSel
@@ -410,7 +449,7 @@ set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*
 
 if has('nvim') && exists('&winblend') && &termguicolors
 
-    let $FZF_DEFAULT_OPTS .= ' --inline-info'
+    let $FZF_DEFAULT_OPTS .= '--bind alt-k:preview-up,alt-j:preview-down --height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap --inline-info'
     if exists('g:fzf_colors.bg')
         call remove(g:fzf_colors, 'bg')
     endif
@@ -480,6 +519,7 @@ let g:coc_global_extensions = [
             \ 'coc-prettier',
             \ 'coc-css',
             \ 'coc-go',
+            \ 'coc-clangd',
             \ ]
 "
 
@@ -527,6 +567,11 @@ nmap gs <Plug>(coc-git-chunkinfo)
 nmap gd <Plug>(coc-git-commit)
 nmap gN <Plug>(coc-git-prevchunk)
 nmap gn <Plug>(coc-git-nextchunk)
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd FileType go nmap ,gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap ,gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap ,gtx :CocCommand go.tags.clear<cr>
+
 " endif
 
 "}}}
@@ -548,11 +593,6 @@ autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
 autocmd Filetype template setlocal ts=2 sw=2 expandtab
-
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd FileType go nmap ,gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap ,gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap ,gtx :CocCommand go.tags.clear<cr>
 
 nnoremap ,gr :Rename<space>
 vnoremap ,gv :Refactor var<space>
@@ -581,12 +621,12 @@ let g:polyglot_disabled = ['python']
 " Left side
 set statusline=
 set statusline+=%1*\ %{StatuslineMode()}\ 
-set statusline+=%2*\ %{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}
-set statusline+=%6*\ %f%m%r%h%w
+set statusline+=%2*\ %<%{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}
+set statusline+=%6*\ %<%f%m%r%h%w%<
 set statusline+=%=
 " Right side
-set statusline+=%2*\ %{&ff}\/%Y\ 
-set statusline+=%5*%3p%%,\ %3l:%-3c
+set statusline+=%<ascii:%b%2*\ %{&ff}\/%Y\ 
+set statusline+=%5*%3p%%,\ %3c:%3l\ of\ %-4L
 set statusline+=%7*%{Check_mixed_indent_file()}
 
 hi User1 cterm=bold  ctermbg=25  ctermfg=189 gui=bold guibg=#853e64 guifg=#121212
