@@ -23,6 +23,7 @@ Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-visualrepeat'
 Plug 'matze/vim-move'
 Plug 'jreybert/vimagit'
+Plug 'mhinz/vim-signify'
 " Plug 'govim/govim'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -93,7 +94,6 @@ set fileformats=unix,dos,mac
 "*****************************************************************************
 syntax on
 set ruler
-set number
 
 let no_buffers_menu=1
 
@@ -118,7 +118,7 @@ set termguicolors
 
 " mouse
 set mouse=a
-set number relativenumber
+" set number relativenumber
 set list
 
 " Better display for messages
@@ -186,7 +186,7 @@ let g:floaterm_position = 'center'
 let g:floaterm_keymap_toggle = ',s'
 let g:floaterm_keymap_new    = ',t'
 let g:floaterm_keymap_next   = ',n'
-let g:floaterm_winblend = '10'
+let g:floaterm_winblend = 10
 let g:floaterm_background = '#121212'
 
 
@@ -196,12 +196,20 @@ let g:clever_f_smart_case = 1
 
 
 "" Personal
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-h> <Left>
+" inoremap <C-l> <Right>
 
-set hidden
+autocmd InsertEnter,InsertLeave * set cul!
+set guicursor=
+nmap <silent>gs :SignifyHunkDiff<CR>
+let g:signify_sign_add = "▏"
+" let g:signify_sign_delete = "▏"
+" let g:signify_sign_delete_first_line = "▏"
+let g:signify_sign_change = "▏"
+" let g:signify_sign_show_count = "▏"
+" let g:signify_sign_show_text = "▏"
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
@@ -211,13 +219,49 @@ let g:LanguageClient_serverCommands = {
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ 'go' : ['gopls']
     \ }
-let g:LanguageClient_hoverPreview = "Always"
 nnoremap <silent> ,d :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> ,gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> ,gi :call LanguageClient#textDocument_implementation()<CR>
+nnoremap <silent> ,gr :call LanguageClient#textDocument_references()<CR>
+
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
+augroup markdown_language_client_commands
+    autocmd!
+    autocmd WinLeave __LanguageClient__ ++nested call <SID>fixLanguageClientHover()
+augroup END
+
+function! s:fixLanguageClientHover()
+    setlocal modifiable
+    setlocal conceallevel=2
+    normal i
+    setlocal nomodifiable
+endfunction
+
+set completeopt=menu
+
+" LineJuggler
 vmap <S-l>   <Plug>(LineJugglerDupRangeUp)
 vmap <S-h> <Plug>(LineJugglerDupRangeDown)
+nmap <A-k>   <Plug>(LineJugglerBlankUp)
+nmap <A-j> <Plug>(LineJugglerBlankDown)
+vmap <A-k>   <Plug>(LineJugglerBlankUp)
+vmap <A-j> <Plug>(LineJugglerBlankDown)
+imap <A-k>   <Plug>(LineJugglerBlankUp)
+imap <A-j> <Plug>(LineJugglerBlankDown)
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <C-j>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<C-j>" :
+            \ LanguageClient_textDocument_completion()
+
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-]>"
 
 " move line
 " nmap <C-k>   <Plug>(LineJugglerMoveUp)
@@ -236,7 +280,7 @@ vmap <S-h> <Plug>(LineJugglerDupRangeDown)
 "
 " duplucate selected word
 
-let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
+let g:markdown_fenced_languages = ['go=go', 'coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
 " Switch CWD to the directory of the open buffer:
 map ,cd :cd %:p:h<cr>:pwd<cr>
 nnoremap ,. :NV<cr>
@@ -251,10 +295,6 @@ let g:vue_pre_processors = 'detect_on_enter'
 " map k gk
 nnoremap ,cfv :vsplit ~/.config/nvim/init.vim <cr>
 nnoremap ,ref :source ~/.config/nvim/init.vim <cr>
-nmap <silent> ,o :Files<CR>
-nmap <silent> ,f :Rg<CR>
-vmap <silent> ,f :Rg<CR>
-nmap <silent> ,a :Buf<CR>
 
 vnoremap <silent> ,r :call VisualSelection('replace')<CR>
 
@@ -323,54 +363,58 @@ set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
 set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*/tmp/*
 
 if has('nvim') && exists('&winblend') && &termguicolors
-  set winblend=10
 
-  if exists('g:fzf_colors.bg')
-    call remove(g:fzf_colors, 'bg')
-  endif
+    let $FZF_DEFAULT_OPTS .= '--bind alt-k:preview-up,alt-j:preview-down --height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap --inline-info'
+    if exists('g:fzf_colors.bg')
+        call remove(g:fzf_colors, 'bg')
+    endif
 
-  if stridx($FZF_DEFAULT_OPTS, '--border') == -1
-    let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
-  endif
+    if stridx($FZF_DEFAULT_OPTS, '--border') == -1
+        let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+    endif
 
-  function! FloatingFZF()
-    let width = float2nr(&columns * 0.9)
-    let height = float2nr(&lines * 0.6)
-    let opts = { 'relative': 'editor',
-               \ 'row': (&lines - height) / 2,
-               \ 'col': (&columns - width) / 2,
-               \ 'width': width,
-               \ 'height': height }
+    function! FloatingFZF()
+        let width = float2nr(&columns * 0.9)
+        let height = float2nr(&lines * 0.6)
+        let opts = { 'relative': 'editor',
+                    \ 'row': (&lines - height) / 2,
+                    \ 'col': (&columns - width) / 2,
+                    \ 'width': width,
+                    \ 'height': height }
 
-    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
-  endfunction
+        let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+        call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+    endfunction
 
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
 
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
 
 command! -bang -nargs=* Buf
-  \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%:hidden', '?'))
+            \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%:hidden', '?'))
 
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Label'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':    ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Label'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
+
+nmap <silent> ,o :Files<CR>
+nmap <silent> ,f :Rg<CR>
+nmap <silent> ,a :Buf<CR>
 
 
 noremap YY "+y<CR>
@@ -416,10 +460,6 @@ autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
 autocmd Filetype template setlocal ts=2 sw=2 expandtab
-" autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
-autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 function! g:IfErr() " go get -u github.com/koron/iferr
   let bpos = wordcount()['cursor_bytes']
@@ -445,7 +485,6 @@ let g:polyglot_disabled = ['python']
 " Left side
 set statusline=
 set statusline+=%1*\ %{StatuslineMode()}\ 
-set statusline+=%2*\ %{get(g:,'coc_git_status')}%{get(b:,'coc_git_status')}
 set statusline+=%6*\ %f%m%r%h%w
 set statusline+=%=
 " Right side
