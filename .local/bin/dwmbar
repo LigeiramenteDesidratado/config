@@ -23,7 +23,7 @@ status() { \
 		echo "$delim"
 
 	# Date and time.
-    date '+%Y %m(%b) %d(%a) %I:%M%p'
+    date '+%d(%a) %m(%b) %Y %I:%M%p'
 	}
 
 update() { \

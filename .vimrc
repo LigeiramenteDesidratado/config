@@ -3,8 +3,15 @@ set shell=/bin/dash
 call plug#begin(expand('~/.vim/plugged'))
 
 Plug 'sheerun/vim-polyglot'
-"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'govim/govim'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'jaredgorski/spacecamp'
+" Plug 'psliwka/vim-smoothie'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'kristijanhusak/vim-hybrid-material'
+
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'inkarkat/vim-LineJuggler'
@@ -43,9 +50,9 @@ vnoremap p "_dP
 " Move by line
 nnoremap j gj
 nnoremap k gk
-
-
-
+set t_Co=256
+set completeopt=preview
+set balloondelay=250
 filetype plugin indent on
  " Encoding
 set encoding=utf-8
@@ -89,7 +96,6 @@ set fileformats=unix,dos,mac
 
 syntax on
 set ruler
-set number
 
  " Status bar
 set laststatus=2
@@ -104,11 +110,11 @@ set title
 set titlestring=%F
 
 set background=dark
-" set termguicolors
+set termguicolors
 
 " mouse
 set mouse=a
-set number relativenumber
+" set number relativenumber
 " set list
 
 " Better display for messages
@@ -123,16 +129,17 @@ set shortmess+=c
 " Disable visualbell
 set noerrorbells visualbell t_vb=
 set belloff+=ctrlg
+set signcolumn=yes
 
 " Copy/Paste/Cut
 if has('unnamedplus')
     set clipboard=unnamed,unnamedplus
 endif
 
-colorscheme molokai
+
+colorscheme hybrid_reverse 
 " set list
 let g:rehash256 = 1
-set number relativenumber
 nmap <silent> ,o :Files<CR>
 nmap <silent> ,f :Rg<CR>
 nmap <silent> ,a :Buf<CR>
@@ -162,6 +169,16 @@ inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-]>"
 nmap <silent> <buffer> <Leader>d : <C-u>call GOVIMHover()<CR>
 command! Cnext try | cbelow | catch | cabove 9999 | catch | endtry
 nnoremap <silent><leader>e :Cnext<CR>
+
+let g:comfortable_motion_scroll_down_key = "j"
+let g:comfortable_motion_scroll_up_key = "k"
+
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
 nmap u     <Plug>(highlightedundo-undo)
 nmap <C-r> <Plug>(highlightedundo-redo)

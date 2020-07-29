@@ -54,26 +54,11 @@
   "typescript.format.semicolons": "insert",
   "typescript.format.enabled": true,
 
-  "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveFiletypes": ["js", "go", "json", "ts"],
   "diagnostic.errorSign": ">>",
   "diagnostic.infoSign": ">>",
   "diagnostic.hintSign": ">>",
   "diagnostic.warningSign": ">>",
-
-  "coc.preferences.messageLevel": "more",
-  "diagnostic.enableMessage": "always",
-  "suggest.echodocSupport": true,
-  "git.enableGutters": true,
-  "git.signOffset": 12,
-  "git.addedSign.hlGroup": "GitGutterAdd",
-  "git.changedSign.hlGroup": "GitGutterChange",
-  "git.removedSign.hlGroup": "GitGutterDelete",
-  "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "emmet.includeLanguages": { "gohtmltmpl": "html", "template": "html" },
-  "coc.preferences.bracketEnterImprove": true,
-  "go.trace.server": "verbose",
 
   "go.goplsOptions": {
     "usePlaceholders": true,
@@ -83,6 +68,8 @@
     "completionDocumentation": true,
     "fuzzyMatching": true,
     "hoverKind": "SynopsisDocumentation",
+    "matcher": "fuzzy",
+    "symbolMatcher": "fuzzy",
     "linkTarget": ""
   },
 

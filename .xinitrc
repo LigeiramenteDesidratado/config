@@ -11,9 +11,7 @@ unclutter&
 dwmbar&
 backup&
 clipmenud&
-export _JAVA_AWT_WM_NONREPARENTING=1
-export WALLCMD="/usr/bin/xwallpaper --daemon --zoom "
-''> /home/machine/.isdwmrunning
+echo '' > /home/machine/.isdwmrunning
 while : ; do
 
     #with logs
