@@ -4,8 +4,11 @@ set shell=/bin/zsh
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
+Plug 'mhinz/vim-signify'
 " Plug 'neovim/nvim-lsp'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'haorenW1025/completion-nvim'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'ap/vim-buftabline'
 Plug 'godlygeek/tabular'
 Plug 'voldikss/vim-floaterm'
@@ -23,23 +26,26 @@ Plug 'jreybert/vimagit'
 Plug 'junegunn/goyo.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'godoctor/godoctor.vim'
+Plug 'rhysd/vim-go-impl'
+Plug 'morhetz/gruvbox'
 " Plug 'romainl/vim-cool'
 Plug 'cohama/lexima.vim'
 Plug 'alvan/vim-closetag'
 Plug 'andymass/vim-matchup'
 Plug 'machakann/vim-highlightedundo'
-
+Plug 'cheap-glitch/vim-v', { 'for': 'v' }
 " Line Move
 Plug 'inkarkat/vim-LineJuggler'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-visualrepeat'
-Plug 'matze/vim-move'
+" Plug 'matze/vim-move'
 
 " Colorschemes
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'fmoralesc/molokayo'
 Plug 'artanikin/vim-synthwave84'
 Plug 'tomasr/molokai'
+Plug 'kristijanhusak/vim-hybrid-material'
 " Plug 'sebdah/vim-delve'
 " Plug 'jaredgorski/spacecamp'
 " Plug 'liuchengxu/graphviz.vim'
@@ -83,7 +89,7 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
-set spell
+" set spell
 
 "" Map leader to ,
 let mapleader=','
@@ -111,7 +117,7 @@ syntax on
 set ruler
 " set number
 " set number relativenumber
-set nrformats=alpha,octal,hex,bin
+" set nrformats=alpha,octal,hex,bin
 
 let no_buffers_menu=1
 
@@ -186,7 +192,8 @@ cnoreabbrev Qall qall
 inoremap <C-l> <C-]>
 
 iabbrev wr w http.ResponseWriter, r *http.Request<right>
-iabbrev iferr if err != nil {<CR>
+iabbrev iferr if err != nil {<CR> panic(err)
+iabbrev deferc defer .Close()<Esc>bbbi
 
 "  }}}
 
@@ -218,13 +225,6 @@ autocmd BufLeave * silent! :wa
 "" Mappings
 "*****************************************************************************
 "{{{ mappings
-" Buffer nav
-noremap <silent> <S-J> :bp<CR>
-noremap <silent> <S-K> :bn<CR>
-noremap <silent> ,w :bd<CR>
-
-imap <silent> jk <Esc>:FixWhitespace<CR>
-imap <silent> kj <Esc>:FixWhitespace<CR>
 
 
 " floaterm
@@ -251,42 +251,92 @@ let g:clever_f_smart_case = 1
 " duplicate selection to right or left without polluting the register
 vmap <S-l>   <Plug>(LineJugglerDupRangeUp)
 vmap <S-h> <Plug>(LineJugglerDupRangeDown)
+nmap <A-k>   <Plug>(LineJugglerBlankUp)
+nmap <A-j> <Plug>(LineJugglerBlankDown)
+vmap <A-k>   <Plug>(LineJugglerBlankUp)
+vmap <A-j> <Plug>(LineJugglerBlankDown)
+imap <A-k>   <Plug>(LineJugglerBlankUp)
+imap <A-j> <Plug>(LineJugglerBlankDown)
 
+
+" Buffer nav
+noremap <silent> <S-J> :bp<CR>
+noremap <silent> <S-K> :bn<CR>
+noremap <silent> ,w :bd<CR>
+
+" scape to normal mode with 'jk'
+imap <silent> jk <Esc>:FixWhitespace<CR>
+imap <silent> kj <Esc>:FixWhitespace<CR>
 
 " Clean search (highlight)
 nnoremap <silent> ,, :noh<cr>
-
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
 
-
 " duplicate selection to upper and down without polluting the register
-vmap <silent> J :t'><cr>
-vmap <silent> K :t .-1<cr>
+vmap <silent> <S-J> :t'><cr>
+vmap <silent> <S-K> :t .0<cr>
 
+" move a selection block up and down
+vmap <silent><C-k> :m'<-2<CR>gv=gv
+vmap <silent><C-j> :m'>+1<CR>gv=gv
 
+" move a single line up and down
+nmap <silent><C-k> :m-2=<CR>==
+nmap <silent><C-j> :m+1<CR>==
+
+" move a character left and right
+nmap <silent><C-h> :call MoveCharLeft()<CR>
+nmap <silent><C-l> :call MoveCharRight()<CR>
+
+" paste in visual mode without polluting the register
+vnoremap p "_dP
+
+" Switch CWD to the directory of the open buffer:
+map ,cd :cd %:p:h<cr>:pwd<cr>
+"
+" Move by line
+nnoremap j gj
+nnoremap k gk
+"
 "" Split
 noremap <silent>,j :<C-u>split<CR>
 noremap <silent>,h :<C-u>vsplit<CR>
 
+" un-join (split) the current line at the cursor position
+nnoremap gj i<c-j><esc>k$
+
+
 " }}}
 
 "" Personal
-" Switch CWD to the directory of the open buffer:
-map ,cd :cd %:p:h<cr>:pwd<cr>
 nnoremap ,. :NV<cr>
 set lazyredraw
 set ttyfast
 autocmd InsertEnter,InsertLeave * set cul!
 set guicursor=
-vnoremap p "_dP
-"
-" Move by line
-nnoremap j gj
-nnoremap k gk
+let g:v_warnings=1
+nmap <silent>gs :SignifyHunkDiff<CR>
 
+highlight link SignifyLineAdd             GitGutterAdd
+highlight link SignifyLineChange          GitGutterChange
+highlight link SignifyLineDelete          GitGutterDelete
+highlight link SignifyLineDeleteFirstLine GitGutterDelete
+
+highlight link SignifySignAdd             GitGutterAdd
+highlight link SignifySignChange          GitGutterChange
+highlight link SignifySignDelete          GitGutterDelete
+highlight link SignifySignDeleteFirstLine GitGutterDelete
+
+
+let g:signify_sign_add = "▏"
+" let g:signify_sign_delete = "▏"
+" let g:signify_sign_delete_first_line = "▏"
+let g:signify_sign_change = "▏"
+" let g:signify_sign_show_count = "▏"
+" let g:signify_sign_show_text = "▏"
 nnoremap ,x *``cgn
 
 " highlight last inserted text
@@ -295,37 +345,6 @@ nnoremap gV `[v`]
 nnoremap <silent> ,cc :ColorizerToggle<cr>
 let g:CoolTotalMatches = 1
 let g:closetag_filetypes = 'html,vue'
-
-" lua << EOF
-" local nvim_lsp = require('nvim_lsp')
-" local buf_set_keymap = vim.api.nvim_buf_set_keymap
-
-" local on_attach = function(_, bufnr)
-"   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-"     -- Mappings.
-"     local opts = { noremap=true, silent=true }
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>d', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-"     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
-"   end
-
-"   local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver',  'jsonls'}
-"   for _, lsp in ipairs(servers) do
-"     nvim_lsp[lsp].setup {
-"       on_attach = on_attach,
-"     }
-"   end
-" EOF
-" let g:LspDiagnosticsErrorSign = '>'
-" let g:LspDiagnosticsWarningSign = '>'
-" let g:LspDiagnosticsInformationSign = '>'
-" let g:LspDiagnosticsHintSign = '>'
 
 " {{{ TextYankPost highlight
 function! s:hl_yank(operator, regtype, inclusive) abort
@@ -362,8 +381,6 @@ augroup vimrc_hlyank
 augroup END
 " }}}
 
-" un-join (split) the current line at the cursor position
-nnoremap gj i<c-j><esc>k$
 let g:nv_use_ignore_files = 0
 let g:nv_search_paths = ['~/Notes/Notes']
 let g:move_key_modifier = 'C'
@@ -385,12 +402,11 @@ if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-colorscheme  molokai " agila spacecamp space_vim_theme deep-space space_vim_theme molokayo horizon plastic srcery horizon spacecamp srcery ayu one tequila-sunrise gruvbox-material codedark
-let g:space_vim_italicize_strings = 1
-let g:space_vim_italic = 1
-let g:deepspace_italics=1
+colorscheme gruvbox " space_vim_theme molokai hybrid_reverse  agila spacecamp space_vim_theme deep-space   horizon plastic srcery horizon spacecamp srcery ayu one tequila-sunrise gruvbox-material codedark
+" let g:space_vim_italicize_strings = 1
+" let g:space_vim_italic = 1
+" let g:deepspace_italics=1
 "
-
 hi MatchWordCur cterm=underline gui=underline
 hi MatchParenCur cterm=underline gui=underline
 hi MatchWord cterm=underline gui=underline
@@ -403,26 +419,16 @@ nnoremap <silent> <S-t> :tabnew<CR>
 let g:buftabline_numbers = 2
 let g:buftabline_show = 1
 
-" nmap ,1 <Plug>BufTabLine.Go(1)
-" nmap ,2 <Plug>BufTabLine.Go(2)
-" nmap ,3 <Plug>BufTabLine.Go(3)
-" nmap ,4 <Plug>BufTabLine.Go(4)
-" nmap ,5 <Plug>BufTabLine.Go(5)
-" nmap ,6 <Plug>BufTabLine.Go(6)
-" nmap ,7 <Plug>BufTabLine.Go(7)
-" nmap ,8 <Plug>BufTabLine.Go(8)
-" nmap ,9 <Plug>BufTabLine.Go(9)
-" nmap ,0 <Plug>BufTabLine.Go(10)
-
-" hi! link BufTabLineCurrent TabLineSel
-" hi! link BufTabLineActive PmenuSel
-" hi! link BufTabLineHidden TabLine
-" hi! link BufTabLineFill TabLineFill
 " ----------------------------------------
 hi! BufTabLineCurrent ctermbg=233 ctermfg=242 guibg=#252525 guifg=#b877db
 hi! link BufTabLineActive Normal
 hi! link BufTabLineHidden Comment
 hi! BufTabLineFill ctermbg=233 ctermfg=242 guibg=#151515 guifg=#b877db
+
+hi! GitGutterAdd ctermbg=233 ctermfg=48 guibg=#1c1c1c guifg=#09f7a0
+hi! GitGutterChange ctermbg=233 ctermfg=105 guibg=#1c1c1c gui=bold guifg=#8787ff
+hi! GitGutterChangeDelete ctermbg=233 ctermfg=109 guibg=#1c1c1c guifg=#e95678
+hi! GitGutterDelete ctermbg=233 ctermfg=203 guibg=#1c1c1c guifg=#eC6a88
 
 "}}}
 
@@ -476,7 +482,7 @@ endif
 
 command! -bang -nargs=* Rg
             \ call fzf#vim#grep(
-            \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   'rg --column --line-number --no-heading --color=always --smart-case --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'),
             \   <bang>0)
 
 command! -bang -nargs=* Buf
@@ -510,7 +516,6 @@ nmap <silent> ,a :Buf<CR>
 
 " if has("coc_status")
 let g:coc_global_extensions = [
-            \ 'coc-git',
             \ 'coc-json',
             \ 'coc-tsserver',
             \ 'coc-html',
@@ -519,6 +524,7 @@ let g:coc_global_extensions = [
             \ 'coc-prettier',
             \ 'coc-css',
             \ 'coc-go',
+            \ 'coc-vetur',
             \ 'coc-clangd',
             \ ]
 "
@@ -533,11 +539,11 @@ inoremap <silent><expr> <C-j>
             \ <SID>check_back_space() ? "\<C-j>" :
             \ coc#refresh()
 
-let g:coc_snippet_next = '<C-e>'
-let g:coc_snippet_prev = '<C-q>'
-
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-]>"
+
+let g:coc_snippet_next = '<C-e>'
+let g:coc_snippet_prev = '<C-q>'
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -548,9 +554,10 @@ inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> <C-[> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-]> <Plug>(coc-diagnostic-next)
 
-nmap <silent>gr <Plug>(coc-references)
-nmap <silent>gi <Plug>(coc-implementation)
-nmap <silent>ge <Plug>(coc-definition)
+nmap <silent><leader>gr <Plug>(coc-references)
+nmap <silent><leader>gi <Plug>(coc-implementation)
+nmap <silent><leader>ge <Plug>(coc-definition)
+nmap <silent><leader>rn <Plug>(coc-rename)
 
 nnoremap <silent> ,d :call <SID>show_documentation()<CR>
 
@@ -558,12 +565,12 @@ function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     else
-        call CocAction('doHover')
+        call CocActionAsync('doHover')
     endif
 endfunction
 
 let g:coc_git_status=1
-nmap gs <Plug>(coc-git-chunkinfo)
+" nmap gs <Plug>(coc-git-chunkinfo)
 nmap gd <Plug>(coc-git-commit)
 nmap gN <Plug>(coc-git-prevchunk)
 nmap gn <Plug>(coc-git-nextchunk)
@@ -594,9 +601,9 @@ autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
 autocmd Filetype gohtmltmpl setlocal ts=2 sw=2 expandtab
 autocmd Filetype template setlocal ts=2 sw=2 expandtab
 
-nnoremap ,gr :Rename<space>
-vnoremap ,gv :Refactor var<space>
-vnoremap ,gf :Refactor exatract<space>
+nnoremap <leader>grn :Rename<space>
+vnoremap <leader>gv :Refactor var<space>
+vnoremap <leader>gf :Refactor exatract<space>
 
 " web
 autocmd Filetype typescript,javascript,css,html,vue setlocal ts=2 sw=2 expandtab
@@ -715,6 +722,28 @@ function! VisualSelection(direction) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
+endfunction
+
+function! MoveCharLeft()
+    let l:distance = v:count ? v:count : 1
+    let s:default_register_value = @"
+    if (virtcol('.') - l:distance <= 0)
+        silent normal! x0P
+    else
+        silent normal! x1hP
+    endif
+    let @" = s:default_register_value
+endfunction
+
+function! MoveCharRight()
+    let l:distance = v:count ? v:count : 1
+    let s:default_register_value = @"
+    if (virtcol('.') + l:distance >= virtcol('$') - 1)
+        silent normal! x$p
+    else
+        silent normal! x1lP
+    endif
+    let @" = s:default_register_value
 endfunction
 
 " }}}

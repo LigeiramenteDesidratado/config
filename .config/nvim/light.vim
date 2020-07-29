@@ -1,7 +1,7 @@
 set shell=/bin/zsh
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-Plug 'lifepillar/vim-colortemplate'
+" Plug 'lifepillar/vim-colortemplate'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-buftabline'
@@ -11,9 +11,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/MatchTag'
 Plug 'alok/notational-fzf-vim'
 Plug 'plasticboy/vim-markdown'
@@ -21,15 +22,19 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'inkarkat/vim-LineJuggler'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-visualrepeat'
-Plug 'matze/vim-move'
+Plug 'cohama/lexima.vim'
+Plug 'morhetz/gruvbox'
+" Plug 'matze/vim-move'
 Plug 'jreybert/vimagit'
 Plug 'mhinz/vim-signify'
+Plug 'kristijanhusak/vim-hybrid-material'
 " Plug 'govim/govim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" Plug 'machakann/vim-sandwich'
+" Plug 'neovim/nvim-lsp'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+Plug 'machakann/vim-sandwich'
 " Plug 'posva/vim-vue'
 " Plug 'vifm/vifm.vim'
 " Plug 'majutsushi/tagbar'
@@ -198,7 +203,6 @@ let g:clever_f_smart_case = 1
 "" Personal
 " inoremap <C-j> <Down>
 " inoremap <C-k> <Up>
-" inoremap <C-h> <Left>
 " inoremap <C-l> <Right>
 
 autocmd InsertEnter,InsertLeave * set cul!
@@ -210,17 +214,49 @@ let g:signify_sign_add = "▏"
 let g:signify_sign_change = "▏"
 " let g:signify_sign_show_count = "▏"
 " let g:signify_sign_show_text = "▏"
+highlight link SignifyLineAdd             GitGutterAdd
+highlight link SignifyLineChange          GitGutterChange
+highlight link SignifyLineDelete          GitGutterDelete
+highlight link SignifyLineDeleteFirstLine GitGutterDelete
+
+highlight link SignifySignAdd             GitGutterAdd
+highlight link SignifySignChange          GitGutterChange
+highlight link SignifySignDelete          GitGutterDelete
+highlight link SignifySignDeleteFirstLine GitGutterDelete
+
+let g:LanguageClient_diagnosticsList = 'Disabled'
+let g:LanguageClient_hoverPreview = 'always'
+let g:LanguageClient_completionPreferTextEdit = 0
+let g:LanguageClient_useVirtualText = 'All'
+let g:LanguageClient_echoProjectRoot = 0
+let g:LanguageClient_preferredMarkupKind = ['markdown', 'plaintext']
+let g:LanguageClient_applyCompletionAdditionalTextEdits = 0
+let g:LanguageClient_diagnosticsEnable = 1
+let g:LanguageClient_showCompletionDocs = 1
+let g:LanguageClient_hideVirtualTextsOnInsert = 1
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ 'go' : ['gopls']
+    \ 'go' : ['gopls'],
+    \ 'c': ['clangd'],
+    \ 'cpp': ['clangd'],
     \ }
-nnoremap <silent> ,d :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> ,gd :call LanguageClient#textDocument_definition()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call LanguageClient#textDocument_hover()
+  endif
+endfunction
+
+nmap <silent> ,d :call <SID>show_documentation()<CR>
+
+" nnoremap <silent> ,d :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> ,ge :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> ,gi :call LanguageClient#textDocument_implementation()<CR>
 nnoremap <silent> ,gr :call LanguageClient#textDocument_references()<CR>
 
@@ -240,16 +276,6 @@ endfunction
 
 set completeopt=menu
 
-" LineJuggler
-vmap <S-l>   <Plug>(LineJugglerDupRangeUp)
-vmap <S-h> <Plug>(LineJugglerDupRangeDown)
-nmap <A-k>   <Plug>(LineJugglerBlankUp)
-nmap <A-j> <Plug>(LineJugglerBlankDown)
-vmap <A-k>   <Plug>(LineJugglerBlankUp)
-vmap <A-j> <Plug>(LineJugglerBlankDown)
-imap <A-k>   <Plug>(LineJugglerBlankUp)
-imap <A-j> <Plug>(LineJugglerBlankDown)
-
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
@@ -257,28 +283,42 @@ endfunction
 
 inoremap <silent><expr> <C-j>
             \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<C-j>" :
-            \ LanguageClient_textDocument_completion()
+            \ "<Down>"
 
-inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-]>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "<Up>"
+inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "<Right>"
+inoremap <C-h> <Left>
 
-" move line
-" nmap <C-k>   <Plug>(LineJugglerMoveUp)
-" nmap <C-j> <Plug>(LineJugglerMoveDown)
+" LineJuggler
+vmap <S-l> <Plug>(LineJugglerDupRangeUp)
+vmap <S-h> <Plug>(LineJugglerDupRangeDown)
+nmap <A-k> <Plug>(LineJugglerBlankUp)
+nmap <A-j> <Plug>(LineJugglerBlankDown)
+vmap <A-k> <Plug>(LineJugglerBlankUp)
+vmap <A-j> <Plug>(LineJugglerBlankDown)
+imap <A-k> <Plug>(LineJugglerBlankUp)
+imap <A-j> <Plug>(LineJugglerBlankDown)
 
-" move one char up and dow
-" nmap <C-k>   <Plug>(LineJugglerMoveIntraUp)
-" nmap <C-j> <Plug>(LineJugglerMoveIntraDown)
 
-" nmap <C-k>   <Plug>(LineJugglerDupRangeUp)
-" nmap <C-j> <Plug>(LineJugglerDupRangeDown)
+"" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
 
-" move selected
-" vmap <C-k>   <Plug>(LineJugglerMoveUp)
-" vmap <C-j> <Plug>(LineJugglerMoveDown)
-"
-" duplucate selected word
+
+" move a selection block up and down
+vmap <silent><C-k> :m'<-2<CR>gv=gv
+vmap <silent><C-j> :m'>+1<CR>gv=gv
+
+" move a single line up and down
+nmap <silent><C-k> :m-2=<CR>==
+nmap <silent><C-j> :m+1<CR>==
+
+" move a character left and right
+nmap <silent><C-h> :call MoveCharLeft()<CR>
+nmap <silent><C-l> :call MoveCharRight()<CR>
+
+" paste in visual mode without polluting the register
+vnoremap p "_dP
 
 let g:markdown_fenced_languages = ['go=go', 'coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
 " Switch CWD to the directory of the open buffer:
@@ -310,9 +350,10 @@ endif
 imap <silent> jk <Esc>:FixWhitespace<CR>
 imap <silent> kj <Esc>:FixWhitespace<CR>
 
-colorscheme space_vim_theme " deep-space ayu  spacecamp srcery     one tequila-sunrise horizon   gruvbox-material horizon  codedark
+colorscheme gruvbox " space_vim_theme  hybrid_reverse  deep-space ayu spacecamp srcery one tequila-sunrise horizon gruvbox-material horizon  codedark
 let g:space_vim_italicize_strings = 1
 let g:space_vim_italic = 1
+let g:gruvbox_italic=1
 "
 "" Split
 noremap <silent>,j :<C-u>split<CR>
@@ -325,17 +366,6 @@ noremap <silent>,h :<C-u>vsplit<CR>
 nnoremap <silent> <S-t> :tabnew<CR>
 let g:buftabline_numbers = 2
 let g:buftabline_show = 1
-
-nmap ,1 <Plug>BufTabLine.Go(1)
-nmap ,2 <Plug>BufTabLine.Go(2)
-nmap ,3 <Plug>BufTabLine.Go(3)
-nmap ,4 <Plug>BufTabLine.Go(4)
-nmap ,5 <Plug>BufTabLine.Go(5)
-nmap ,6 <Plug>BufTabLine.Go(6)
-nmap ,7 <Plug>BufTabLine.Go(7)
-nmap ,8 <Plug>BufTabLine.Go(8)
-nmap ,9 <Plug>BufTabLine.Go(9)
-nmap ,0 <Plug>BufTabLine.Go(10)
 
 hi! link BufTabLineCurrent TabLineSel
 hi! link BufTabLineActive PmenuSel
@@ -370,7 +400,7 @@ if has('nvim') && exists('&winblend') && &termguicolors
     endif
 
     if stridx($FZF_DEFAULT_OPTS, '--border') == -1
-        let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+        let $FZF_DEFAULT_OPTS .= ' --border'
     endif
 
     function! FloatingFZF()
@@ -378,8 +408,8 @@ if has('nvim') && exists('&winblend') && &termguicolors
         let height = float2nr(&lines * 0.6)
         let opts = { 'relative': 'editor',
                     \ 'row': (&lines - height) / 2,
-                    \ 'col': (&columns - width) / 2,
-                    \ 'width': width,
+                    \ 'col': &columns,
+                    \ 'width': &columns,
                     \ 'height': height }
 
         let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
@@ -429,20 +459,6 @@ noremap <silent> ,w :bd<CR>
 
 "" Clean search (highlight)
 nnoremap <silent> ,, :noh<cr>
-
-"" Switching windows
-noremap <C-space>j <C-w>j
-noremap <C-space>k <C-w>k
-noremap <C-space>l <C-w>l
-noremap <C-space>h <C-w>h
-
-"" Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
- "" Move visual block
-vmap <silent> J :t'><cr>
-vmap <silent> K :t .-1<cr>
 
 "*****************************************************************************
 "" Custom configs
@@ -578,3 +594,28 @@ function! VisualSelection(direction) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+function! MoveCharLeft()
+    let l:distance = v:count ? v:count : 1
+    let s:default_register_value = @"
+    if (virtcol('.') - l:distance <= 0)
+        silent normal! x0P
+    else
+        silent normal! x1hP
+    endif
+    let @" = s:default_register_value
+endfunction
+
+function! MoveCharRight()
+    let l:distance = v:count ? v:count : 1
+    let s:default_register_value = @"
+    if (virtcol('.') + l:distance >= virtcol('$') - 1)
+        silent normal! x$p
+    else
+        silent normal! x1lP
+    endif
+    let @" = s:default_register_value
+endfunction
+" duplicate selection to upper and down without polluting the register
+vmap <silent> <S-J> :t'><cr>
+vmap <silent> <S-K> :t .0<cr>
