@@ -17,8 +17,14 @@ end
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("kristijanhusak/vim-hybrid-material") -- Colorscheme
-  plug.add_plugin("https://gitlab.com/CraftedCart/vim-indent-guides") -- Indent guides
+  plug.add_plugin("morhetz/gruvbox")
+  plug.add_plugin("artanikin/vim-synthwave84")
+  plug.add_plugin("tomasr/molokai")
+  plug.add_plugin("bluz71/vim-moonfly-colors")
+  plug.add_plugin("bluz71/vim-moonfly-statusline")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
+  -- plug.add_plugin("https://gitlab.com/CraftedCart/vim-indent-guides") -- Indent guides
+  -- plug.add_plugin("danilamihailov/beacon.nvim") -- "scratchpad" terminal
 end
 
 --- Configures vim and plugins for this layer
@@ -42,7 +48,13 @@ function layer.init_config()
     -- TODO: LspReferenceWrite
 
   end)
-  vim.api.nvim_command("colorscheme hybrid_reverse")
+
+  -- Display obssesion in status line
+  vim.g.moonflyWithObessionGeometricCharacters = 1
+
+  vim.api.nvim_command("colorscheme gruvbox")
+  vim.g.gruvbox_italic=1
+  vim.g.gruvbox_contrast_dark='hard'
 
   -- floaterm config
   vim.g.floaterm_position = 'center'
@@ -69,10 +81,15 @@ function layer.init_config()
 
   -- Incremental search and incremental find/replace
   vim.o.incsearch = true
-  vim.o.inccommand = "split"
+  vim.o.inccommand = "nosplit"
+
+  -- Better display for messages
+  vim.o.cmdheight = 2
 
   -- Use case-insensitive search if the entire search query is lowercase
   vim.o.ignorecase = true
+
+  -- Shows the effects of a command incrementally, as you type.
   vim.o.smartcase = true
 
   -- Highlight while searching
@@ -83,6 +100,9 @@ function layer.init_config()
 
   -- Open splits on the right
   vim.o.splitright = true
+
+  -- Fix backspace indent
+  vim.o.backspace = "indent,eol,start"
 
   -- Show tabs and trailing whitespace
   -- set_default_win_opt("list", true)

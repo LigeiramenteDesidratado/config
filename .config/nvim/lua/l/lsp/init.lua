@@ -72,11 +72,12 @@ end
 function layer.init_config()
   vim.api.nvim_set_var("completion_enable_in_comemnt", 1)
 
+  vim.o.completeopt = "menuone,noinsert,noselect"
   -- TODO: Fix this?
   if plug.has_plugin("ultisnips") then
     vim.g.completion_enable_snippet = "UltiSnips"
   end
-
+  vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
   -- Bind leader keys
   keybind.set_group_name("<leader>l", "LSP")
   keybind.bind_function(edit_mode.NORMAL, "<leader>ls", user_stop_all_clients, nil, "Stop all LSP clients")
@@ -87,50 +88,39 @@ function layer.init_config()
   keybind.bind_command(edit_mode.INSERT, "<C-k>", "pumvisible() ? '<C-p>' : '<Up>'", { noremap = true, expr = true })
 -- inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "<Right>"
   keybind.bind_command(edit_mode.INSERT, "<C-l>", "pumvisible() ? '<C-y>' : '<Right>'", { noremap = true, expr = true })
+  keybind.bind_command(edit_mode.INSERT, "<C-space>", "completion#trigger_completion()", { noremap = true, expr = true, silent = true })
   keybind.bind_command(edit_mode.INSERT, "<C-h>", "<Left>", { noremap = true })
+  keybind.bind_command(edit_mode.INSERT, "<C-i>", "<Esc>ci(i<bs>", { noremap = true })
   autocmd.bind_complete_done(function()
     if vim.fn.pumvisible() == 0 then
       vim.cmd("pclose")
     end
   end)
 
-  vim.o.completeopt = "menuone,noinsert,noselect"
+
+  -- Default values for keybindings
+  local opts = { noremap=true, silent=true }
 
   -- Jumping to places
   autocmd.bind_filetype("*", function()
     local server = layer.filetype_servers[vim.bo.ft]
     if server ~= nil then
-      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>gd", ":lua vim.lsp.buf.declaration()<CR>", { noremap = true })
-      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>gi", ":lua vim.lsp.buf.implementation()<CR>", { noremap = true })
-      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>ge", ":lua vim.lsp.buf.definition()<CR>", { noremap = true })
-      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>d", ":lua vim.lsp.buf.hover()<CR>", { noremap = true })
-      -- keybind.bind_command(edit_mode.NORMAL, "<C-k>", ":lua vim.lsp.buf.signature_help()<CR>", { noremap = true })
+      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>gd", ":lua vim.lsp.buf.declaration()<CR>", opts)
+      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>gi", ":lua vim.lsp.buf.implementation()<CR>", opts)
+      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>ge", ":lua vim.lsp.buf.definition()<CR>", opts)
+      keybind.buf_bind_command(edit_mode.NORMAL, "<leader>d", ":lua vim.lsp.buf.hover()<CR>", opts)
     end
   end)
 
-  keybind.bind_command(edit_mode.NORMAL, "<leader>gr", ":lua vim.lsp.buf.references()<CR>", { noremap = true }, "Find references")
-  keybind.bind_command(edit_mode.NORMAL, "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", { noremap = true }, "Rename")
-  keybind.bind_command(edit_mode.NORMAL, "<leader>ld", ":lua vim.lsp.buf.document_symbol()<CR>", { noremap = true }, "Document symbol list")
+  keybind.bind_command(edit_mode.NORMAL, "<leader>gr", ":lua vim.lsp.buf.references()<CR>", opts, "Find references")
+  keybind.bind_command(edit_mode.NORMAL, "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", opts, "Rename")
+  keybind.bind_command(edit_mode.NORMAL, "<leader>ld", ":lua vim.lsp.buf.document_symbol()<CR>", opts, "Document symbol list")
 
-  -- Show docs when the cursor is held over something
-  autocmd.bind_cursor_hold(function()
-    vim.cmd("lua vim.lsp.buf.hover()")
-  end)
+  keybind.bind_command(edit_mode.NORMAL, "<leader>,", ":noh<CR>", opts, "Document symbol list")
 
-  -- Show in vim-airline the attached LSP client
-  -- if plug.has_plugin("vim-airline") then
-  --   vim.api.nvim_exec(
-  --     [[
-  --     function! CLspGetAirlinePart()
-  --       return luaeval("require('l.lsp')._get_airline_part()")
-  --     endfunction
-  --     ]],
-  --     false
-  --     )
-  --   vim.fn["airline#parts#define_function"]("c_lsp", "CLspGetAirlinePart")
-  --   vim.fn["airline#parts#define_accent"]("c_lsp", "yellow")
-  --   vim.g.airline_section_y = vim.fn["airline#section#create_right"]{"c_lsp", "ffenc"}
-  -- end
+  -- Changing Completion Confirm key
+  vim.g.completion_confirm_key = "<C-y>"
+
 end
 
 --- Maps filetypes to their server definitions

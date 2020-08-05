@@ -1,7 +1,6 @@
 set shell=/bin/zsh
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-" Plug 'lifepillar/vim-colortemplate'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-buftabline'
@@ -11,24 +10,18 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/MatchTag'
 Plug 'alok/notational-fzf-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'inkarkat/vim-LineJuggler'
 Plug 'inkarkat/vim-ingo-library'
-Plug 'inkarkat/vim-visualrepeat'
 Plug 'cohama/lexima.vim'
 Plug 'morhetz/gruvbox'
 " Plug 'matze/vim-move'
 Plug 'jreybert/vimagit'
 Plug 'mhinz/vim-signify'
 Plug 'kristijanhusak/vim-hybrid-material'
-" Plug 'govim/govim'
 " Plug 'neovim/nvim-lsp'
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
@@ -102,7 +95,6 @@ set ruler
 
 let no_buffers_menu=1
 
-set mousemodel=popup
 set t_Co=256
 set scrolloff=3
 
@@ -123,6 +115,8 @@ set termguicolors
 
 " mouse
 set mouse=a
+set mousemodel=popup
+set guicursor=
 " set number relativenumber
 set list
 
@@ -206,7 +200,6 @@ let g:clever_f_smart_case = 1
 " inoremap <C-l> <Right>
 
 autocmd InsertEnter,InsertLeave * set cul!
-set guicursor=
 nmap <silent>gs :SignifyHunkDiff<CR>
 let g:signify_sign_add = "▏"
 " let g:signify_sign_delete = "▏"
@@ -441,6 +434,17 @@ let g:fzf_colors =
             \ 'marker':  ['fg', 'Keyword'],
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
+
+" Custom statusline
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=0 ctermbg=15
+  highlight fzf2 ctermfg=0 ctermbg=15
+  highlight fzf3 ctermfg=0 ctermbg=15
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 nmap <silent> ,o :Files<CR>
 nmap <silent> ,f :Rg<CR>

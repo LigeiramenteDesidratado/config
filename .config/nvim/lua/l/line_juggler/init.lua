@@ -11,6 +11,7 @@ local layer = {}
 function layer.register_plugins()
   plug.add_plugin("inkarkat/vim-ingo-library")
   plug.add_plugin("inkarkat/vim-LineJuggler")
+  plug.add_plugin("matze/vim-move")
 end
 
 --- Configures vim and plugins for this layer
@@ -23,6 +24,10 @@ function layer.init_config()
     keybind.bind_command(edit_mode.NORMAL, "<A-j>", "<Plug>(LineJugglerBlankDown)", { noremap = false })
     keybind.bind_command(edit_mode.VISUAL_SELECT, "<A-k>", "<Plug>(LineJugglerBlankUp)", { noremap = false })
     keybind.bind_command(edit_mode.VISUAL_SELECT, "<A-j>", "<Plug>(LineJugglerBlankDown)", { noremap = false })
+
+    -- Use Ctrl as modifier key
+    vim.g.move_key_modifier = 'C'
+
 end
 
 return layer

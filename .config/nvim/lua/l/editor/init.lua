@@ -35,64 +35,86 @@ function layer.register_plugins()
   plug.add_plugin("bronson/vim-trailing-whitespace") -- Remove trailing whitespace
   plug.add_plugin("godlygeek/tabular") -- Line up text
   plug.add_plugin("rhysd/clever-f.vim") -- Find a character with convenience
+  plug.add_plugin("alvan/vim-closetag") -- Find a character with convenience
   plug.add_plugin("gregsexton/MatchTag") -- Highlights the matching HTML tag
   plug.add_plugin("AndrewRadev/splitjoin.vim")
   plug.add_plugin("ap/vim-buftabline")
+  plug.add_plugin("yegappan/mru")
+  plug.add_plugin("rafcamlet/nvim-luapad")
 end
 
+local function auto_save()
+  vim.cmd(":wa")
+end
 --- Configures vim and plugins for this layer
 function layer.init_config()
   -- Space for leader, backslash for local leader
   vim.g.mapleader = ","
   vim.g.maplocalleader = "\\"
 
+  vim.g.closetag_filetypes = 'html,vue'
+
   -- Required for NERDCommenter
   vim.cmd("filetype plugin on")
 
   -- Save undo history
-  set_default_buf_opt("undofile", true)
+  -- set_default_buf_opt("undofile", true)
+
+  -- no backup
+  vim.o.backup = false
+  vim.o.writebackup = false
+  vim.o.swapfile = false
+
+  --  Enable hidden buffers
+  vim.o.hidden = true
+
+  -- When a file has been detected to have been changed outside of Vim and it has not been changed inside of Vim, automatically read it again.
+  vim.o.autoread = true
 
   -- Allow a .vimrc file in a project directory with safe commands
   vim.o.exrc = true
   vim.o.secure = true
 
+  -- Default values for keybindings
+  local opts = { noremap=true, silent=true }
+
   -- Use `fd` to exit insert/visual/select/terminal mode
-  keybind.bind_command(edit_mode.INSERT, "jk", "<Esc>:FixWhitespace<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.INSERT, "kj", "<Esc>:FixWhitespace<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.VISUAL_SELECT, "fd", "<esc>", { noremap = true })
-  keybind.bind_command(edit_mode.TERMINAL, "fd", "<C-\\><C-n>", { noremap = true })
+  keybind.bind_command(edit_mode.INSERT, "jk", "<Esc>:FixWhitespace<CR>", opts)
+  keybind.bind_command(edit_mode.INSERT, "kj", "<Esc>:FixWhitespace<CR>", opts)
+  keybind.bind_command(edit_mode.VISUAL_SELECT, "fd", "<esc>", opts)
+  keybind.bind_command(edit_mode.TERMINAL, "fd", "<C-\\><C-n>", opts)
+
+  -- Autosave buffers before leaving them
+  autocmd.bind("BufLeave *", auto_save)
 
   -- More convenient buffers
-  keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.NORMAL, "<S-K>", ":bn<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.NORMAL, "<leader>w", ":bd<CR>", { noremap = true })
+  keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<S-K>", ":bn<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<leader>w", ":bd<CR>", opts)
 
   -- Move a selection block up and down
-  keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-k>", ":m'<-2<CR>gv=gv", { noremap = true })
-  keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-j>", ":m'>+1<CR>gv=gv", { noremap = true })
+  -- keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-k>", ":m'<-2<CR>gv=gv", opts)
+  -- keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-j>", ":m'>+1<CR>gv=gv", opts)
 
   -- Move a single line up and down
-  keybind.bind_command(edit_mode.NORMAL, "<C-k>", ":m-2=<CR>==", { noremap = true })
-  keybind.bind_command(edit_mode.NORMAL, "<C-j>", ":m+1<CR>==", { noremap = true })
+  -- keybind.bind_command(edit_mode.NORMAL, "<C-k>", ":m-2=<CR>==", opts)
+  -- keybind.bind_command(edit_mode.NORMAL, "<C-j>", ":m+1<CR>==", opts)
+
+  -- duplicate selection to upper and down without polluting the register
+  keybind.bind_command(edit_mode.VISUAL_SELECT, "<S-J>", ":t'><cr>", opts)
+  keybind.bind_command(edit_mode.VISUAL_SELECT, "<S-K>", ":t .-1<cr>", opts)
 
   -- Paste in visual mode without polluting the register
-  keybind.bind_command(edit_mode.VISUAL_SELECT, "p", "\"_dP", { noremap = true })
-
-  -- -- Holding down Ctrl makes cursor movement 4x faster
-  -- keybind.bind_command(edit_mode.NORMAL, "<C-h>", "4h", { noremap = true })
-  -- keybind.bind_command(edit_mode.NORMAL, "<C-j>", "4j", { noremap = true })
-  -- keybind.bind_command(edit_mode.NORMAL, "<C-k>", "4k", { noremap = true })
-  -- keybind.bind_command(edit_mode.NORMAL, "<C-l>", "4l", { noremap = true })
-  -- keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-h>", "4h", { noremap = true })
-  -- keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-j>", "4j", { noremap = true })
-  -- keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-k>", "4k", { noremap = true })
-  -- keybind.bind_command(edit_mode.VISUAL_SELECT, "<C-l>", "4l", { noremap = true })
+  keybind.bind_command(edit_mode.VISUAL_SELECT, "p", "\"_dP", opts)
 
   -- M-h/j/k/l to resize windows
-  keybind.bind_command(edit_mode.NORMAL, "<M-h>", ":vertical resize -1<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.NORMAL, "<M-j>", ":resize -1<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.NORMAL, "<M-k>", ":resize +1<CR>", { noremap = true })
-  keybind.bind_command(edit_mode.NORMAL, "<M-l>", ":vertical resize +1<CR>", { noremap = true })
+  keybind.bind_command(edit_mode.NORMAL, "<M-h>", ":vertical resize -1<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<M-j>", ":resize -1<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<M-k>", ":resize +1<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<M-l>", ":vertical resize +1<CR>", opts)
+
+  -- Switch CWD to the directory of the open buffer
+  keybind.bind_command(edit_mode.NORMAL, "<leader>cd", ": cd %:p:h<cr>:pwd<cr>", { noremap=true })
 
   -- Default indentation rules
   set_default_buf_opt("tabstop", 4)
@@ -102,6 +124,10 @@ function layer.init_config()
   set_default_buf_opt("autoindent", true)
   set_default_buf_opt("smartindent", true)
 
+  -- Copy/Paste/Cut
+  vim.o.clipboard = "unnamed,unnamedplus"
+  vim.o.guicursor = ""
+
   -- A shortcut command for :lua print(vim.inspect(...)) (:Li for Lua Inspect)
   vim.api.nvim_command("command! -nargs=+ Li :lua print(vim.inspect(<args>))")
 
@@ -110,6 +136,7 @@ function layer.init_config()
 
   -- clever-f config
   vim.g.clever_f_across_no_line = 1
+  vim.g.clever_f_smart_case = 1
   vim.g.clever_f_smart_case = 1
 
   -- buftabline config

@@ -6,65 +6,70 @@ local keybind = require("c.keybind")
 local edit_mode = require("c.edit_mode")
 
 local layer = {}
+local fzfbuf, fzfwin
+local opts = { nowait = true, noremap = true, silent = true }
 
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("junegunn/fzf.vim")
+  plug.add_plugin('junegunn/fzf',
+      { ['dir'] = '~/.fzf', ['do'] = './install --all' }
+      )
+end
+
+function layer.floating_FZF()
+  fzfbuf = vim.api.nvim_create_buf(false, true)
+
+  vim.api.nvim_buf_set_option(fzfbuf, 'bufhidden', 'wipe')
+  vim.api.nvim_buf_set_option(fzfbuf, 'filetype', 'whid')
+
+  local width = vim.api.nvim_get_option("columns")
+  local height = vim.api.nvim_get_option("lines")
+
+  local win_height = math.ceil(height * 0.8 - 4)
+  local win_width = width - 2
+  local row = math.ceil((height - win_height) / 2 - 1)
+  local col = math.ceil((width - win_width) / 2)
+
+  local win_opts = {
+    style = "minimal",
+    relative = "editor",
+    width = win_width,
+    height = win_height,
+    row = row,
+    col = col
+  }
+
+  fzfwin = vim.api.nvim_open_win(fzfbuf, true, win_opts)
+  vim.api.nvim_win_set_var(fzfwin, 'winhighlight', 'NormalFloat:Normal')
 end
 
 --- Configures vim and plugins for this layer
 function layer.init_config()
 
-  vim.api.nvim_exec(
-    [[
-    let $FZF_DEFAULT_OPTS .= '--bind alt-k:preview-up,alt-j:preview-down --height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap --inline-info'
-    if exists('g:fzf_colors.bg')
-        call remove(g:fzf_colors, 'bg')
-    endif
+  vim.env["FZF_DEFAULT_OPTS"] = vim.env["FZF_DEFAULT_OPTS"] .. " --border"
 
-    if stridx($FZF_DEFAULT_OPTS, '--border') == -1
-        let $FZF_DEFAULT_OPTS .= ' --border'
-    endif
-
-    function! FloatingFZF()
-        let width = float2nr(&columns * 0.9)
-        let height = float2nr(&lines * 0.6)
-        let opts = { 'relative': 'editor',
-                    \ 'row': (&lines - height) / 2,
-                    \ 'col': &columns,
-                    \ 'width': &columns,
-                    \ 'height': height }
-
-        let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-        call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
-    endfunction
-
-    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-      ]],
-    false
-    )
-
+  vim.g.fzf_layout = { ['window'] = 'lua require"l/file_man".floating_FZF()' }
   vim.g.fzf_colors = {
-    ['fg']         = {'fg', 'normal'},
-    ['bg']         = {'bg', 'Normal'},
-    ['hl']         = {'fg', 'Comment'},
-    ['fg+']        = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
-    ['bg+']        = {'bg', 'CursorLine', 'CursorColumn'},
-    ['hl+']        = {'fg', 'Statement'},
-    ['info']       = {'fg', 'PreProc'},
-    ['border']     = {'fg', 'Label'},
-    ['prompt']     = {'fg', 'Conditional'},
-    ['pointer']    = {'fg', 'Exception'},
-    ['marker']     = {'fg', 'Keyword'},
-    ['spinner']    = {'fg', 'Label'},
-    ['header']     = {'fg', 'Comment'}
+    ['fg']         = { 'fg', 'Normal'},
+    ['bg']         = { 'bg', 'Normal'},
+    ['hl']         = { 'fg', 'Comment'},
+    ['fg+']        = { 'fg', 'CursorLine', 'CursorColumn', 'Normal'},
+    ['bg+']        = { 'bg', 'CursorLine', 'CursorColumn'},
+    ['hl+']        = { 'fg', 'Statement'},
+    ['info']       = { 'fg', 'PreProc'},
+    ['border']     = { 'fg', 'Label'},
+    ['prompt']     = { 'fg', 'Conditional'},
+    ['pointer']    = { 'fg', 'Exception'},
+    ['marker']     = { 'fg', 'Keyword'},
+    ['spinner']    = { 'fg', 'Label'},
+    ['header']     = { 'fg', 'Comment'}
   }
 
-  vim.api.nvim_command("command! -bang -nargs=* Rg " ..
-            " call fzf#vim#grep( " ..
-            " 'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), " ..
-            " <bang>0)")
-
+  keybind.bind_command(edit_mode.NORMAL, ",o", ":Files<CR>", opts )
+  keybind.bind_command(edit_mode.NORMAL, ",f", ":Rg<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, ",a", ":Buffers<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, ",m", ':History<CR>', opts)
 
 end
 

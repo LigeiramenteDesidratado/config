@@ -24,6 +24,7 @@ function layer.init_config()
   lsp.register_server(
     nvim_lsp.sumneko_lua,
     {
+      cmd = { "lua-language-server", "-E", "/usr/share/lua-language-server/main.lua" },
       settings = {
         Lua = {
           diagnostics = {

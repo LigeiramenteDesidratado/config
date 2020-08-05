@@ -339,7 +339,7 @@ let g:signify_sign_change = "▏"
 " let g:signify_sign_show_text = "▏"
 nnoremap ,x *``cgn
 
-" highlight last inserted text
+" highlight last inserted text filme
 nnoremap gV `[v`]
 
 nnoremap <silent> ,cc :ColorizerToggle<cr>
