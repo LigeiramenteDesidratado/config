@@ -39,22 +39,20 @@ function layer.register_plugins()
   plug.add_plugin("gregsexton/MatchTag") -- Highlights the matching HTML tag
   plug.add_plugin("AndrewRadev/splitjoin.vim")
   plug.add_plugin("ap/vim-buftabline")
-  plug.add_plugin("yegappan/mru")
   plug.add_plugin("rafcamlet/nvim-luapad")
 end
 
-local function auto_save()
-  vim.cmd(":wa")
-end
+-- local function auto_save()
+--   vim.cmd(":wa")
+-- end
 --- Configures vim and plugins for this layer
 function layer.init_config()
   -- Space for leader, backslash for local leader
   vim.g.mapleader = ","
-  vim.g.maplocalleader = "\\"
+  vim.g.maplocalleader = ","
 
   vim.g.closetag_filetypes = 'html,vue'
 
-  -- Required for NERDCommenter
   vim.cmd("filetype plugin on")
 
   -- Save undo history
@@ -82,10 +80,9 @@ function layer.init_config()
   keybind.bind_command(edit_mode.INSERT, "jk", "<Esc>:FixWhitespace<CR>", opts)
   keybind.bind_command(edit_mode.INSERT, "kj", "<Esc>:FixWhitespace<CR>", opts)
   keybind.bind_command(edit_mode.VISUAL_SELECT, "fd", "<esc>", opts)
-  keybind.bind_command(edit_mode.TERMINAL, "fd", "<C-\\><C-n>", opts)
 
   -- Autosave buffers before leaving them
-  autocmd.bind("BufLeave *", auto_save)
+  -- autocmd.bind("BufLeave *", auto_save)
 
   -- More convenient buffers
   keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", opts)
@@ -108,10 +105,10 @@ function layer.init_config()
   keybind.bind_command(edit_mode.VISUAL_SELECT, "p", "\"_dP", opts)
 
   -- M-h/j/k/l to resize windows
-  keybind.bind_command(edit_mode.NORMAL, "<M-h>", ":vertical resize -1<CR>", opts)
-  keybind.bind_command(edit_mode.NORMAL, "<M-j>", ":resize -1<CR>", opts)
-  keybind.bind_command(edit_mode.NORMAL, "<M-k>", ":resize +1<CR>", opts)
-  keybind.bind_command(edit_mode.NORMAL, "<M-l>", ":vertical resize +1<CR>", opts)
+  -- keybind.bind_command(edit_mode.NORMAL, "<M-h>", ":vertical resize -1<CR>", opts)
+  -- keybind.bind_command(edit_mode.NORMAL, "<M-j>", ":resize -1<CR>", opts)
+  -- keybind.bind_command(edit_mode.NORMAL, "<M-k>", ":resize +1<CR>", opts)
+  -- keybind.bind_command(edit_mode.NORMAL, "<M-l>", ":vertical resize +1<CR>", opts)
 
   -- Switch CWD to the directory of the open buffer
   keybind.bind_command(edit_mode.NORMAL, "<leader>cd", ": cd %:p:h<cr>:pwd<cr>", { noremap=true })

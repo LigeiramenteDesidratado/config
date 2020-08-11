@@ -9,12 +9,13 @@ end
 
 --- Configures vim and plugins for this layer
 function layer.init_config()
+
   local lsp = require("l.lsp")
   local nvim_lsp = require("nvim_lsp")
 
   lsp.register_server(nvim_lsp.gopls, {
       init_options = {
-        usePlaceholders = true,
+        -- usePlaceholders = true,
         completeUnimported = true,
         linkTarget="",
         completionDocumentation=true,

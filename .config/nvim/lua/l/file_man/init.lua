@@ -12,6 +12,7 @@ local opts = { nowait = true, noremap = true, silent = true }
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("junegunn/fzf.vim")
+  plug.add_plugin("vifm/vifm.vim")
   plug.add_plugin('junegunn/fzf',
       { ['dir'] = '~/.fzf', ['do'] = './install --all' }
       )
@@ -47,7 +48,10 @@ end
 --- Configures vim and plugins for this layer
 function layer.init_config()
 
-  vim.env["FZF_DEFAULT_OPTS"] = vim.env["FZF_DEFAULT_OPTS"] .. " --border"
+  local dopts = vim.env["FZF_DEFAULT_OPTS"] or ""
+  if not string.find(dopts, "--border") then
+    vim.env["FZF_DEFAULT_OPTS"] = dopts .. " --border"
+  end
 
   vim.g.fzf_layout = { ['window'] = 'lua require"l/file_man".floating_FZF()' }
   vim.g.fzf_colors = {
@@ -70,6 +74,11 @@ function layer.init_config()
   keybind.bind_command(edit_mode.NORMAL, ",f", ":Rg<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, ",a", ":Buffers<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, ",m", ':History<CR>', opts)
+
+  vim.api.nvim_exec("command! -bang -nargs=* Rg"..
+    " call fzf#vim#grep("..
+    "'rg --column --line-number --no-heading --color=always --smart-case --no-ignore-vcs --no-ignore -S -g !.git -g !node_modules -g !go.mod -g !go.sum '.shellescape(<q-args>), 1,"..
+    "fzf#vim#with_preview({'options': ['--bind=alt-k:preview-up,alt-j:preview-down', '--info=inline', '--preview=\"ccat --color=always {}\"']}), <bang>0)", '')
 
 end
 

@@ -1,10 +1,56 @@
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_italic = 1
 luafile ~/.config/nvim/init.lua
-
 "" Remember cursor position
 augroup vimrc-remember-cursor-position
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
+
+function! New_cib()
+    if search("(","bn") == line(".")
+        sil exe "normal! f)ci("
+        sil exe "normal! l"
+        startinsert
+    else
+        sil exe "normal! f(ci("
+        sil exe "normal! l"
+        startinsert
+    endif
+endfunction
+
+" And for curly brackets
+function! New_ciB()
+    if search("{","bn") == line(".")
+        sil exe "normal! f}ci{"
+        sil exe "normal! l"
+        startinsert
+    else
+        sil exe "normal! f{ci{"
+        sil exe "normal! l"
+        startinsert
+    endif
+endfunction
+
+nnoremap ci( :call New_cib()<CR>
+nnoremap ci) :call New_cib()<CR>
+nnoremap ci{ :call New_ciB()<CR>
+nnoremap ci} :call New_ciB()<CR>
+
+
+" inoremap <C-i> :call New_cib()<CR>
+
+" STATUSLINE
+set statusline=%#Folded#
+set statusline+=\ [%#ShowMarksHLl#%f%#Folded#]
+set statusline+=\ [%#ShowMarksHLl#%{FugitiveStatusline()}%#Folded#]
+set statusline+=%m%r%h%w
+set statusline+=%=
+set statusline+=\ [BUF:%#ShowMarksHLl#%n%#Folded#]
+set statusline+=\ [%#ShowMarksHLl#%{&fileencoding?&fileencoding:&encoding}%#Folded#]
+set statusline+=\ [%#ShowMarksHLl#%{&fileformat}%#Folded#]
+set statusline+=\ [ROW:%#ShowMarksHLl#%-3l%#Folded#\ COL:%#ShowMarksHLl#%-2c%#Folded#]
+set statusline+=\ [%#ShowMarksHLl#%-3p%#Folded#%%]
 
 "*****************************************************************************
 "" Statusline Modifications

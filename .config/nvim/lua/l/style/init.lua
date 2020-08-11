@@ -21,7 +21,7 @@ function layer.register_plugins()
   plug.add_plugin("artanikin/vim-synthwave84")
   plug.add_plugin("tomasr/molokai")
   plug.add_plugin("bluz71/vim-moonfly-colors")
-  plug.add_plugin("bluz71/vim-moonfly-statusline")
+  -- plug.add_plugin("bluz71/vim-moonfly-statusline")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
   -- plug.add_plugin("https://gitlab.com/CraftedCart/vim-indent-guides") -- Indent guides
   -- plug.add_plugin("danilamihailov/beacon.nvim") -- "scratchpad" terminal
@@ -52,9 +52,9 @@ function layer.init_config()
   -- Display obssesion in status line
   vim.g.moonflyWithObessionGeometricCharacters = 1
 
-  vim.api.nvim_command("colorscheme gruvbox")
-  vim.g.gruvbox_italic=1
-  vim.g.gruvbox_contrast_dark='hard'
+  vim.api.nvim_command("colorscheme moonfly")
+  vim.g.gruvbox_italic = 1
+  vim.g.gruvbox_contrast_dark = 'soft'
 
   -- floaterm config
   vim.g.floaterm_position = 'center'
@@ -76,8 +76,10 @@ function layer.init_config()
   -- set_default_win_opt("number", true)
   -- set_default_win_opt("relativenumber", true)
 
-  -- Highlight the cursor line
-  set_default_win_opt("cursorline", true)
+  -- Highlight the cursor line (insert mode only)
+  autocmd.bind("InsertEnter,InsertLeave *", function()
+    vim.cmd("set cul!")
+  end)
 
   -- Incremental search and incremental find/replace
   vim.o.incsearch = true
@@ -127,20 +129,13 @@ function layer.init_config()
   -- Always show the sign column
   set_default_win_opt("signcolumn", "yes")
 
-  -- Configure indent guides
-  vim.g.indent_guides_enable_on_vim_startup = 1
-  vim.g.indent_guides_auto_colors = 0
-  vim.g.indent_guides_guide_size = 1
-  vim.g.indent_guides_exclude_filetypes = {
-    "help",
-    "nerdtree",
-  }
   vim.g.indent_guides_exclude_noft = 1
   vim.g.indent_guides_default_mapping = 0
   autocmd.bind("VimEnter,Colorscheme *", function()
     vim.cmd("hi IndentGuidesEven ctermbg=0 guibg=#2E3032")
     vim.cmd("hi IndentGuidesOdd ctermbg=0 guibg=#2E3032")
   end)
+
 
   -- Transparency on the popup menus/windows
   vim.o.pumblend = 10
