@@ -4,13 +4,13 @@
 # xrdb ~/.Xresources
 
 remaps&
-rs&
 dunst&
 mpd&
 unclutter&
 dwmbar&
+rs&
 backup&
-clipmenud&
+# clipmenud&
 echo '' > /home/machine/.isdwmrunning
 while : ; do
 

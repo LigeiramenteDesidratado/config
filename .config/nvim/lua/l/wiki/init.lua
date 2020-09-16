@@ -53,7 +53,7 @@ function layer.init_config()
     }
   }
 
-  keybind.bind_function(edit_mode.NORMAL, "<leader>bS", user_new_scratchpad, { noremap = true }, "New scratchpad")
+  keybind.bind_function(edit_mode.NORMAL, "<leader>bS", user_new_scratchpad, { noremap = true })
 end
 
 return layer

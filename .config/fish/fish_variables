@@ -46,3 +46,5 @@ SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_user_paths:/home/machine/\x2efzf/bin
 SETUVAR nvim:nvim
+
+SETUVAR ORX:/home/machine/git/orx/code

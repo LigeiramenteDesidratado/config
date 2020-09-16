@@ -28,7 +28,7 @@ end
 
 --- Returns plugins required for this layer
 function layer.register_plugins()
-  plug.add_plugin("sheerun/vim-polyglot") -- A bunch of languages
+  -- plug.add_plugin("sheerun/vim-polyglot") -- A bunch of languages
   plug.add_plugin("machakann/vim-sandwich") -- Awesome for dealing with surrounding things, like parens
   plug.add_plugin("cohama/lexima.vim") -- Auto insert matching parens/quotes/stuff
   plug.add_plugin("tpope/vim-commentary") -- Commenting
@@ -39,12 +39,12 @@ function layer.register_plugins()
   plug.add_plugin("gregsexton/MatchTag") -- Highlights the matching HTML tag
   plug.add_plugin("AndrewRadev/splitjoin.vim")
   plug.add_plugin("ap/vim-buftabline")
-  plug.add_plugin("rafcamlet/nvim-luapad")
+  -- plug.add_plugin("rafcamlet/nvim-luapad")
 end
 
--- local function auto_save()
---   vim.cmd(":wa")
--- end
+local function auto_save()
+  vim.cmd(":wa")
+end
 --- Configures vim and plugins for this layer
 function layer.init_config()
   -- Space for leader, backslash for local leader
@@ -56,7 +56,6 @@ function layer.init_config()
   vim.cmd("filetype plugin on")
 
   -- Save undo history
-  -- set_default_buf_opt("undofile", true)
 
   -- no backup
   vim.o.backup = false
@@ -82,7 +81,7 @@ function layer.init_config()
   keybind.bind_command(edit_mode.VISUAL_SELECT, "fd", "<esc>", opts)
 
   -- Autosave buffers before leaving them
-  -- autocmd.bind("BufLeave *", auto_save)
+  autocmd.bind("BufLeave *", auto_save)
 
   -- More convenient buffers
   keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", opts)
@@ -103,12 +102,6 @@ function layer.init_config()
 
   -- Paste in visual mode without polluting the register
   keybind.bind_command(edit_mode.VISUAL_SELECT, "p", "\"_dP", opts)
-
-  -- M-h/j/k/l to resize windows
-  -- keybind.bind_command(edit_mode.NORMAL, "<M-h>", ":vertical resize -1<CR>", opts)
-  -- keybind.bind_command(edit_mode.NORMAL, "<M-j>", ":resize -1<CR>", opts)
-  -- keybind.bind_command(edit_mode.NORMAL, "<M-k>", ":resize +1<CR>", opts)
-  -- keybind.bind_command(edit_mode.NORMAL, "<M-l>", ":vertical resize +1<CR>", opts)
 
   -- Switch CWD to the directory of the open buffer
   keybind.bind_command(edit_mode.NORMAL, "<leader>cd", ": cd %:p:h<cr>:pwd<cr>", { noremap=true })

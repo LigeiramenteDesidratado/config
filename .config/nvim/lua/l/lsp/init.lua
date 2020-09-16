@@ -42,13 +42,12 @@ end
 function layer.init_config()
   vim.api.nvim_set_var("completion_enable_in_comemnt", 1)
 
-  vim.o.completeopt = "menuone,noinsert"
+  vim.o.completeopt = "menuone,noinsert,noselect"
 
   vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
-  -- Bind leader keys
-  keybind.set_group_name("<leader>l", "LSP")
-  keybind.bind_function(edit_mode.NORMAL, "<leader>ls", user_stop_all_clients, nil, "Stop all LSP clients")
-  keybind.bind_function(edit_mode.NORMAL, "<leader>la", user_attach_client, nil, "Attach LSP client to buffer")
+
+  keybind.bind_function(edit_mode.NORMAL, "<leader>ls", user_stop_all_clients, nil)
+  keybind.bind_function(edit_mode.NORMAL, "<leader>la", user_attach_client, nil)
 
   -- Tabbing
   keybind.bind_command(edit_mode.INSERT, "<C-j>", "pumvisible() ? '<C-n>' : '<Down>'", { noremap = true, expr = true })
@@ -57,7 +56,7 @@ function layer.init_config()
   keybind.bind_command(edit_mode.INSERT, "<C-l>", "pumvisible() ? '<C-y>' : '<Right>'", { noremap = true, expr = true })
   keybind.bind_command(edit_mode.INSERT, "<C-space>", "completion#trigger_completion()", { noremap = true, expr = true, silent = true })
   keybind.bind_command(edit_mode.INSERT, "<C-h>", "<Left>", { noremap = true })
-  -- keybind.bind_command(edit_mode.INSERT, "<C-i>", "<Esc>ci(i<bs>", { noremap = true })
+  keybind.bind_command(edit_mode.INSERT, "<C-c>", "<Esc>ci(i<bs>", { noremap = true })
   -- autocmd.bind_complete_done(function()
   --   if vim.fn.pumvisible() == 0 then
   --     vim.cmd("pclose")
@@ -75,11 +74,11 @@ function layer.init_config()
   keybind.bind_command(edit_mode.NORMAL, "<leader>ge", ":lua vim.lsp.buf.definition()<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<leader>d", ":lua vim.lsp.buf.hover()<CR>", opts)
 
-  keybind.bind_command(edit_mode.NORMAL, "<leader>gr", ":lua vim.lsp.buf.references()<CR>", opts, "Find references")
-  keybind.bind_command(edit_mode.NORMAL, "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", opts, "Rename")
-  keybind.bind_command(edit_mode.NORMAL, "<leader>ld", ":lua vim.lsp.buf.document_symbol()<CR>", opts, "Document symbol list")
+  keybind.bind_command(edit_mode.NORMAL, "<leader>gr", ":lua vim.lsp.buf.references()<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<leader>ld", ":lua vim.lsp.buf.document_symbol()<CR>", opts)
 
-  keybind.bind_command(edit_mode.NORMAL, "<leader>,", ":noh<CR>", opts, "Document symbol list")
+  keybind.bind_command(edit_mode.NORMAL, "<leader>,", ":noh<CR>", opts)
 
   -- Changing Completion Confirm key
   vim.g.completion_confirm_key = "<C-y>"

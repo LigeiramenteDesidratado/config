@@ -93,8 +93,8 @@ end
 -- }}}
 
 function terminal.init_config()
-  keybind.bind_function(edit_mode.NORMAL, "<leader>tt", open_or_focus_term, { noremap = true }, "Focus terminal")
-  keybind.bind_function(edit_mode.NORMAL, "<leader>tT", hide_term, { noremap = true }, "Hide terminal")
+  keybind.bind_function(edit_mode.NORMAL, "<leader>tt", open_or_focus_term, { noremap = true })
+  keybind.bind_function(edit_mode.NORMAL, "<leader>tT", hide_term, { noremap = true })
 
   autocmd.bind_quit_pre(save_term_win)
   autocmd.bind_win_closed(function() vim.schedule(restore_term_win) end)

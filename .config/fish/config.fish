@@ -7,9 +7,9 @@ set -gx TERMINAL /usr/local/bin/st
 set -gx BROWSER /usr/bin/brave-dev
 set -gx READER /usr/bin/zathura
 
-set -gx FZF_DEFAULT_OPTS '--bind alt-k:preview-up,alt-j:preview-down --height=70% --preview="ccat --force {}" --preview-window=right:60%:wrap'
-set -gx FZF_DEFAULT_COMMAND "rg --files --no-ignore-vcs --hidden"
-
+set -gx FZF_DEFAULT_OPTS '--bind alt-k:preview-up,alt-j:preview-down --inline-info --reverse'
+set -gx FZF_DEFAULT_COMMAND "rg --files --no-messages --no-ignore --no-ignore-vcs --hidden -S --glob !.git --glob !node_modules --glob !.ccls-cache "
+set -gx FZF_CTRL_T_OPTS '--height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_OPEN_COMMAND $FZF_DEFAULT_COMMAND
 
@@ -31,10 +31,10 @@ set -xU LESS_TERMCAP_us (printf "\e[01;32m")
 source ~/.aliases
 
 # Start Wayland at login
-if status is-login
-    if test -z "$DISPLAY" -a $XDG_VTNR = 1
-        exec sway
-    end
-end
+# if status is-login
+#     if test -z "$DISPLAY" -a $XDG_VTNR = 1
+#         exec sway
+#     end
+# end
 
 #yay --editmenu --removemake --sudoloop --save

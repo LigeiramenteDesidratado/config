@@ -186,7 +186,7 @@
     browser = $BROWSER
 
     # Always run rule-defined scripts, even if the notification is suppressed
-    always_run_script = true
+    # always_run_script = true
 
     # Define the title of the windows spawned by dunst
     title = Dunst
@@ -287,9 +287,9 @@
 # NOTE: It might be helpful to run dunst -print in a terminal in order
 # to find fitting options for rules.
 
-[speak]
-    summary = "*"
-    script = playrandsound
+# [speak]
+    # summary = "*"
+    # script = playrandsound
 
 #[script-test]
 #    summary = "*script*"

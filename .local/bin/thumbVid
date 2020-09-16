@@ -16,14 +16,16 @@ DBFILE="$DIR/.dbthumb__"
 
 for FILE in "${CWD}/"*; do
 
+    # Check if the file already exists in the database
+    grep -q "$FILE" "$DBFILE" && continue
+
     # Check if the mime type is equal to 'video'
     file --mime-type -b -h "$FILE" | cut -f 1 -d "/" | xargs -I % test % != 'video' && continue
 
     FILESHA=$(echo "$FILE" | sha1sum | head -c40 | sed 's/$/.png/')
     PATHFILESHAOUTPUT="$THUMBPATH/$FOLDERNAME/$FILESHA"
 
-    # Check if the file already exists in the database
-    ! grep -Fq "$FILESHA" "$DBFILE" && echo "$FILESHA $FILE" >> "$DBFILE"
+    echo "$FILESHA $FILE" >> "$DBFILE"
 
     [ ! -f "$PATHFILESHAOUTPUT" ] && ffmpegthumbnailer -f -i "$FILE" -o "$PATHFILESHAOUTPUT" > /dev/null 2>&1 &
 done
