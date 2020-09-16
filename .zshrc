@@ -131,7 +131,6 @@ DIRSTACKSIZE=16
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushd_minus
-# PS1="%B%F{214}[$(basename %d)]%f%b "
 
 #------------------------------
 # Prompt
@@ -142,7 +141,11 @@ colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git hg
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[green]}%}%s%{${fg[cyan]}%}][%{${fg[blue]}%}%r/%S%%{${fg[cyan]}%}][%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
+zstyle ':vcs_info:git*' formats "%F{120}[%f%F{255}%K{236}%b%F{214}%m%u%c%f%k%F{120}]%f"
+
+precmd() {
+    vcs_info
+}
 
 setprompt() {
   setopt prompt_subst
@@ -153,17 +156,7 @@ setprompt() {
     p_host='%F{green}%M%f'
   fi
 
-  PS1=${(j::Q)${(Z:Cn:):-$'
-    %F{cyan}[%f
-    %(!.%F{red}%n%f.%F{green}%n%f)
-    %F{cyan}@%f
-    ${p_host}
-    %F{cyan}][%f
-    %F{blue}%~%f
-    %F{cyan}]%f
-    %(!.%F{red}%#%f.%F{green}%#%f)
-    " "
-  '}}
+  PS1='%F{120}[%f%F{255}%K{236}%c%k%f%F{120}]%f '
 
   PS2=$'%_>'
   RPROMPT=$'${vcs_info_msg_0_}'
@@ -173,4 +166,3 @@ setprompt
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^f' autosuggest-accept
-
