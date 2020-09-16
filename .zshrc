@@ -1,82 +1,9 @@
-## If you come from bash you might have to change your $PATH.
-## export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-##
-## Path to your oh-my-zsh installation.
-# export ZSH="/home/machine/.oh-my-zsh"
-
-## Set name of the theme to load --- if set to "random", it will
-## load a random theme each time oh-my-zsh is loaded, in which case,
-## to know which specific one was loaded, run: echo $RANDOM_THEME
-## See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="gianu"
-
-## Set list of themes to pick from when loading at random
-## Setting this variable when ZSH_THEME=random will cause zsh to load
-## a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-## If set to an empty array, this variable will have no effect.
-## ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-## Uncomment the following line to use case-sensitive completion.
-## CASE_SENSITIVE="true"
-
-## Uncomment the following line to use hyphen-insensitive completion.
-## Case-sensitive completion must be off. _ and - will be interchangeable.
-## HYPHEN_INSENSITIVE="true"
-
-## Uncomment the following line to disable bi-weekly auto-update checks.
-## DISABLE_AUTO_UPDATE="true"
-
-## Uncomment the following line to automatically update without prompting.
-## DISABLE_UPDATE_PROMPT="true"
-
-## Uncomment the following line to change how often to auto-update (in days).
-## export UPDATE_ZSH_DAYS=13
-
-## Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS=true
 
-## Uncomment the following line to disable colors in ls.
-DISABLE_LS_COLORS="true"
-
-## Uncomment the following line to disable auto-setting terminal title.
-## DISABLE_AUTO_TITLE="true"
-
-## Uncomment the following line to enable command auto-correction.
-## ENABLE_CORRECTION="true"
-
-## Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-## Uncomment the following line if you want to disable marking untracked files
-## under VCS as dirty. This makes repository status check for large repositories
-## much, much faster.
-## DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-## Uncomment the following line if you want to change the command execution time
-## stamp shown in the history command output.
-## You can set one of the optional three formats:
-## "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-## or set a custom format using the strftime function format specifications,
-## see 'man strftime' for details.
-# export HIST_STAMPS="mm/dd/yyyy"
 export HISTFILE=$HOME/.zsh_history
-
-## Would you like to use another custom folder than $ZSH/custom?
-## ZSH_CUSTOM=/path/to/new-custom-folder
-
-## Which plugins would you like to load?
-## Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-## Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-## Example format: plugins=(rails git textmate ruby lighthouse)
-## Add wisely, as too many plugins slow down shell startup.
-# plugins=(
-#     git
-#     zsh-autosuggestions
-#     history-substring-search
-#     fzf
-# )
-# source $ZSH/oh-my-zsh.sh
 
 ## User configuration
 export GOPATH=$HOME/dev/golang
@@ -90,17 +17,32 @@ source ~/.aliases
 
 export TERM=xterm-color
 
-# Fzf related
-export FZF_DEFAULT_OPTS=""
-export FZF_CTRL_T_OPTS='--bind alt-k:preview-up,alt-j:preview-down --height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap'
-export FZF_DEFAULT_COMMAND="rg --files --no-messages --no-ignore --no-ignore-vcs --hidden"
-export FZF_CTRL_R_OPTS=""
+#Fzf related
+export FZF_DEFAULT_OPTS="--bind alt-k:preview-up,alt-j:preview-down --inline-info"
+export FZF_CTRL_T_OPTS='--height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap'
+export FZF_DEFAULT_COMMAND="rg --files --no-messages --no-ignore --no-ignore-vcs --hidden -S --glob !.git --glob !node_modules --glob !.ccls-cache "
+export FZF_CTRL_R_OPTS="--height=20% "
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_OPEN_COMMAND=$FZF_DEFAULT_COMMAND
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export WALLCMD="/usr/bin/xwallpaper --daemon --zoom "
 export TERM=screen-256color
+
+# -- coloured manuals
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
 
 function fzf_open {
     eval "$FZF_OPEN_COMMAND |" fzf $FZF_CTRL_T_OPTS | xargs -r $EDITOR
@@ -117,12 +59,40 @@ function gt {
 
 bindkey -v
 
+setopt extendedGlob
+setopt promptsubst
+
 # allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+
+#------------------------------
+# Comp stuff
+#------------------------------
 autoload -Uz compinit
 compinit
+
+LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
+export LS_COLORS
+
+#- buggy
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
+
 # ci"
 autoload -U select-quoted
 zle -N select-quoted
@@ -140,7 +110,7 @@ for m in visual viopp; do
     bindkey -M $m $c select-bracketed
   done
 done
-#
+
 # surround
 autoload -Uz surround
 zle -N delete-surround surround
@@ -156,11 +126,51 @@ export KEYTIMEOUT=1
 HISTSIZE=100000
 SAVEHIST=100000
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# source ~/sector
+# Keep history of `cd` as in with `pushd` and make `cd -<TAB>` work.
+DIRSTACKSIZE=16
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_minus
+# PS1="%B%F{214}[$(basename %d)]%f%b "
 
-PATH="/home/machine/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/machine/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/machine/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/machine/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/machine/perl5"; export PERL_MM_OPT;
+#------------------------------
+# Prompt
+#------------------------------
+autoload -U colors zsh/terminfo
+colors
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[green]}%}%s%{${fg[cyan]}%}][%{${fg[blue]}%}%r/%S%%{${fg[cyan]}%}][%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
+
+setprompt() {
+  setopt prompt_subst
+
+  if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then
+    p_host='%F{yellow}%M%f'
+  else
+    p_host='%F{green}%M%f'
+  fi
+
+  PS1=${(j::Q)${(Z:Cn:):-$'
+    %F{cyan}[%f
+    %(!.%F{red}%n%f.%F{green}%n%f)
+    %F{cyan}@%f
+    ${p_host}
+    %F{cyan}][%f
+    %F{blue}%~%f
+    %F{cyan}]%f
+    %(!.%F{red}%#%f.%F{green}%#%f)
+    " "
+  '}}
+
+  PS2=$'%_>'
+  RPROMPT=$'${vcs_info_msg_0_}'
+}
+setprompt
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+bindkey '^f' autosuggest-accept
+
