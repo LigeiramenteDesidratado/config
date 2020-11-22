@@ -11,19 +11,18 @@ end
 function layer.init_config()
 
   local lsp = require("l.lsp")
-  local nvim_lsp = require("nvim_lsp")
+  local nvim_lsp = require("lspconfig")
 
   lsp.register_server(nvim_lsp.gopls, {
       init_options = {
-        -- usePlaceholders = true,
-        completeUnimported = true,
-        linkTarget="",
-        completionDocumentation=true,
-        deepCompletion=true,
-        staticcheck = true,
+        ["completeUnimported" ]     = true,
+        ["linkTarget"]              = "",
+        ["completionDocumentation"] = true,
+        ["deepCompletion"]          = true,
+        ["staticcheck"]             = true,
       },
     }
-    )
+  )
 
 end
 

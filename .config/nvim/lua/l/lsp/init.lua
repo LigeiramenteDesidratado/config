@@ -9,8 +9,9 @@ local layer = {}
 
 --- Returns plugins required for this layer
 function layer.register_plugins()
-  plug.add_plugin("neovim/nvim-lsp")
-  plug.add_plugin("haorenW1025/completion-nvim")
+  plug.add_plugin("neovim/nvim-lspconfig")
+  plug.add_plugin("m-pilia/vim-ccls")
+  plug.add_plugin("nvim-lua/completion-nvim")
 end
 
 local function user_stop_all_clients()
@@ -62,7 +63,15 @@ function layer.init_config()
   --     vim.cmd("pclose")
   --   end
   -- end)
-
+    -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    --     vim.lsp.diagnostic.on_publish_diagnostics, {
+    --         underline = true,
+    --         virtual_text = false,
+    --         signs = {
+    --             priority = 20
+    --         },
+    --     }
+    -- )
 
   -- Default values for keybindings
   local opts = { noremap=true, silent=true }
@@ -77,6 +86,9 @@ function layer.init_config()
   keybind.bind_command(edit_mode.NORMAL, "<leader>gr", ":lua vim.lsp.buf.references()<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<leader>ld", ":lua vim.lsp.buf.document_symbol()<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<leader>e", ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<C-[>", ":lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<C-]>", ":lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 
   keybind.bind_command(edit_mode.NORMAL, "<leader>,", ":noh<CR>", opts)
 
@@ -102,11 +114,11 @@ function layer.register_server(server, config)
 
   config = config or {}
 
-  if not config.on_attach then
-    config.on_attach = require("completion").on_attach -- From completion-nvim
-  end
-
   config = vim.tbl_extend("keep", config, server.document_config.default_config)
+
+  if not config.on_attach then
+    config.on_attach = require'completion'.on_attach -- From completion-nvim
+  end
 
   server.setup(config)
 

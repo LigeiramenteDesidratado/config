@@ -3,7 +3,7 @@ let g:gruvbox_italic = 1
 
 luafile ~/.config/nvim/init.lua
 
-"" Remember cursor position
+" Remember cursor position
 augroup vimrc-remember-cursor-position
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -113,4 +113,3 @@ set statusline+=\ [%#ShowMarksHLl#%-3p%#Folded#%%]
 "     return ''
 "   endif
 " endfunction
-

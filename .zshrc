@@ -15,6 +15,8 @@ export READER=/usr/bin/zathura
 export PATH=$PATH:$GOPATH:$GOBIN:$HOME/.local/bin/:$HOME/.cargo/bin:$HOME/.local/bin/i3blocks:$HOME/.local/bin/cron:$HOME/.yarn/bin/
 source ~/.aliases
 
+export PATH=$PATH:/usr/local/go/bin
+
 export TERM=xterm-color
 
 #Fzf related
@@ -45,7 +47,7 @@ man() {
 }
 
 function fzf_open {
-    eval "$FZF_OPEN_COMMAND |" fzf $FZF_CTRL_T_OPTS | xargs -r $EDITOR
+    eval "$FZF_OPEN_COMMAND |" fzf $FZF_CTRL_T_OPTS | xargs -ro $EDITOR
 }
 zle -N fzf_open fzf_open
 bindkey '^o' fzf_open

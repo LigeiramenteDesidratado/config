@@ -20,9 +20,11 @@ function layer.register_plugins()
   plug.add_plugin("morhetz/gruvbox")
   plug.add_plugin("artanikin/vim-synthwave84")
   plug.add_plugin("tomasr/molokai")
+  plug.add_plugin("aloussase/cyberunk")
   plug.add_plugin("bluz71/vim-moonfly-colors")
-  -- plug.add_plugin("bluz71/vim-moonfly-statusline")
+  plug.add_plugin("nvim-treesitter/nvim-treesitter")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
+  -- plug.add_plugin("bluz71/vim-moonfly-statusline")
   -- plug.add_plugin("https://gitlab.com/CraftedCart/vim-indent-guides") -- Indent guides
   -- plug.add_plugin("danilamihailov/beacon.nvim") -- "scratchpad" terminal
 end
@@ -136,6 +138,15 @@ function layer.init_config()
     vim.cmd("hi IndentGuidesOdd ctermbg=0 guibg=#2E3032")
   end)
 
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained",     -- one of "all", "language", or a list of languages
+    highlight = {
+      enable = true,              -- false will disable the whole extension
+    },
+    indent = {
+      enable = true
+    },
+  }
 
   -- Transparency on the popup menus/windows
   vim.o.pumblend = 10

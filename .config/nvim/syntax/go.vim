@@ -262,11 +262,6 @@ function! s:hi()
   hi def      goCoverageCovered    ctermfg=green guifg=#A6E22E
   hi def      goCoverageUncover    ctermfg=red guifg=#F92672
 
-  " :GoDebug commands
-  if go#config#HighlightDebug()
-    hi GoDebugBreakpoint term=standout ctermbg=117 ctermfg=0 guibg=#BAD4F5  guifg=Black
-    hi GoDebugCurrent term=reverse  ctermbg=12  ctermfg=7 guibg=DarkBlue guifg=White
-  endif
 endfunction
 
 augroup vim-go-hi

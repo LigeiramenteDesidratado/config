@@ -124,6 +124,7 @@ function layer.init_config()
   -- Use triple braces for folding
   set_default_win_opt("foldmethod", "marker")
 
+
   -- clever-f config
   vim.g.clever_f_across_no_line = 1
   vim.g.clever_f_smart_case = 1
