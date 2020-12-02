@@ -111,6 +111,20 @@ function layer.init_config()
   -- Show tabs and trailing whitespace
   -- set_default_win_opt("list", true)
   -- set_default_win_opt("listchars", "tab:│ ,eol: ,trail:·")
+  -- Statusline Modifications
+  local statusline = "%#Folded#"
+  statusline = statusline .. " [%#ShowMarksHLl#%t%#Folded#]"
+  statusline = statusline .. " [%#ShowMarksHLl#%Y%#Folded#]"
+  -- statusline = statusline .. " [%#ShowMarksHLl#%{Fugitivestatusline()}%#Folded#]"
+  statusline = statusline .. " %m%r%h%w"
+  statusline = statusline .. "%="
+  statusline = statusline .. " [%#ShowMarksHLl#%{&fileencoding?&fileencoding:&encoding}%#Folded#]"
+  statusline = statusline .. " [%#ShowMarksHLl#%{&fileformat}%#Folded#]"
+  statusline = statusline .. " [ROW:%#ShowMarksHLl#%-3l%#Folded#]"
+  statusline = statusline .. " [COL:%#ShowMarksHLl#%-2c%#Folded#]"
+  statusline = statusline .. " [%#ShowMarksHLl#%-3p%#Folded#%%] "
+
+  vim.o.statusline = statusline
 
   -- Scroll 12 lines/columns before the edges of a window
   vim.o.scrolloff = 12
