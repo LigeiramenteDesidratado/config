@@ -46,14 +46,13 @@ function layer.init_config()
 
     -- LSP highlights
     -- TODO: find appropriate ctermfg colors
-    vim.cmd("highlight LspDiagnosticsError ctermfg=167 ctermbg=none guifg=#EB4917 guibg=none")
-    vim.cmd("highlight LspDiagnosticsWarning ctermfg=167 ctermbg=none guifg=#EBA217 guibg=none")
-    vim.cmd("highlight LspDiagnosticsInformation ctermfg=167 ctermbg=none guifg=#17D6EB guibg=none")
-    vim.cmd("highlight LspDiagnosticsHint ctermfg=167 ctermbg=none guifg=#17EB7A guibg=none")
+    vim.cmd("highlight LspDiagnosticsError ctermfg=167 ctermbg=none guifg=#CC6666 guibg=none")
+    vim.cmd("highlight LspDiagnosticsWarning ctermfg=167 ctermbg=none guifg=#CCA666 guibg=none")
+    vim.cmd("highlight LspDiagnosticsInformation ctermfg=167 ctermbg=none guifg=#66A9CC guibg=none")
+    vim.cmd("highlight LspDiagnosticsHint ctermfg=167 ctermbg=none guifg=#85CC66 guibg=none")
     -- TODO: LspReferenceText
     -- TODO: LspReferenceRead
     -- TODO: LspReferenceWrite
-
   end)
 
   -- floaterm config
