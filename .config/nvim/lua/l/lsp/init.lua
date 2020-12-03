@@ -86,9 +86,9 @@ function layer.init_config()
   keybind.bind_command(edit_mode.NORMAL, "<leader>e", ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<C-[>", ":lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<C-]>", ":lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-
   keybind.bind_command(edit_mode.NORMAL, "<leader>,", ":noh<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<leader>lo", ":messages<CR>", opts)
+  keybind.bind_command(edit_mode.INSERT, "<C-c>", "<Esc>ci(i<bs>", opts)
 
   -- completion
   -- Changing Completion Confirm key
