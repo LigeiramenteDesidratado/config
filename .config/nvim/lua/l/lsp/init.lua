@@ -3,6 +3,7 @@
 
 local keybind = require("c.keybind")
 local edit_mode = require("c.edit_mode")
+local autocmd = require("c.autocmd")
 local plug = require("c.plug")
 
 local layer = {}
@@ -87,11 +88,16 @@ function layer.init_config()
   )
 
   -- Jumping to places
+  autocmd.bind_filetype("*", function()
+      local server = layer.filetype_servers[vim.bo.ft]
+      if server ~= nil then
 
-  keybind.bind_command(edit_mode.NORMAL, "<leader>gd", ":lua vim.lsp.buf.declaration()<CR>", opts)
-  keybind.bind_command(edit_mode.NORMAL, "<leader>gi", ":lua vim.lsp.buf.implementation()<CR>", opts)
-  keybind.bind_command(edit_mode.NORMAL, "<leader>ge", ":lua vim.lsp.buf.definition()<CR>", opts)
-  keybind.bind_command(edit_mode.NORMAL, "<leader>d", ":lua vim.lsp.buf.hover()<CR>", opts)
+        keybind.buf_bind_command(edit_mode.NORMAL, "<leader>gd", ":lua vim.lsp.buf.declaration()<CR>", opts)
+        keybind.buf_bind_command(edit_mode.NORMAL, "<leader>gi", ":lua vim.lsp.buf.implementation()<CR>", opts)
+        keybind.buf_bind_command(edit_mode.NORMAL, "<leader>ge", ":lua vim.lsp.buf.definition()<CR>", opts)
+        keybind.buf_bind_command(edit_mode.NORMAL, "<leader>d", ":lua vim.lsp.buf.hover()<CR>", opts)
+      end
+    end)
 
   keybind.bind_command(edit_mode.NORMAL, "<leader>gr", ":lua vim.lsp.buf.references()<CR>", opts)
   keybind.bind_command(edit_mode.NORMAL, "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", opts)
