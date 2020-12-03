@@ -74,10 +74,6 @@ function layer.init_config()
   -- Allow hidden buffers
   vim.o.hidden = true
 
-  -- Line numbers and relative line numbers
-  -- set_default_win_opt("number", true)
-  -- set_default_win_opt("relativenumber", true)
-
   -- Highlight the cursor line (insert mode only)
   autocmd.bind("InsertEnter,InsertLeave *", function()
     vim.cmd("set cul!")
