@@ -82,6 +82,13 @@ function layer.init_config()
       vim.cmd(":wa")
     end)
 
+  autocmd.bind("TextYankPost *", function()
+      vim.cmd([[:lua vim.highlight.on_yank({
+      higroup = 'Substitute',
+      timeout = 200,
+      on_macro = true})]])
+    end)
+
 
   -- More convenient buffers
   keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", opts)
