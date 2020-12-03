@@ -53,6 +53,7 @@ function layer.init_config()
   vim.cmd("filetype plugin on")
 
   -- Save undo history
+  set_default_buf_opt("undofile", true)
 
   -- no backup
   vim.o.backup = false
