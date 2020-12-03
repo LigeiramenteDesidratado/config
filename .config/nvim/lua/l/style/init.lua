@@ -139,23 +139,13 @@ function layer.init_config()
   -- 200ms timeout before which-key kicks in
   vim.g.timeoutlen = 200
 
-  -- Reposition the which-key float slightly
-  vim.g.which_key_floating_opts = { row = 1, col = -3, width = 3 }
-
   -- Always show the sign column
   set_default_win_opt("signcolumn", "yes")
 
-  vim.g.indent_guides_exclude_noft = 1
-  vim.g.indent_guides_default_mapping = 0
-  autocmd.bind("VimEnter,Colorscheme *", function()
-    vim.cmd("hi IndentGuidesEven ctermbg=0 guibg=#2E3032")
-    vim.cmd("hi IndentGuidesOdd ctermbg=0 guibg=#2E3032")
-  end)
-
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained",     -- one of "all", "language", or a list of languages
+    ensure_installed = "maintained", -- one of "all", "language", or a list of languages
     highlight = {
-      enable = true,              -- false will disable the whole extension
+      enable = true, -- false will disable the whole extension
     },
     indent = {
       enable = true
