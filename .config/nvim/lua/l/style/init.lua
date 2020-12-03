@@ -56,13 +56,6 @@ function layer.init_config()
 
   end)
 
-  -- Display obssesion in status line
-  vim.g.moonflyWithObessionGeometricCharacters = 1
-
-  vim.api.nvim_command("colorscheme moonfly")
-  vim.g.gruvbox_italic = 1
-  vim.g.gruvbox_contrast_dark = 'soft'
-
   -- floaterm config
   vim.g.floaterm_position = 'center'
   vim.g.floaterm_keymap_toggle = ',s'
@@ -112,6 +105,12 @@ function layer.init_config()
   -- Show tabs and trailing whitespace
   set_default_win_opt("list", true)
   set_default_win_opt("listchars", "tab:│ ,eol: ,trail:·")
+
+  autocmd.bind_colorscheme(function()
+    vim.cmd("highlight CExtraWhitespace ctermfg=167 ctermbg=none guibg=#742B1F guifg=none")
+    vim.cmd("highlight Normal guibg=NONE ctermbg=NONE") -- Make background transparent
+  end)
+
   -- Statusline Modifications
   local statusline = "%#Folded#"
   statusline = statusline .. " [%#ShowMarksHLl#%t%#Folded#]"
@@ -166,6 +165,12 @@ function layer.init_config()
   -- Transparency on the popup menus/windows
   vim.o.pumblend = 10
   vim.o.winblend = 10
+
+  -- Display obssesion in status line
+  vim.g.moonflyWithObessionGeometricCharacters = 1
+  vim.g.moonflyItalics = 1
+  vim.api.nvim_command("colorscheme moonfly")
+  -- require'boo-colorscheme'.use{}
 
   -- Change Beacon color
   vim.cmd("highlight Beacon guibg=white ctermbg=15")
