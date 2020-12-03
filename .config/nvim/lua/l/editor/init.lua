@@ -42,9 +42,6 @@ function layer.register_plugins()
   -- plug.add_plugin("rafcamlet/nvim-luapad")
 end
 
-local function auto_save()
-  vim.cmd(":wa")
-end
 --- Configures vim and plugins for this layer
 function layer.init_config()
   -- Space for leader, backslash for local leader
@@ -81,7 +78,10 @@ function layer.init_config()
   keybind.bind_command(edit_mode.VISUAL_SELECT, "fd", "<esc>", opts)
 
   -- Autosave buffers before leaving them
-  autocmd.bind("BufLeave *", auto_save)
+  autocmd.bind("BufLeave *", function()
+      vim.cmd(":wa")
+    end)
+
 
   -- More convenient buffers
   keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", opts)
