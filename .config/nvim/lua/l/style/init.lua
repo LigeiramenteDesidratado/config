@@ -16,17 +16,22 @@ end
 
 --- Returns plugins required for this layer
 function layer.register_plugins()
-  plug.add_plugin("kristijanhusak/vim-hybrid-material") -- Colorscheme
-  plug.add_plugin("morhetz/gruvbox")
-  plug.add_plugin("artanikin/vim-synthwave84")
+
+  -- Colorscheme
   plug.add_plugin("tomasr/molokai")
   plug.add_plugin("aloussase/cyberunk")
   plug.add_plugin("bluz71/vim-moonfly-colors")
+  -- plug.add_plugin("kristijanhusak/vim-hybrid-material")
+  -- plug.add_plugin("morhetz/gruvbox")
+  -- plug.add_plugin("artanikin/vim-synthwave84")
+  plug.add_plugin("rockerBOO/boo-colorscheme-nvim")
+  plug.add_plugin("tjdevries/colorbuddy.nvim")
+
   plug.add_plugin("nvim-treesitter/nvim-treesitter")
   plug.add_plugin("danilamihailov/beacon.nvim")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
-  -- plug.add_plugin("bluz71/vim-moonfly-statusline")
-  -- plug.add_plugin("https://gitlab.com/CraftedCart/vim-indent-guides") -- Indent guides
+  -- plug.add_plugin("jaxbot/semantic-highlight.vim")
+
 end
 
 --- Configures vim and plugins for this layer
