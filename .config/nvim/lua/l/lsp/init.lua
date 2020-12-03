@@ -11,8 +11,9 @@ local layer = {}
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("neovim/nvim-lspconfig")
-  plug.add_plugin("m-pilia/vim-ccls")
   plug.add_plugin("nvim-lua/completion-nvim")
+  -- plug.add_plugin("nvim-treesitter/completion-treesitter")
+  -- plug.add_plugin("m-pilia/vim-ccls")
 end
 
 local function user_stop_all_clients()
@@ -42,22 +43,10 @@ end
 
 --- Configures vim and plugins for this layer
 function layer.init_config()
-  vim.api.nvim_set_var("completion_enable_in_comemnt", 1)
-
-  vim.o.completeopt = "menuone,noinsert,noselect"
-
-  vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
 
   keybind.bind_function(edit_mode.NORMAL, "<leader>ls", user_stop_all_clients, nil)
   keybind.bind_function(edit_mode.NORMAL, "<leader>la", user_attach_client, nil)
 
-  -- Tabbing
-  keybind.bind_command(edit_mode.INSERT, "<C-j>", "pumvisible() ? '<C-n>' : '<Down>'", { noremap = true, expr = true })
-  keybind.bind_command(edit_mode.INSERT, "<C-k>", "pumvisible() ? '<C-p>' : '<Up>'", { noremap = true, expr = true })
--- inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "<Right>"
-  keybind.bind_command(edit_mode.INSERT, "<C-l>", "pumvisible() ? '<C-y>' : '<Right>'", { noremap = true, expr = true })
-  keybind.bind_command(edit_mode.INSERT, "<C-space>", "completion#trigger_completion()", { noremap = true, expr = true, silent = true })
-  keybind.bind_command(edit_mode.INSERT, "<C-h>", "<Left>", { noremap = true })
   keybind.bind_command(edit_mode.INSERT, "<C-c>", "<Esc>ci(i<bs>", { noremap = true })
   -- autocmd.bind_complete_done(function()
   --   if vim.fn.pumvisible() == 0 then
@@ -76,6 +65,8 @@ function layer.init_config()
 
   -- Default values for keybindings
   local opts = { noremap=true, silent=true }
+  local opts_expr = { noremap=true, silent=true, expr=true }
+
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       underline = true,
@@ -108,8 +99,19 @@ function layer.init_config()
 
   keybind.bind_command(edit_mode.NORMAL, "<leader>,", ":noh<CR>", opts)
 
+  -- completion
   -- Changing Completion Confirm key
+  vim.o.completeopt = "menuone,noinsert,noselect"
+  vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
+  vim.api.nvim_set_var("completion_enable_in_comemnt", 1)
+  vim.api.nvim_set_var("completion_trigger_on_delete", 1)
   vim.g.completion_confirm_key = "<C-y>"
+
+  keybind.bind_command(edit_mode.INSERT, "<C-j>", "pumvisible() ? '<C-n>' : '<Down>'", opts_expr)
+  keybind.bind_command(edit_mode.INSERT, "<C-k>", "pumvisible() ? '<C-p>' : '<Up>'", opts_expr)
+  keybind.bind_command(edit_mode.INSERT, "<C-l>", "pumvisible() ? '<C-y>' : '<Right>'", opts_expr)
+  keybind.bind_command(edit_mode.INSERT, "<C-space>", "completion#trigger_completion()", opts_expr)
+  keybind.bind_command(edit_mode.INSERT, "<C-h>", "<Left>", opts)
 
 end
 
@@ -128,13 +130,11 @@ layer.filetype_servers = {}
 -- @param config The config for the server (in the format expected by `nvim_lsp`)
 function layer.register_server(server, config)
 
+  local completion = require("completion") -- From completion-nvim
+
   config = config or {}
-
+  config.on_attach = completion.on_attach
   config = vim.tbl_extend("keep", config, server.document_config.default_config)
-
-  if not config.on_attach then
-    config.on_attach = require'completion'.on_attach -- From completion-nvim
-  end
 
   server.setup(config)
 
