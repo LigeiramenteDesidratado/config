@@ -14,6 +14,7 @@ function layer.register_plugins()
   plug.add_plugin("nvim-telescope/telescope.nvim")
   plug.add_plugin("nvim-lua/plenary.nvim")
   plug.add_plugin("nvim-lua/popup.nvim")
+  plug.add_plugin("nvim-telescope/telescope-fzy-native.nvim")
 
 
   plug.add_plugin("vifm/vifm.vim")
@@ -100,6 +101,9 @@ function layer.init_config()
   keybind.bind_function(edit_mode.NORMAL, "<leader>gs", builtin.git_status, opts)
 
   local telescope = require('telescope')
+
+  telescope.load_extension('fzy_native')
+
   local sorters = require('telescope.sorters')
   local actions = require('telescope.actions')
 
