@@ -18,6 +18,12 @@ function layer.init_config()
       vim.bo.filetype = "c.doxygen"
     end)
 
+  vim.o.makeprg = "make"
+  keybind.bind_command(edit_mode.NORMAL, "<F4>", ":make<CR>", opts)
+  keybind.bind_command(edit_mode.NORMAL, "<F5>", ":!./x9-foi-torrado<CR>", opts)
+  -- use tab instead of 4 spaces
+  autocmd.bind("FileType make setlocal noexpandtab")
+
   lsp.register_server(nvim_lsp.ccls, {
             init_options = {
               ["cache"] = {["directory"] = "/tmp/ccls-cache"}
