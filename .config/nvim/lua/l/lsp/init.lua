@@ -47,25 +47,15 @@ function layer.init_config()
   keybind.bind_function(edit_mode.NORMAL, "<leader>ls", user_stop_all_clients, nil)
   keybind.bind_function(edit_mode.NORMAL, "<leader>la", user_attach_client, nil)
 
-  keybind.bind_command(edit_mode.INSERT, "<C-c>", "<Esc>ci(i<bs>", { noremap = true })
-  -- autocmd.bind_complete_done(function()
-  --   if vim.fn.pumvisible() == 0 then
-  --     vim.cmd("pclose")
-  --   end
-  -- end)
-    -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    --     vim.lsp.diagnostic.on_publish_diagnostics, {
-    --         underline = true,
-    --         virtual_text = false,
-    --         signs = {
-    --             priority = 20
-    --         },
-    --     }
-    -- )
-
   -- Default values for keybindings
   local opts = { noremap=true, silent=true }
   local opts_expr = { noremap=true, silent=true, expr=true }
+
+  autocmd.bind_complete_done(function()
+    if vim.fn.pumvisible() == 0 then
+      vim.cmd("pclose")
+    end
+  end)
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
