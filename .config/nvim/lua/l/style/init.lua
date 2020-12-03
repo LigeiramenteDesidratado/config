@@ -28,6 +28,7 @@ function layer.register_plugins()
   plug.add_plugin("tjdevries/colorbuddy.nvim")
 
   plug.add_plugin("nvim-treesitter/nvim-treesitter")
+  plug.add_plugin("norcalli/nvim-colorizer.lua")
   plug.add_plugin("danilamihailov/beacon.nvim")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
   -- plug.add_plugin("jaxbot/semantic-highlight.vim")
@@ -150,6 +151,9 @@ function layer.init_config()
       enable = true
     },
   }
+
+  -- Attaches to every FileType mode
+  require'colorizer'.setup()
 
   -- Transparency on the popup menus/windows
   vim.o.pumblend = 10
