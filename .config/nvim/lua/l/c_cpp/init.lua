@@ -4,6 +4,8 @@
 local layer = {}
 
 local autocmd = require("c.autocmd")
+local keybind = require("c.keybind")
+local edit_mode = require("c.edit_mode")
 
 --- Returns plugins required for this layer
 function layer.register_plugins()
