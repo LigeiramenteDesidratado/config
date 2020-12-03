@@ -75,6 +75,16 @@ function layer.init_config()
 
   -- Default values for keybindings
   local opts = { noremap=true, silent=true }
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      underline = true,
+      virtual_text = true,
+      update_in_insert = false,
+      signs = {
+        priority = 20
+      },
+    }
+  )
 
   -- Jumping to places
 
