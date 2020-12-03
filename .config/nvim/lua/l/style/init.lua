@@ -109,8 +109,8 @@ function layer.init_config()
   vim.o.backspace = "indent,eol,start"
 
   -- Show tabs and trailing whitespace
-  -- set_default_win_opt("list", true)
-  -- set_default_win_opt("listchars", "tab:│ ,eol: ,trail:·")
+  set_default_win_opt("list", true)
+  set_default_win_opt("listchars", "tab:│ ,eol: ,trail:·")
   -- Statusline Modifications
   local statusline = "%#Folded#"
   statusline = statusline .. " [%#ShowMarksHLl#%t%#Folded#]"
