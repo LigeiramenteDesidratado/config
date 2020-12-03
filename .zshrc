@@ -17,7 +17,8 @@ source ~/.aliases
 
 export PATH=$PATH:/usr/local/go/bin
 
-export TERM=xterm-color
+export TERM=st-256color
+export COLORTERM=24bit
 
 #Fzf related
 export FZF_DEFAULT_OPTS="--bind alt-k:preview-up,alt-j:preview-down --inline-info"
@@ -31,7 +32,6 @@ export FZF_OPEN_COMMAND=$FZF_DEFAULT_COMMAND
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export WALLCMD="/usr/bin/xwallpaper --daemon --zoom "
-export TERM=screen-256color
 
 # -- coloured manuals
 man() {
