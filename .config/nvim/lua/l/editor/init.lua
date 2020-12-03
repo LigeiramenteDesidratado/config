@@ -28,14 +28,13 @@ end
 
 --- Returns plugins required for this layer
 function layer.register_plugins()
-  -- plug.add_plugin("sheerun/vim-polyglot") -- A bunch of languages
   plug.add_plugin("machakann/vim-sandwich") -- Awesome for dealing with surrounding things, like parens
   plug.add_plugin("cohama/lexima.vim") -- Auto insert matching parens/quotes/stuff
   plug.add_plugin("tpope/vim-commentary") -- Commenting
   plug.add_plugin("bronson/vim-trailing-whitespace") -- Remove trailing whitespace
   plug.add_plugin("godlygeek/tabular") -- Line up text
   plug.add_plugin("rhysd/clever-f.vim") -- Find a character with convenience
-  plug.add_plugin("alvan/vim-closetag") -- Find a character with convenience
+  plug.add_plugin("alvan/vim-closetag")
   plug.add_plugin("gregsexton/MatchTag") -- Highlights the matching HTML tag
   plug.add_plugin("AndrewRadev/splitjoin.vim")
   plug.add_plugin("ap/vim-buftabline")
@@ -65,10 +64,6 @@ function layer.init_config()
 
   -- When a file has been detected to have been changed outside of Vim and it has not been changed inside of Vim, automatically read it again.
   vim.o.autoread = true
-
-  -- Allow a .vimrc file in a project directory with safe commands
-  vim.o.exrc = true
-  vim.o.secure = true
 
   -- Default values for keybindings
   local opts = { noremap=true, silent=true }
@@ -135,7 +130,6 @@ function layer.init_config()
 
   -- Use triple braces for folding
   set_default_win_opt("foldmethod", "marker")
-
 
   -- clever-f config
   vim.g.clever_f_across_no_line = 1
