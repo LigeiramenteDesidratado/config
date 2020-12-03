@@ -89,6 +89,10 @@ function layer.init_config()
       on_macro = true})]])
     end)
 
+  autocmd.bind("BufReadPost * ", function()
+      vim.cmd([[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]])
+    end)
+
 
   -- More convenient buffers
   keybind.bind_command(edit_mode.NORMAL, "<S-J>", ":bp<CR>", opts)
