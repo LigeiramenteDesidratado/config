@@ -23,10 +23,10 @@ function layer.register_plugins()
   plug.add_plugin("aloussase/cyberunk")
   plug.add_plugin("bluz71/vim-moonfly-colors")
   plug.add_plugin("nvim-treesitter/nvim-treesitter")
+  plug.add_plugin("danilamihailov/beacon.nvim")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
   -- plug.add_plugin("bluz71/vim-moonfly-statusline")
   -- plug.add_plugin("https://gitlab.com/CraftedCart/vim-indent-guides") -- Indent guides
-  -- plug.add_plugin("danilamihailov/beacon.nvim") -- "scratchpad" terminal
 end
 
 --- Configures vim and plugins for this layer
@@ -161,6 +161,9 @@ function layer.init_config()
   -- Transparency on the popup menus/windows
   vim.o.pumblend = 10
   vim.o.winblend = 10
+
+  -- Change Beacon color
+  vim.cmd("highlight Beacon guibg=white ctermbg=15")
 
 end
 
