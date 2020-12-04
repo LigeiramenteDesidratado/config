@@ -27,7 +27,6 @@ function layer.register_plugins()
   plug.add_plugin("rockerBOO/boo-colorscheme-nvim")
   plug.add_plugin("tjdevries/colorbuddy.nvim")
 
-  plug.add_plugin("nvim-treesitter/nvim-treesitter")
   plug.add_plugin("norcalli/nvim-colorizer.lua")
   plug.add_plugin("danilamihailov/beacon.nvim")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
@@ -141,16 +140,6 @@ function layer.init_config()
 
   -- Always show the sign column
   set_default_win_opt("signcolumn", "yes")
-
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "language", or a list of languages
-    highlight = {
-      enable = true, -- false will disable the whole extension
-    },
-    indent = {
-      enable = true
-    },
-  }
 
   -- Attaches to every FileType mode
   require'colorizer'.setup()
