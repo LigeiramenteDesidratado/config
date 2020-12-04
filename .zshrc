@@ -23,7 +23,7 @@ export COLORTERM=24bit
 #Fzf related
 export FZF_DEFAULT_OPTS="--bind alt-k:preview-up,alt-j:preview-down --inline-info"
 export FZF_CTRL_T_OPTS='--height=70% --preview="ccat --color=always {}" --preview-window=right:60%:wrap'
-export FZF_DEFAULT_COMMAND="rg --files --no-messages --no-ignore --no-ignore-vcs --hidden -S --glob !.git --glob !node_modules --glob !.ccls-cache "
+export FZF_DEFAULT_COMMAND="rg --files --no-messages --no-ignore --no-ignore-vcs --hidden -S --glob !.git --glob !node_modules --glob !.ccls-cache --glob !.icons "
 export FZF_CTRL_R_OPTS="--height=20% "
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_OPEN_COMMAND=$FZF_DEFAULT_COMMAND
