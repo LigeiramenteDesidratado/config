@@ -94,13 +94,15 @@ function layer.init_config()
   -- Changing Completion Confirm key
   vim.o.completeopt = "menuone,noinsert,noselect"
   vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
-  vim.api.nvim_set_var("completion_enable_in_comemnt", 1)
-  vim.api.nvim_set_var("completion_trigger_on_delete", 1)
-  vim.g.completion_confirm_key = "<C-y>"
+  vim.g.completion_enable_auto_paren = 1
+  vim.g.completion_trigger_on_delete =  1
+  vim.g.completion_confirm_key = ""
 
   keybind.bind_command(edit_mode.INSERT, "<C-j>", "pumvisible() ? '<C-n>' : '<Down>'", opts_expr)
   keybind.bind_command(edit_mode.INSERT, "<C-k>", "pumvisible() ? '<C-p>' : '<Up>'", opts_expr)
-  keybind.bind_command(edit_mode.INSERT, "<C-l>", "pumvisible() ? '<C-y>' : '<Right>'", opts_expr)
+  -- till i figure out how to do it in lua
+  -- keybind.bind_command(edit_mode.INSERT, "<C-l>", "pumvisible() ? '<C-y>' : '<Right>'", opts_expr)
+  vim.cmd([[imap <expr> <C-l> pumvisible() ? "<Plug>(completion_confirm_completion)" : "<Right>"]])
   keybind.bind_command(edit_mode.INSERT, "<C-space>", "completion#trigger_completion()", opts_expr)
   keybind.bind_command(edit_mode.INSERT, "<C-h>", "<Left>", opts)
 
