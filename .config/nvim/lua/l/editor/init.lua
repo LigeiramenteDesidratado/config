@@ -32,7 +32,6 @@ function layer.register_plugins()
   plug.add_plugin("cohama/lexima.vim") -- Auto insert matching parens/quotes/stuff
   plug.add_plugin("tpope/vim-commentary") -- Commenting
   plug.add_plugin("bronson/vim-trailing-whitespace") -- Remove trailing whitespace
-  plug.add_plugin("godlygeek/tabular") -- Line up text
   plug.add_plugin("rhysd/clever-f.vim") -- Find a character with convenience
   plug.add_plugin("alvan/vim-closetag")
   plug.add_plugin("gregsexton/MatchTag") -- Highlights the matching HTML tag
