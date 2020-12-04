@@ -79,11 +79,11 @@ function layer.init_config()
     end)
 
   autocmd.bind("TextYankPost *", function()
-      vim.cmd([[:lua vim.highlight.on_yank({
-      higroup = 'Substitute',
-      timeout = 200,
-      on_macro = true})]])
-    end)
+    return vim.highlight.on_yank({
+        higroup = "Search",
+        timeout = 100
+      })
+  end)
 
   autocmd.bind("BufReadPost * ", function()
       vim.cmd([[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]])
