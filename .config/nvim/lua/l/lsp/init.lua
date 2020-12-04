@@ -123,10 +123,8 @@ layer.filetype_servers = {}
 -- @param config The config for the server (in the format expected by `nvim_lsp`)
 function layer.register_server(server, config)
 
-  local completion = require("completion") -- From completion-nvim
-
   config = config or {}
-  config.on_attach = completion.on_attach
+  config.on_attach = require("completion").on_attach
   config = vim.tbl_extend("keep", config, server.document_config.default_config)
 
   server.setup(config)
