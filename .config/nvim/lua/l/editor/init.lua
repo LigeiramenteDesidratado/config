@@ -26,6 +26,11 @@ local function set_default_buf_opt(name, value)
   end)
 end
 
+local function set_spell()
+  vim.api.nvim_win_set_option(0, "spell", true)
+  vim.api.nvim_buf_set_option(0, "spelllang", "en_us,pt_br")
+end
+
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("machakann/vim-sandwich") -- Awesome for dealing with surrounding things, like parens
@@ -141,6 +146,13 @@ function layer.init_config()
   -- buftabline config
   vim.g.buftabline_numbers = 2
   vim.g.buftabline_show = 1
+
+  autocmd.bind_filetype("tex,markdown", set_spell)
+  keybind.bind_command(edit_mode.INSERT, "<C-s>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap=true })
+  autocmd.bind_colorscheme(function()
+    vim.cmd("highlight SpellBad ctermfg=131 ctermbg=none guifg=#af5f5f guibg=none")
+    vim.cmd("highlight Conceal ctermfg=117 ctermbg=none guifg=#87d7ff guibg=none")
+  end)
 
   layer_man.init_config()
 end
