@@ -154,6 +154,10 @@ function layer.init_config()
     vim.cmd("highlight Conceal ctermfg=117 ctermbg=none guifg=#87d7ff guibg=none")
   end)
 
+  -- Define lexima rule to latex filetype
+  vim.fn["lexima#add_rule"]({["char"] = '$', ["input"] = '$ ', ["input_after"] = ' $', ["filetype"] = {'latex', 'tex'}})
+  vim.fn["lexima#add_rule"]({["char"] = '2$', ["input"] = '$$ ', ["input_after"] = ' $$', ["filetype"] = {'latex', 'tex'}})
+
   layer_man.init_config()
 end
 
