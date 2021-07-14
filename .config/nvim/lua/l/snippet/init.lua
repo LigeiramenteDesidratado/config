@@ -52,7 +52,7 @@ require'snippets'.snippets = {
   frac = [[\frac{$1}{$2}$0]];
   };
 
-  ["c.doxygen"] = {
+  ["c"] = {
     -- Variables can be repeated, and the value of what the user puts in will be
     -- expanded at every position where the bare variable is used (i.e. $1, $2...)
     ["#if"] = [[
@@ -102,6 +102,66 @@ $0
     -- The following snippet will ask for the user's input using `input()` *once*,
     --  but use the value in multiple places.
     user_input = [[hey? ${-1=vim.fn.input("what's up? ")} = ${-1}]];
+
+    aka = [[${1=yours|S.v:upper():gsub("%s+", "_")}
+${1}
+      ]];
+
+    temph = [[#ifndef ${1:...|S.v:upper():gsub("%s+", "_")}_H
+#define ${1|S.v:upper():gsub("%s+", "_")}_H
+
+struct ${1|S.v:lower():gsub("%s+", "_")}_t;
+
+// Allocate memory
+struct ${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")}_new(void);
+
+// Constructor
+int ${1|S.v:lower():gsub("%s+", "_")}_ctor(struct ${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")});
+
+// Destructor
+void ${1|S.v:lower():gsub("%s+", "_")}_dtor(struct ${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")});
+
+// Forward declaration
+void ${1|S.v:lower():gsub("%s+", "_")}_do(struct ${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")});
+void ${1|S.v:lower():gsub("%s+", "_")}_draw(struct ${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")});
+$0
+
+#endif
+]];
+
+    tempc = [[#include <stdlib.h>
+
+
+typedef struct {
+  $0
+} ${1|S.v:lower():gsub("%s+", "_")}_t;
+
+// Allocate memory
+${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")}_new(void) {
+  ${1|S.v:lower():gsub("%s+", "_")}_t *${1|S.v:lower():gsub("%s+", "_")} = (${1|S.v:lower():gsub("%s+", "_")}_t *)malloc(sizeof(${1|S.v:lower():gsub("%s+", "_")}_t));
+
+  return ${1|S.v:lower():gsub("%s+", "_")};
+}
+
+// Constructor
+int ${1|S.v:lower():gsub("%s+", "_")}_ctor(${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")}) {
+
+  return 0;
+}
+
+// Destructor
+void ${1|S.v:lower():gsub("%s+", "_")}_dtor(${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")}) {
+
+}
+
+void ${1|S.v:lower():gsub("%s+", "_")}_do(${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")}) {
+
+}
+
+void ${1|S.v:lower():gsub("%s+", "_")}_draw(${1|S.v:lower():gsub("%s+", "_")}_t* ${1|S.v:lower():gsub("%s+", "_")}) {
+
+}
+]];
   };
 }
 

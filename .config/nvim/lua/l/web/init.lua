@@ -12,7 +12,7 @@ local layer = {}
 local function on_filetype_web()
   vim.api.nvim_buf_set_option(0, "shiftwidth", 2)
   vim.api.nvim_buf_set_option(0, "tabstop", 2)
-  vim.api.nvim_buf_set_option(0, "softtabstop", 4)
+  vim.api.nvim_buf_set_option(0, "softtabstop", 2)
 
   keybind.bind_command(edit_mode.INSERT, "<tab>", "emmet#expandAbbrIntelligent('<tab>')", { expr = true })
 end
@@ -34,6 +34,7 @@ function layer.init_config()
   lsp.register_server(nvim_lsp.html)
 
   autocmd.bind_filetype("html", on_filetype_web)
+  autocmd.bind_filetype("vue", on_filetype_web)
   autocmd.bind_filetype("css", on_filetype_web)
   autocmd.bind_filetype("scss", on_filetype_web)
   autocmd.bind_filetype("javascript", on_filetype_web)
@@ -42,6 +43,7 @@ function layer.init_config()
   -- Emmet config
   vim.g.user_emmet_install_global = 0
   autocmd.bind_filetype("html", activate_emmet)
+  autocmd.bind_filetype("vue", activate_emmet)
   autocmd.bind_filetype("css", activate_emmet)
   autocmd.bind_filetype("scss", activate_emmet)
   autocmd.bind_filetype("html.handlebars", activate_emmet)

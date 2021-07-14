@@ -1,7 +1,5 @@
---- vls layer
--- @module l.vls
-
-local autocmd = require("c.autocmd")
+--- TS layer
+-- @module l.typescript
 
 local layer = {}
 
@@ -11,20 +9,12 @@ end
 
 --- Configures vim and plugins for this layer
 function layer.init_config()
+
   local lsp = require("l.lsp")
   local nvim_lsp = require("lspconfig")
 
-  autocmd.bind("BufRead,BufNewFile *.v", function()
-      vim.bo.filetype = "vlang"
-    end)
-
-	lsp.register_server(nvim_lsp.vls, {
-			cmd = {"vlang-server"},
-		}
-	)
+  lsp.register_server(nvim_lsp.tsserver)
 
 end
 
 return layer
-
-

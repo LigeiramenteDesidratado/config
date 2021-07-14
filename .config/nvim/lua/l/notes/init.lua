@@ -34,7 +34,7 @@ function layer.init_config()
   vim.g.vim_markdown_folding_disabled = 1
 
   -- enable LaTeX math
-  vim.g.vim_markdown_math = 1
+  -- vim.g.vim_markdown_math = 1
 end
 
 return layer

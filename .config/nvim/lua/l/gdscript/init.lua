@@ -1,6 +1,7 @@
---- vls layer
--- @module l.vls
+--- Gdscript layer
+-- @module l.gdscript
 
+local file = require("c.file")
 local autocmd = require("c.autocmd")
 
 local layer = {}
@@ -14,17 +15,12 @@ function layer.init_config()
   local lsp = require("l.lsp")
   local nvim_lsp = require("lspconfig")
 
-  autocmd.bind("BufRead,BufNewFile *.v", function()
-      vim.bo.filetype = "vlang"
-    end)
+  autocmd.bind("BufRead,BufNewFile *.gd", function()
+    vim.bo.filetype = "gd"
+  end)
 
-	lsp.register_server(nvim_lsp.vls, {
-			cmd = {"vlang-server"},
-		}
-	)
+  lsp.register_server(nvim_lsp.gdscript, {})
 
 end
 
 return layer
-
-

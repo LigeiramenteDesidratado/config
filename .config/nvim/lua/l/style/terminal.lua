@@ -35,7 +35,7 @@ local function open_bottom_split()
   -- Open a window and shove it to the bottom
   vim.cmd("split")
   vim.cmd("wincmd J")
-  vim.api.nvim_win_set_height(0, 16)
+  vim.api.nvim_win_set_height(0, 12)
 end
 
 local function open_or_focus_term()
@@ -94,7 +94,7 @@ end
 
 function terminal.init_config()
   keybind.bind_function(edit_mode.NORMAL, "<leader>tt", open_or_focus_term, { noremap = true })
-  keybind.bind_function(edit_mode.NORMAL, "<leader>tT", hide_term, { noremap = true })
+  keybind.bind_function(edit_mode.TERMINAL, "<leader>tT", hide_term, { noremap = true })
 
   autocmd.bind_quit_pre(save_term_win)
   autocmd.bind_win_closed(function() vim.schedule(restore_term_win) end)

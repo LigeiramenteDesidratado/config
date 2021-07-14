@@ -34,22 +34,27 @@ end
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("machakann/vim-sandwich") -- Awesome for dealing with surrounding things, like parens
-  plug.add_plugin("cohama/lexima.vim") -- Auto insert matching parens/quotes/stuff
-  plug.add_plugin("tpope/vim-commentary") -- Commenting
+  plug.add_plugin("windwp/nvim-autopairs") -- Auto insert matching parens/quotes/stuff
+  plug.add_plugin("tomtom/tcomment_vim") -- Commenting
   plug.add_plugin("bronson/vim-trailing-whitespace") -- Remove trailing whitespace
   plug.add_plugin("rhysd/clever-f.vim") -- Find a character with convenience
-  plug.add_plugin("alvan/vim-closetag")
-  plug.add_plugin("gregsexton/MatchTag") -- Highlights the matching HTML tag
+  plug.add_plugin("andymass/vim-matchup")
   plug.add_plugin("AndrewRadev/splitjoin.vim")
   plug.add_plugin("ap/vim-buftabline")
-  -- plug.add_plugin("rafcamlet/nvim-luapad")
+  plug.add_plugin("gfanto/fzf-lsp.nvim")
+  plug.add_plugin("ray-x/lsp_signature.nvim")
+
 end
 
 --- Configures vim and plugins for this layer
 function layer.init_config()
+
+  require'fzf_lsp'.setup()
+
+  vim.g.vue_pre_processors = {}
+
   -- Space for leader, backslash for local leader
   vim.g.mapleader = ","
-  vim.g.maplocalleader = ","
 
   vim.g.closetag_filetypes = 'html,vue'
 
@@ -69,6 +74,11 @@ function layer.init_config()
   -- When a file has been detected to have been changed outside of Vim and it has not been changed inside of Vim, automatically read it again.
   vim.o.autoread = true
 
+  -- Enable mouse support
+  vim.o.mouse = "a"
+  vim.o.mousemodel='popup'
+
+
   -- Default values for keybindings
   local opts = { noremap=true, silent=true }
 
@@ -76,11 +86,19 @@ function layer.init_config()
   keybind.bind_command(edit_mode.INSERT, "jk", "<Esc>:FixWhitespace<CR>", opts)
   keybind.bind_command(edit_mode.INSERT, "kj", "<Esc>:FixWhitespace<CR>", opts)
   keybind.bind_command(edit_mode.VISUAL_SELECT, "fd", "<esc>", opts)
+  -- keybind.bind_command(edit_mode.NORMAL, "<leader>tt", ":lua require('lspsaga.floaterm').open_float_terminal() <CR>", opts)
+  -- keybind.bind_command(edit_mode.TERMINAL, "<leader>tt", "<C-\\><C-n>:lua require('lspsaga.floaterm').close_float_terminal() <CR>", opts)
+
+  keybind.bind_command(edit_mode.TERMINAL, "jk", "<C-\\><C-n>", opts)
+  -- keybind.bind_command(edit_mode.TERMINAL, "<C-w>k", "<C-\\><C-n><C-w>k", opts)
+  -- keybind.bind_command(edit_mode.TERMINAL, "<C-w>j", "<C-\\><C-n><C-w>j", opts)
+  -- keybind.bind_command(edit_mode.TERMINAL, "<C-w>l", "<C-\\><C-n><C-w>l", opts)
+  -- keybind.bind_command(edit_mode.TERMINAL, "<C-w>h", "<C-\\><C-n><C-w>h", opts)
 
   -- Autosave buffers before leaving them
-  autocmd.bind("BufLeave *", function()
-      vim.cmd(":wa")
-    end)
+  -- autocmd.bind("BufLeave *", function()
+  --     vim.cmd(":wa")
+  --   end)
 
   autocmd.bind("TextYankPost *", function()
     return vim.highlight.on_yank({
@@ -112,18 +130,25 @@ function layer.init_config()
   keybind.bind_command(edit_mode.VISUAL_SELECT, "<S-K>", ":t .-1<cr>", opts)
 
   -- Paste in visual mode without polluting the register
-  keybind.bind_command(edit_mode.VISUAL_SELECT, "p", "\"_dP", opts)
+  keybind.bind_command(edit_mode.VISUAL_SELECT, "p", '"_dP', opts)
+  keybind.bind_command(edit_mode.VISUAL_SELECT, "P", '"_dP', opts)
 
   -- Switch CWD to the directory of the open buffer
   keybind.bind_command(edit_mode.NORMAL, "<leader>cd", ": cd %:p:h<cr>:pwd<cr>", { noremap=true })
 
+  -- code action
+  -- keybind.bind_command(edit_mode.NORMAL, "<leader>ca", ":lua require('lspsaga.codeaction').code_action()<cr>", { noremap=true })
+  -- nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+
+
   -- Default indentation rules
-  set_default_buf_opt("tabstop", 4)
-  set_default_buf_opt("softtabstop", 4)
-  set_default_buf_opt("shiftwidth", 4)
-  set_default_buf_opt("expandtab", true) -- Use spaces instead of tabs
-  set_default_buf_opt("autoindent", true)
-  set_default_buf_opt("smartindent", true)
+  vim.o.tabstop = 2
+  vim.o.softtabstop = 0
+  vim.o.expandtab = true
+  vim.o.shiftwidth = 2
+  vim.cmd("set smarttab")
+
+  vim.o.fileformats="unix,dos,mac"
 
   -- Copy/Paste/Cut
   vim.o.clipboard = "unnamed,unnamedplus"
@@ -143,6 +168,9 @@ function layer.init_config()
   vim.g.clever_f_smart_case = 1
   vim.g.clever_f_smart_case = 1
 
+  -- vim-matchup
+  vim.g.matchup_matchparen_offscreen = {['method']= 'popup'}
+
   -- buftabline config
   vim.g.buftabline_numbers = 2
   vim.g.buftabline_show = 1
@@ -154,9 +182,57 @@ function layer.init_config()
     vim.cmd("highlight Conceal ctermfg=117 ctermbg=none guifg=#87d7ff guibg=none")
   end)
 
+  local remap = vim.api.nvim_set_keymap
+  local npairs = require('nvim-autopairs')
+
+  local opts_expr = { noremap=true, silent=true, expr=true }
+  -- skip it, if you use another global object
+  _G.MUtils= {}
+  vim.g.completion_confirm_key = ""
+  MUtils.completion_confirm=function()
+      if vim.fn.pumvisible() ~= 0  then
+          if vim.fn.complete_info()["selected"] ~= -1 then
+              vim.fn["compe#confirm"]()
+              return npairs.esc("<c-y>")
+          else
+              vim.defer_fn(function()
+                  vim.fn["compe#confirm"]("<cr>")
+              end, 20)
+          return npairs.esc("<c-n>")
+      end
+  else
+      return npairs.check_break_line_char()
+  end
+  end
+
+  keybind.bind_command(edit_mode.INSERT, '<CR>','v:lua.MUtils.completion_confirm()', opts_expr)
+
+  cfg = {
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    -- If you want to hook lspsaga or other signature handler, pls set to false
+    doc_lines = 10, -- only show one line of comment set to 0 if you do not want API comments be shown
+
+    hint_enable = false, -- virtual hint enable
+    hint_prefix = "",  -- Panda for parameter
+    hint_scheme = "String",
+    use_lspsaga = false,  -- set to true if you want to use lspsaga popup
+    handler_opts = {
+      border = "none"   -- double, single, shadow, none
+    },
+    decorator = {"`", "`"}  -- or decorator = {"***", "***"}  decorator = {"**", "**"} see markdown help
+
+  }
+  require'lsp_signature'.on_attach(cfg)
+
+
+  npairs.setup()
+
+  -- local saga = require 'lspsaga'
+  -- saga.init_lsp_saga()
+
   -- Define lexima rule to latex filetype
-  vim.fn["lexima#add_rule"]({["char"] = '$', ["input"] = '$ ', ["input_after"] = ' $', ["filetype"] = {'latex', 'tex'}})
-  vim.fn["lexima#add_rule"]({["char"] = '2$', ["input"] = '$$ ', ["input_after"] = ' $$', ["filetype"] = {'latex', 'tex'}})
+  -- vim.fn["lexima#add_rule"]({["char"] = '$', ["input"] = '$ ', ["input_after"] = ' $', ["filetype"] = {'latex', 'tex'}})
+  -- vim.fn["lexima#add_rule"]({["char"] = '2$', ["input"] = '$$ ', ["input_after"] = ' $$', ["filetype"] = {'latex', 'tex'}})
 
   layer_man.init_config()
 end

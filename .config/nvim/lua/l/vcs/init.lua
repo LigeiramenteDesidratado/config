@@ -10,6 +10,7 @@ local edit_mode = require("c.edit_mode")
 --- Returns plugins required for this layer
 function layer.register_plugins()
   plug.add_plugin("mhinz/vim-signify") -- VCS diffs in the gutter
+  -- plug.add_plugin("junegunn/gv.vim")
 end
 
 --- Configures vim and plugins for this layer

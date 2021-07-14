@@ -5,6 +5,9 @@ local layer = {}
 
 local plug = require("c.plug")
 local autocmd = require("c.autocmd")
+local keybind = require("c.keybind")
+local edit_mode = require("c.edit_mode")
+local terminal = require("l.style.terminal")
 
 -- The startup window doesn't seem to pick up on vim.o changes >.<
 local function set_default_win_opt(name, value)
@@ -18,49 +21,71 @@ end
 function layer.register_plugins()
 
   -- Colorscheme
-  plug.add_plugin("tomasr/molokai")
-  plug.add_plugin("aloussase/cyberunk")
-  plug.add_plugin("bluz71/vim-moonfly-colors")
-  -- plug.add_plugin("kristijanhusak/vim-hybrid-material")
-  -- plug.add_plugin("morhetz/gruvbox")
-  -- plug.add_plugin("artanikin/vim-synthwave84")
-  plug.add_plugin("rockerBOO/boo-colorscheme-nvim")
-  plug.add_plugin("tjdevries/colorbuddy.nvim")
-
-  plug.add_plugin("norcalli/nvim-colorizer.lua")
-  plug.add_plugin("danilamihailov/beacon.nvim")
   plug.add_plugin("voldikss/vim-floaterm") -- "scratchpad" terminal
-  -- plug.add_plugin("jaxbot/semantic-highlight.vim")
+  plug.add_plugin("thedenisnikulin/vim-cyberpunk") -- cyberpunk
+  plug.add_plugin("sheerun/vim-polyglot") -- cyberpunk
+  plug.add_plugin("tomasr/molokai") -- molokai
+  plug.add_plugin("chrisbra/csv.vim") -- molokai
 
 end
 
 --- Configures vim and plugins for this layer
 function layer.init_config()
   -- Colors
-  vim.o.termguicolors = true
+  -- vim.o.termguicolors = true
   autocmd.bind_colorscheme(function()
     -- Diff highlights
     vim.cmd("highlight DiffAdd ctermfg=193 ctermbg=none guifg=#66CC6C guibg=none")
     vim.cmd("highlight DiffChange ctermfg=189 ctermbg=none guifg=#B166CC guibg=none")
     vim.cmd("highlight DiffDelete ctermfg=167 ctermbg=none guifg=#CC6666 guibg=none")
+    vim.cmd("hi MatchWordCur cterm=underline gui=underline")
+    vim.cmd("hi MatchParenCur cterm=underline gui=underline")
+    vim.cmd("hi MatchWord cterm=underline gui=underline")
+
+    vim.cmd("highlight DiffAdd ctermfg=193 ctermbg=none guifg=#66CC6C guibg=none")
+    vim.cmd("highlight DiffChange ctermfg=189 ctermbg=none guifg=#B166CC guibg=none")
+    vim.cmd("highlight DiffDelete ctermfg=167 ctermbg=none guifg=#CC6666 guibg=none")
+
+    vim.cmd("highlight LspDiagnosticsUnderlineError guifg=#EB4917 gui=undercurl")
+    vim.cmd("highlight LspDiagnosticsUnderlineWarning guifg=#EBA217 gui=undercurl")
+    vim.cmd("highlight LspDiagnosticsUnderlineInformation guifg=#17D6EB, gui=undercurl")
+    vim.cmd("highlight LspDiagnosticsUnderlineHint guifg=#17EB7A gui=undercurl")
 
     -- LSP highlights
     -- TODO: find appropriate ctermfg colors
-    vim.cmd("highlight LspDiagnosticsError ctermfg=167 ctermbg=none guifg=#CC6666 guibg=none")
-    vim.cmd("highlight LspDiagnosticsWarning ctermfg=167 ctermbg=none guifg=#CCA666 guibg=none")
-    vim.cmd("highlight LspDiagnosticsInformation ctermfg=167 ctermbg=none guifg=#66A9CC guibg=none")
-    vim.cmd("highlight LspDiagnosticsHint ctermfg=167 ctermbg=none guifg=#85CC66 guibg=none")
-    -- TODO: LspReferenceText
-    -- TODO: LspReferenceRead
-    -- TODO: LspReferenceWrite
+    vim.cmd("highlight LspDiagnosticsDefaultError ctermfg=167 ctermbg=none guifg=#CC6666 guibg=none")
+    vim.cmd("highlight LspDiagnosticsDefaultWarning ctermfg=167 ctermbg=none guifg=#CCA666 guibg=none")
+    vim.cmd("highlight LspDiagnosticsDefaultInformation ctermfg=167 ctermbg=none guifg=#66A9CC guibg=none")
+    vim.cmd("highlight LspDiagnosticsDefaultHint ctermfg=167 ctermbg=none guifg=#85CC66 guibg=none")
+    -- remove annoying syntax error in C files
+    vim.cmd("highlight link cErrinBracket Normal")
+    vim.cmd("highlight link cErrInParen Normal")
+
+    -- Statusline colors
+    -- vim.cmd("highlight HLBracketsST ctermfg=14 ctermbg=234 guifg=#85dc85  guibg=#1c1c1c")
+    vim.cmd("highlight HLBracketsST cterm=NONE ctermfg=249 ctermbg=235")
+    -- vim.cmd("highlight HLTextST ctermfg=14 ctermbg=234 guifg=#eeeeee  guibg=#303030")
+    vim.cmd("hi! link HLTextST Normal")
+
+    -- vim.cmd("highlight BufTabLineCurrent ctermfg=167 ctermbg=none guifg=#85CC66 guibg=none")
+    vim.cmd("highlight BufTabLineCurrent cterm=NONE ctermfg=249 ctermbg=235")
+
+    -- vim.cmd("highlight BufTabLineActive ctermfg=167 ctermbg=none guifg=#428822 guibg=none")
+    vim.cmd("highlight BufTabLineActive cterm=NONE ctermfg=249 ctermbg=16")
+
+    -- vim.cmd("highlight BufTabLineFill ctermfg=167 ctermbg=none guifg=none guibg=none")
+    vim.cmd("hi! link BufTabLineFill Normal")
+
+    -- vim.cmd("highlight BufTabLineHidden ctermfg=167 ctermbg=none guifg=none guibg=none")
+    vim.cmd("hi! BufTabLineHidden cterm=NONE ctermfg=239 ctermbg=16")
+
   end)
+
+  -- vim.o.termguicolors = true;
 
   -- floaterm config
   vim.g.floaterm_position = 'center'
-  vim.g.floaterm_keymap_toggle = ',s'
-  vim.g.floaterm_keymap_new = ',t'
-  vim.g.floaterm_keymap_next = ',n'
-  vim.g.floaterm_winblend = 10
+  vim.g.floaterm_keymap_toggle = '<leader>tt'
   vim.g.floaterm_background = '#121212'
 
 
@@ -72,7 +97,7 @@ function layer.init_config()
   vim.o.hidden = true
 
   -- Highlight the cursor line (insert mode only)
-  autocmd.bind("InsertEnter,InsertLeave *", function()
+  autocmd.bind("InsertEnter,InsertLeave * ", function()
     vim.cmd("set cul!")
   end)
 
@@ -103,25 +128,26 @@ function layer.init_config()
 
   -- Show tabs and trailing whitespace
   set_default_win_opt("list", true)
-  set_default_win_opt("listchars", "tab:│ ,eol: ,trail:·")
+  set_default_win_opt("listchars", "tab:│ ,eol: ,trail:-,")
 
   autocmd.bind_colorscheme(function()
     vim.cmd("highlight CExtraWhitespace ctermfg=167 ctermbg=none guibg=#742B1F guifg=none")
-    vim.cmd("highlight Normal guibg=NONE ctermbg=NONE") -- Make background transparent
+    vim.cmd("highlight Normal guibg=233 ctermbg=233") -- bg color #121212
+    vim.cmd("highlight SignColumn ctermbg=NONE guibg=NONE") -- Make sign column background transparent
   end)
 
   -- Statusline Modifications
-  local statusline = "%#Folded#"
-  statusline = statusline .. " [%#ShowMarksHLl#%t%#Folded#]"
-  statusline = statusline .. " [%#ShowMarksHLl#%Y%#Folded#]"
-  -- statusline = statusline .. " [%#ShowMarksHLl#%{Fugitivestatusline()}%#Folded#]"
+  local statusline = "%#HLBracketsST#"
+  statusline = statusline .. " [%#HLTextST#%f%#HLBracketsST#]"
+  statusline = statusline .. " [%#HLTextST#%Y%#HLBracketsST#]"
+  -- statusline = statusline .. " [%#ShowMarksHLl#%{Fugitivestatusline()}%#HLBracketsST#]"
   statusline = statusline .. " %m%r%h%w"
   statusline = statusline .. "%="
-  statusline = statusline .. " [%#ShowMarksHLl#%{&fileencoding?&fileencoding:&encoding}%#Folded#]"
-  statusline = statusline .. " [%#ShowMarksHLl#%{&fileformat}%#Folded#]"
-  statusline = statusline .. " [ROW:%#ShowMarksHLl#%-3l%#Folded#]"
-  statusline = statusline .. " [COL:%#ShowMarksHLl#%-2c%#Folded#]"
-  statusline = statusline .. " [%#ShowMarksHLl#%-3p%#Folded#%%] "
+  statusline = statusline .. " [%#HLTextST#%{&fileencoding?&fileencoding:&encoding}%#HLBracketsST#]"
+  statusline = statusline .. " [%#HLTextST#%{&fileformat}%#HLBracketsST#]"
+  statusline = statusline .. " [ROW:%#HLTextST#%-3l%#HLBracketsST#]"
+  statusline = statusline .. " [COL:%#HLTextST#%-2c%#HLBracketsST#]"
+  statusline = statusline .. " [%#HLTextST#%-3p%#HLBracketsST#%%] "
 
   vim.o.statusline = statusline
 
@@ -132,30 +158,13 @@ function layer.init_config()
   -- Show partial commands in the bottom right
   vim.o.showcmd = true
 
-  -- Enable mouse support
-  vim.o.mouse = "a"
-
   -- 200ms timeout before which-key kicks in
   vim.g.timeoutlen = 200
 
   -- Always show the sign column
   set_default_win_opt("signcolumn", "yes")
 
-  -- Attaches to every FileType mode
-  require'colorizer'.setup()
-
-  -- Transparency on the popup menus/windows
-  vim.o.pumblend = 10
-  vim.o.winblend = 10
-
-  -- Display obssesion in status line
-  vim.g.moonflyWithObessionGeometricCharacters = 1
-  vim.g.moonflyItalics = 1
-  vim.api.nvim_command("colorscheme moonfly")
-  -- require'boo-colorscheme'.use{}
-
-  -- Change Beacon color
-  vim.cmd("highlight Beacon guibg=white ctermbg=15")
+  vim.api.nvim_command("colorscheme molokai")
 
 end
 
