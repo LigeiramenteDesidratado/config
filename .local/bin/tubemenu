@@ -10,11 +10,7 @@ fi
 
 query="$(sed 's/ /+/g' <<<$query)"
 
-echo "here: "
-
 results=$(curl -s https://www.googleapis.com/youtube/v3/search\?part\=snippet\&q\=$query\&type\=video\&maxResults=20\&key\=$YT_API_KEY | jq -r '.items[] | "\(.snippet.channelTitle) => \(.snippet.title) => youtu.be/\(.id.videoId)"')
-
-echo "here2: "
 
 play=$(echo "$results" | dmenu -i -p 'Select Video -' -l 20 | awk '{print $NF}')
 
