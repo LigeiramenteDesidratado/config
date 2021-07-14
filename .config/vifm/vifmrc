@@ -149,7 +149,7 @@ command! vgrep $EDITOR "+grep %a"
 command! reload :write | restart
 command! a sxiv -tbaq %d > /dev/null 2>&1 &
 command! A sxiv -tbarq %d > /dev/null 2>&1 &
-command! o $HOME/.local/bin/thumbVid && sxiv -ptbaq %d %d/.thumb__ &
+command! o $HOME/.local/bin/video-thumbnailer && sxiv -ptbaq %d %d/.thumb__ &
 " ------------------------------------------------------------------------------
 
 " The file type is for the default programs to be used with
