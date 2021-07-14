@@ -10,8 +10,12 @@ unclutter&
 dwmbar&
 rs&
 backup&
-# clipmenud&
+clipmenud&
 echo '' > /home/machine/.isdwmrunning
+export YT_API_KEY=$(cat ~/.keys/yt-api-key)
+
+# exec /home/machine/dev/c/x11/wm/wm >> ~/logs.txt
+
 while : ; do
 
     #with logs
