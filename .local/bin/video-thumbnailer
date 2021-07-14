@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 
 CWD=$(pwd)
-THUMBPATH="$HOME/.cache/thumbnails/sxivThumbs"
+THUMBPATH="$HOME/.cache/thumbnails/sxiv-thumbs"
 FOLDERNAME=$(echo "$CWD" | sha1sum | head -c40)
 DIR="$THUMBPATH/$FOLDERNAME"
 DBFILE="$DIR/.dbthumb__"
